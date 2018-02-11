@@ -17,14 +17,156 @@
         android:layout_alignParentBottom="true"
         android:orientation="horizontal"
         android:background="#ffffffff">
-        
+
         <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1">
+            android:id="@+id/rl_home"
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:paddingBottom="8dp"
+            >
+            <ImageView
+                android:id="@+id/iv_home"
+                android:layout_width="19dp"
+                android:layout_height="19dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="12dp"
+                android:scaleType="center"
+                android:adjustViewBounds="true"
+                android:src="@drawable/icon_home"/>
+            <TextView
+                android:id="@+id/tv_home"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:textSize="13dp"
+                android:textColor="@color/halfBlack"
+                android:text ="首页"/>
+            <View
+                android:layout_width="5dp"
+                android:layout_height="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/app_red_circle"
+                android:visibility="invisible"
+                />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_message"
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:paddingBottom="8dp"
+            >
+
+            <ImageView
+                android:id="@+id/iv_message"
+                android:layout_width="19dp"
+                android:layout_height="19dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="12dp"
+                android:scaleType="center"
+                android:adjustViewBounds="true"
+                android:src="@drawable/icon_message"/>
+            <TextView
+                android:id="@+id/tv_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:textSize="13dp"
+                android:textColor="@color/halfBlack"
+                android:text ="消息"/>
+            <View
+                android:layout_width="5dp"
+                android:layout_height="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/app_red_circle"
+                android:visibility="invisible"
+                />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_shopping"
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:paddingBottom="8dp"
+            >
+            <ImageView
+                android:id="@+id/iv_shopping"
+                android:layout_width="19dp"
+                android:layout_height="19dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="12dp"
+                android:scaleType="center"
+                android:adjustViewBounds="true"
+                android:src="@drawable/icon_shopping"/>
+            <TextView
+                android:id="@+id/tv_shopping"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:textSize="13dp"
+                android:textColor="@color/halfBlack"
+                android:text ="购物车"/>
+            <View
+                android:layout_width="5dp"
+                android:layout_height="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/app_red_circle"
+                android:visibility="invisible"
+                />
+
 
         </RelativeLayout>
 
+        <RelativeLayout
+            android:id="@+id/rl_mine"
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:paddingBottom="8dp"
+            >
+            <ImageView
+                android:id="@+id/iv_mine"
+                android:layout_width="19dp"
+                android:layout_height="19dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="12dp"
+                android:scaleType="center"
+                android:adjustViewBounds="true"
+                android:src="@drawable/icon_mine"/>
+            <TextView
+                android:id="@+id/tv_mine"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:textSize="13dp"
+                android:textColor="@color/halfBlack"
+                android:text ="我的"/>
+            <View
+                android:layout_width="5dp"
+                android:layout_height="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/app_red_circle"
+                android:visibility="invisible"
+                />
+        </RelativeLayout>
+
     </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_above="@id/ll_tab"
+        android:background="@color/lineDivider"/>
 
 </RelativeLayout>

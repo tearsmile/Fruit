@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_below="@id/header"
         android:layout_height="0.5dp"
-        android:background="#D1D1D1"/>
+        android:background="@color/lineDivider"/>
 
     <EditText
         android:id="@+id/et_name"

@@ -38,4 +38,11 @@
         <item name="android:background">#ffffffff</item>
     </style>
 
+    <declare-styleable name="CircleImageView">
+        <attr name="border_width" format="dimension" />
+        <attr name="border_color" format="reference|color" />
+        <attr name="radius_width" format="dimension"/>
+        <attr name="radius_height" format="dimension"/>
+    </declare-styleable>
+
 </resources>
