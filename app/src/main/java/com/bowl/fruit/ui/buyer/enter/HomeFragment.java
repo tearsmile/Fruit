@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 
 import com.bowl.fruit.fruit.R;
-import com.bowl.fruit.network.entity.Fruit;
+import com.bowl.fruit.network.entity.fruit.Fruit;
 import com.bowl.fruit.ui.buyer.fruit.FruitDetailActivity;
 import com.bowl.fruit.ui.buyer.fruit.FruitListAdapter;
 import com.bowl.fruit.ui.widget.XListView;

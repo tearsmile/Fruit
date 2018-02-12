@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 import com.bowl.fruit.fruit.R;
-import com.bowl.fruit.network.entity.Fruit;
+import com.bowl.fruit.network.entity.fruit.Fruit;
 import com.bowl.fruit.ui.widget.XListView;
 
 import java.util.ArrayList;
