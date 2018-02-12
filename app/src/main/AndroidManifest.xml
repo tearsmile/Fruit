@@ -20,6 +20,8 @@
         </activity>
 
         <activity android:name="com.bowl.fruit.ui.buyer.BuyerActivity"/>
+        <activity android:name="com.bowl.fruit.ui.buyer.fruit.FruitDetailActivity"/>
+        <activity android:name="com.bowl.fruit.ui.buyer.order.OrderListActivity"/>
 
     </application>
 

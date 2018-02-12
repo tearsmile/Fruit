@@ -1,6 +1,7 @@
 package com.bowl.fruit.ui.buyer.enter;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -9,8 +10,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bowl.fruit.fruit.R;
+import com.bowl.fruit.ui.buyer.order.OrderListActivity;
 import com.bowl.fruit.util.FastBlur;
 
 import rx.Observable;
@@ -26,6 +29,7 @@ import rx.schedulers.Schedulers;
 public class MineFragment extends Fragment {
 
     private ImageView mMineBg;
+    private TextView mOrder;
 
     @Nullable
     @Override
@@ -37,6 +41,15 @@ public class MineFragment extends Fragment {
 
     private void initViews(View view){
         mMineBg = view.findViewById(R.id.iv_bg);
+        mOrder = view.findViewById(R.id.tv_order_all);
+
+        mOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), OrderListActivity.class);
+                startActivity(intent);
+            }
+        });
         Observable.just(R.mipmap.logo)
                 .map(new Func1<Integer, Bitmap>() {
                     @Override
@@ -60,7 +73,8 @@ public class MineFragment extends Fragment {
 
                     @Override
                     public void onNext(Bitmap bitmap) {
-                        mMineBg.setImageBitmap(bitmap);
+//                        mMineBg.setImageBitmap(bitmap);
+                        mMineBg.setBackgroundColor(getResources().getColor(R.color.white));
                     }
                 });
 

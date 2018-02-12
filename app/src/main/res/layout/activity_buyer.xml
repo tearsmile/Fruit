@@ -40,7 +40,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
-                android:textSize="13dp"
+                android:textSize="@dimen/smallSize"
                 android:textColor="@color/halfBlack"
                 android:text ="首页"/>
             <View
@@ -76,7 +76,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
-                android:textSize="13dp"
+                android:textSize="@dimen/smallSize"
                 android:textColor="@color/halfBlack"
                 android:text ="消息"/>
             <View
@@ -111,7 +111,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
-                android:textSize="13dp"
+                android:textSize="@dimen/smallSize"
                 android:textColor="@color/halfBlack"
                 android:text ="购物车"/>
             <View
@@ -148,7 +148,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
-                android:textSize="13dp"
+                android:textSize="@dimen/smallSize"
                 android:textColor="@color/halfBlack"
                 android:text ="我的"/>
             <View

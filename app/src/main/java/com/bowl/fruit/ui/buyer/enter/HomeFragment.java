@@ -1,14 +1,18 @@
 package com.bowl.fruit.ui.buyer.enter;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 
 import com.bowl.fruit.fruit.R;
 import com.bowl.fruit.network.entity.Fruit;
+import com.bowl.fruit.ui.buyer.fruit.FruitDetailActivity;
+import com.bowl.fruit.ui.buyer.fruit.FruitListAdapter;
 import com.bowl.fruit.ui.widget.XListView;
 
 import java.util.ArrayList;
@@ -46,6 +50,13 @@ public class HomeFragment extends Fragment {
             @Override
             public void onLoadMore() {
 
+            }
+        });
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(getActivity(), FruitDetailActivity.class);
+                getActivity().startActivity(intent);
             }
         });
 

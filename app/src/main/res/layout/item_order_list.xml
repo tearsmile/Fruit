@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp">
+
+    <TextView
+        android:id="@+id/tv_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="鲜果多"
+        android:textColor="@color/mainColor"
+        android:textSize="@dimen/bigSize"/>
+    <TextView
+        android:id="@+id/tv_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="2dp"
+        android:text="2018-02-12 10:56:43"
+        android:textColor="@color/halfBlack"
+        android:textSize="@dimen/smallSize"
+        />
+
+    <View
+        android:id="@+id/line2"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_below="@id/tv_logo"
+        android:layout_marginTop="10dp"
+        android:background="@color/lineDivider"/>
+
+    <TextView
+        android:id="@+id/tv_order_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/line2"
+        android:layout_marginTop="10dp"
+        android:text="订单号:12324335"
+        android:textColor="@color/halfBlack"
+        android:textSize="@dimen/normalSize"/>
+    <TextView
+        android:id="@+id/tv_deliver_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_order_id"
+        android:layout_marginTop="10dp"
+        android:text="快递单号:123243352325323"
+        android:textColor="@color/halfBlack"
+        android:textSize="@dimen/normalSize"/>
+    <View
+        android:id="@+id/line4"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_below="@id/tv_deliver_id"
+        android:layout_marginTop="10dp"
+        android:background="@color/lineDivider"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_fruit"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="10dp"
+        android:layout_below="@id/line4"
+        />
+
+    <View
+        android:id="@+id/line3"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_below="@id/rv_fruit"
+        android:layout_marginTop="10dp"
+        android:background="@color/lineDivider"/>
+    <TextView
+        android:id="@+id/tv_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/line3"
+        android:layout_marginTop="10dp"
+        android:text="实付:￥29.1"
+        android:textColor="@color/halfBlack"
+        android:textSize="@dimen/normalSize"/>
+
+    <TextView
+        android:id="@+id/tv_price_down"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/line3"
+        android:layout_toRightOf="@id/tv_price"
+        android:layout_marginTop="13dp"
+        android:layout_marginLeft="5dp"
+        android:text="(优惠￥9.9)"
+        android:textColor="@color/lightMainColor"
+        android:textSize="@dimen/smallSize"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/line3"
+        android:layout_marginTop="10dp"
+        android:text="配送中"
+        android:textColor="@color/halfBlack"
+        android:textSize="@dimen/normalSize" />
+
+</RelativeLayout>
