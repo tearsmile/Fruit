@@ -31,6 +31,7 @@ public class HomeFragment extends Fragment {
     private XListView mListView;
     private FruitListAdapter mAdapter;
     private int page = 1;
+    private boolean hasNext = true;
 
     @Nullable
     @Override
@@ -74,11 +75,9 @@ public class HomeFragment extends Fragment {
         mListView.stopRefresh();
         mListView.stopLoadMore();
         mListView.setPullRefreshEnable(true);
-//        if(BlockTaskRepository.instance().isLastPage()) {
-//            mListView.setPUllToLoadEnable(false);
-//        } else {
-//            mListView.setPUllToLoadEnable(true);
-//        }
+        if(!hasNext){
+            mListView.setPullLoadEnable(false);
+        }
     }
 
     private void requestPage(){
@@ -100,6 +99,9 @@ public class HomeFragment extends Fragment {
                     @Override
                     public void onNext(List<Fruit> fruits) {
                         mAdapter.update(fruits);
+                        if(fruits.size() < 5){
+                            hasNext = false;
+                        }
                     }
                 });
     }
@@ -123,6 +125,9 @@ public class HomeFragment extends Fragment {
                     @Override
                     public void onNext(List<Fruit> fruits) {
                         mAdapter.add(fruits);
+                        if(fruits.size() < 5){
+                            hasNext = false;
+                        }
                     }
                 });
     }
