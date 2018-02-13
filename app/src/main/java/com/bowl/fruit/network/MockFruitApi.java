@@ -32,7 +32,7 @@ public class MockFruitApi implements FruitApi {
     }
 
     @Override
-    public Observable<ResponseFruits> getFruitList(int type) {
+    public Observable<ResponseFruits> getFruitList(int type, int page) {
         ResponseFruits responseFruits = new ResponseFruits();
         List<Fruit> fruits = new ArrayList<>();
         Fruit f = new Fruit("智利蓝莓125g*1盒", "", 12.9, "这么好的蓝莓 都想留给你吃");
@@ -42,7 +42,7 @@ public class MockFruitApi implements FruitApi {
         responseFruits.setCode(0);
         responseFruits.setMsg("success");
         responseFruits.setFruitList(fruits);
-        return delegate.returningResponse(responseFruits).getFruitList(type);
+        return delegate.returningResponse(responseFruits).getFruitList(type, page);
     }
 
     @Override

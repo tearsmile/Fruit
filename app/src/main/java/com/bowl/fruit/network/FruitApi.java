@@ -22,7 +22,7 @@ public interface FruitApi {
     Observable<ResponseLogin> login(@Body User user);
 
     @POST("/fruitList")
-    Observable<ResponseFruits> getFruitList(@Field("type") int type);
+    Observable<ResponseFruits> getFruitList(@Field("type") int type, @Field("page") int page);
 
     @POST("/login")
     Observable<FruitDetailResponse> getFruitDetail(@Path("id") int id);

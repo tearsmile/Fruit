@@ -10,11 +10,13 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 
 import com.bowl.fruit.fruit.R;
-import com.bowl.fruit.network.FruitNetService;
-import com.bowl.fruit.network.entity.fruit.ResponseFruits;
+import com.bowl.fruit.network.entity.fruit.Fruit;
+import com.bowl.fruit.repository.FruitRepository;
 import com.bowl.fruit.ui.buyer.fruit.FruitDetailActivity;
 import com.bowl.fruit.ui.buyer.fruit.FruitListAdapter;
 import com.bowl.fruit.ui.widget.XListView;
+
+import java.util.List;
 
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
@@ -28,13 +30,14 @@ public class HomeFragment extends Fragment {
 
     private XListView mListView;
     private FruitListAdapter mAdapter;
+    private int page = 1;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.frag_fruit_list,null);
         initViews(view);
-        initData();
+        requestPage();
         return view;
     }
 
@@ -47,12 +50,12 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onRefresh() {
-
+                requestPage();
             }
 
             @Override
             public void onLoadMore() {
-
+                requestNextPage();
             }
         });
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -67,32 +70,60 @@ public class HomeFragment extends Fragment {
         mListView.setAdapter(mAdapter);
     }
 
-    private void initData(){
-//        List<Fruit> fruits = new ArrayList<>();
-//        Fruit f = new Fruit("智利蓝莓125g*1盒", "", 12.9, "这么好的蓝莓 都想留给你吃");
-//        for (int i = 0; i < 10; i++) {
-//            fruits.add(f);
+    private void resetListViewState() {
+        mListView.stopRefresh();
+        mListView.stopLoadMore();
+        mListView.setPullRefreshEnable(true);
+//        if(BlockTaskRepository.instance().isLastPage()) {
+//            mListView.setPUllToLoadEnable(false);
+//        } else {
+//            mListView.setPUllToLoadEnable(true);
 //        }
-        FruitNetService.getInstance().getFruitApi().getFruitList(0)
+    }
+
+    private void requestPage(){
+        page = 1;
+        FruitRepository.instance().getList(0,page)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<ResponseFruits>() {
+                .subscribe(new Subscriber<List<Fruit>>() {
                     @Override
                     public void onCompleted() {
-
+                        resetListViewState();
                     }
 
                     @Override
                     public void onError(Throwable e) {
-
+                        resetListViewState();
                     }
 
                     @Override
-                    public void onNext(ResponseFruits responseFruits) {
-                        mAdapter.update(responseFruits.getFruitList());
+                    public void onNext(List<Fruit> fruits) {
+                        mAdapter.update(fruits);
                     }
                 });
+    }
 
+    private void requestNextPage(){
+        page++;
+        FruitRepository.instance().getList(0,page)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<List<Fruit>>() {
+                    @Override
+                    public void onCompleted() {
+                        resetListViewState();
+                    }
 
+                    @Override
+                    public void onError(Throwable e) {
+                        resetListViewState();
+                    }
+
+                    @Override
+                    public void onNext(List<Fruit> fruits) {
+                        mAdapter.add(fruits);
+                    }
+                });
     }
 }

@@ -33,6 +33,12 @@ public class FruitListAdapter extends BaseAdapter {
         notifyDataSetChanged();
     }
 
+    public void add(List<Fruit> fruits){
+//        mData.clear();
+        mData.addAll(fruits);
+        notifyDataSetChanged();
+    }
+
     @Override
     public int getCount() {
         return mData.size();
