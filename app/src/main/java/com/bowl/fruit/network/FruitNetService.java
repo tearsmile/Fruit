@@ -13,12 +13,12 @@ import retrofit2.mock.NetworkBehavior;
  */
 
 public class FruitNetService {
-    private static final boolean MOCK_SERVICE = false;
-    private static final String BASE_URL = "";
+    private static final boolean MOCK_SERVICE = true;
+    private static final String BASE_URL = "http://test.com";
 
     private FruitApi mApi;
 
-    public FruitNetService getInstance(){
+    public static FruitNetService getInstance(){
         return Holder.INSTANCE;
     }
 

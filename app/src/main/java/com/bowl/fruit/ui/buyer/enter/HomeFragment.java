@@ -10,13 +10,15 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 
 import com.bowl.fruit.fruit.R;
-import com.bowl.fruit.network.entity.fruit.Fruit;
+import com.bowl.fruit.network.FruitNetService;
+import com.bowl.fruit.network.entity.fruit.ResponseFruits;
 import com.bowl.fruit.ui.buyer.fruit.FruitDetailActivity;
 import com.bowl.fruit.ui.buyer.fruit.FruitListAdapter;
 import com.bowl.fruit.ui.widget.XListView;
 
-import java.util.ArrayList;
-import java.util.List;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by cathy on 2018/2/11.
@@ -42,6 +44,7 @@ public class HomeFragment extends Fragment {
         mListView.setPullLoadEnable(true);
         mListView.setAutoLoadEnable(false);
         mListView.setXListViewListener(new XListView.IXListViewListener() {
+
             @Override
             public void onRefresh() {
 
@@ -65,12 +68,31 @@ public class HomeFragment extends Fragment {
     }
 
     private void initData(){
-        List<Fruit> fruits = new ArrayList<>();
-        Fruit f = new Fruit("智利蓝莓125g*1盒", "", 12.9, "这么好的蓝莓 都想留给你吃");
-        for (int i = 0; i < 10; i++) {
-            fruits.add(f);
-        }
+//        List<Fruit> fruits = new ArrayList<>();
+//        Fruit f = new Fruit("智利蓝莓125g*1盒", "", 12.9, "这么好的蓝莓 都想留给你吃");
+//        for (int i = 0; i < 10; i++) {
+//            fruits.add(f);
+//        }
+        FruitNetService.getInstance().getFruitApi().getFruitList(0)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<ResponseFruits>() {
+                    @Override
+                    public void onCompleted() {
 
-        mAdapter.update(fruits);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onNext(ResponseFruits responseFruits) {
+                        mAdapter.update(responseFruits.getFruitList());
+                    }
+                });
+
+
     }
 }
