@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:id="@+id/frag_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/ll_tab"
+        />
+
+    <LinearLayout
+        android:id="@+id/ll_tab"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:background="#ffffffff">
+
+        <RelativeLayout
+            android:id="@+id/rl_goods"
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:paddingBottom="8dp"
+            >
+            <ImageView
+                android:id="@+id/iv_goods"
+                android:layout_width="19dp"
+                android:layout_height="19dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="12dp"
+                android:scaleType="center"
+                android:adjustViewBounds="true"
+                android:src="@drawable/icon_home"/>
+            <TextView
+                android:id="@+id/tv_goods"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:textSize="@dimen/smallSize"
+                android:textColor="@color/halfBlack"
+                android:text ="首页"/>
+            <View
+                android:layout_width="5dp"
+                android:layout_height="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/app_red_circle"
+                android:visibility="invisible"
+                />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_msg"
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:paddingBottom="8dp"
+            >
+
+            <ImageView
+                android:id="@+id/iv_msg"
+                android:layout_width="19dp"
+                android:layout_height="19dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="12dp"
+                android:scaleType="center"
+                android:adjustViewBounds="true"
+                android:src="@drawable/icon_message"/>
+            <TextView
+                android:id="@+id/tv_msg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:textSize="@dimen/smallSize"
+                android:textColor="@color/halfBlack"
+                android:text ="消息"/>
+            <View
+                android:layout_width="5dp"
+                android:layout_height="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/app_red_circle"
+                android:visibility="invisible"
+                />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_order"
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:paddingBottom="8dp"
+            >
+            <ImageView
+                android:id="@+id/iv_order"
+                android:layout_width="19dp"
+                android:layout_height="19dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="12dp"
+                android:scaleType="center"
+                android:adjustViewBounds="true"
+                android:src="@drawable/icon_mine"/>
+            <TextView
+                android:id="@+id/tv_order"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:textSize="@dimen/smallSize"
+                android:textColor="@color/halfBlack"
+                android:text ="订单"/>
+            <View
+                android:layout_width="5dp"
+                android:layout_height="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/app_red_circle"
+                android:visibility="invisible"
+                />
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_above="@id/ll_tab"
+        android:background="@color/lineDivider"/>
+
+</RelativeLayout>

@@ -4,6 +4,7 @@ import android.app.Activity
 import android.app.Fragment
 import android.os.Bundle
 import com.bowl.fruit.fruit.R
+import com.bowl.fruit.ui.BaseActivity
 import com.bowl.fruit.ui.buyer.enter.HomeFragment
 import com.bowl.fruit.ui.buyer.enter.MessageFragment
 import com.bowl.fruit.ui.buyer.enter.MineFragment
@@ -13,7 +14,7 @@ import kotlinx.android.synthetic.main.activity_buyer.*
 /**
  * Created by cathy on 2018/2/9.
  */
-class BuyerActivity:Activity() {
+class BuyerActivity: BaseActivity() {
     private var mCurrentFrag:Fragment? = null
     private var mHomeFragment:HomeFragment? = null
     private var mMessageFragment:MessageFragment? = null

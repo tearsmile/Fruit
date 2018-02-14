@@ -3,11 +3,11 @@
 buildscript {
     ext.kotlin_version = '1.1.51'
     repositories {
-//        google()
-//        jcenter()
-        maven {
-            url "http://maven.oa.com/nexus/content/groups/androidbuild"
-        }
+        google()
+        jcenter()
+//        maven {
+//            url "http://maven.oa.com/nexus/content/groups/androidbuild"
+//        }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.0.1'
@@ -20,11 +20,11 @@ buildscript {
 
 allprojects {
     repositories {
-//        google()
-//        jcenter()
-        maven {
-            url "http://maven.oa.com/nexus/content/groups/androidbuild"
-        }
+        google()
+        jcenter()
+//        maven {
+//            url "http://maven.oa.com/nexus/content/groups/androidbuild"
+//        }
     }
 }
 

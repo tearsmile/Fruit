@@ -7,6 +7,7 @@ import android.support.v4.view.ViewPager;
 import android.widget.TextView;
 
 import com.bowl.fruit.fruit.R;
+import com.bowl.fruit.ui.BaseActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +16,7 @@ import java.util.List;
  * Created by cathy on 2018/2/12.
  */
 
-public class FruitDetailActivity extends Activity {
+public class FruitDetailActivity extends BaseActivity {
 
     private ViewPager mViewPager;
     private PictureAdapter mAdapter;

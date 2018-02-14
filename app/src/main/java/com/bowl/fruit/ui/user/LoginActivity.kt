@@ -4,7 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import com.bowl.fruit.fruit.R
-import com.bowl.fruit.ui.buyer.BuyerActivity
+import com.bowl.fruit.ui.seller.goods.GoodsEditActivity
 import kotlinx.android.synthetic.main.layout_login.*
 
 /**
@@ -20,7 +20,7 @@ class LoginActivity: Activity() {
 
     private fun initViews(){
         btn_login.setOnClickListener {
-            val intent = Intent(this@LoginActivity,BuyerActivity::class.java)
+            val intent = Intent(this@LoginActivity,GoodsEditActivity::class.java)
             startActivity(intent)
         }
     }

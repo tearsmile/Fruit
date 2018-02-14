@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.bowl.fruit.fruit">
 
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <application
         android:name="com.bowl.fruit.FruitApplication"
         android:allowBackup="true"
@@ -23,6 +25,9 @@
         <activity android:name="com.bowl.fruit.ui.buyer.fruit.FruitDetailActivity"/>
         <activity android:name="com.bowl.fruit.ui.buyer.order.OrderListActivity"/>
         <activity android:name="com.bowl.fruit.ui.buyer.shopping.ShoppingDetailActivity"/>
+
+        <activity android:name="com.bowl.fruit.ui.seller.SellerActivity"/>
+        <activity android:name="com.bowl.fruit.ui.seller.goods.GoodsEditActivity" />
 
     </application>
 

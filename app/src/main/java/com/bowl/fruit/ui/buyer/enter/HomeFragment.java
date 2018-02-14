@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import com.bowl.fruit.fruit.R;
 import com.bowl.fruit.network.entity.fruit.Fruit;
 import com.bowl.fruit.repository.FruitRepository;
+import com.bowl.fruit.ui.BaseFragment;
 import com.bowl.fruit.ui.buyer.fruit.FruitDetailActivity;
 import com.bowl.fruit.ui.buyer.fruit.FruitListAdapter;
 import com.bowl.fruit.ui.widget.XListView;
@@ -26,7 +27,7 @@ import rx.schedulers.Schedulers;
  * Created by cathy on 2018/2/11.
  */
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends BaseFragment {
 
     private XListView mListView;
     private FruitListAdapter mAdapter;

@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 
 import com.bowl.fruit.fruit.R;
 import com.bowl.fruit.network.entity.fruit.Fruit;
+import com.bowl.fruit.ui.BaseActivity;
 import com.bowl.fruit.ui.widget.XListView;
 
 import java.util.ArrayList;
@@ -15,7 +16,7 @@ import java.util.List;
  * Created by cathy on 2018/2/12.
  */
 
-public class OrderListActivity extends Activity {
+public class OrderListActivity extends BaseActivity {
 
     private XListView mOrderList;
     private OrderListAdapter mAdapter;
