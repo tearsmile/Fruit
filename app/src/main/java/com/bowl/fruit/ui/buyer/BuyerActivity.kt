@@ -47,7 +47,6 @@ class BuyerActivity:Activity() {
     override fun onResume() {
         super.onResume()
         initFrags()
-        switchToFrag(getOrCreateFragment(HomeFragment::class.java))
     }
 
     private fun initFrags(){
@@ -64,6 +63,7 @@ class BuyerActivity:Activity() {
         if(mMessageFragment != null ) fragmentTransaction.hide(mMessageFragment)
         if(mMineFragment != null ) fragmentTransaction.hide(mMineFragment)
         fragmentTransaction.commit()
+        switchToFrag(getOrCreateFragment(HomeFragment::class.java))
     }
 
     private fun switchToFrag(fragment:Fragment?){

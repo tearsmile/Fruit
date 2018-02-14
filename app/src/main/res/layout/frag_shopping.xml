@@ -7,13 +7,79 @@
         android:id="@+id/header"
         layout="@layout/common_title"/>
 
+    <LinearLayout
+        android:id="@+id/ll_buy"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="2">
+            <ImageView
+                android:id="@+id/iv_select_all"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:padding="15dp"
+                android:src="@drawable/icon_select"/>
+            <TextView
+                android:id="@+id/tv_sum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/iv_select_all"
+                android:layout_marginRight="10dp"
+                android:text="合计"
+                android:textSize="@dimen/normalSize"
+                android:textColor="@color/halfBlack"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/iv_select_all"
+                android:layout_below="@id/tv_sum"
+                android:layout_marginTop="5dp"
+                android:text="不含运费"
+                android:textSize="@dimen/smallSize"
+                android:textColor="@color/halfBlack"/>
+
+            <TextView
+                android:id="@+id/tv_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/tv_sum"
+                android:text="￥12.9"
+                android:textSize="@dimen/normalSize"
+                android:textColor="@color/mainColor"/>
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tv_settle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="5"
+            android:gravity="center"
+            android:background="@color/mainColor"
+            android:text="去结算"
+            android:textSize="@dimen/normalSize"
+            android:textColor="@color/white"
+            />
+    </LinearLayout>
+
+    <com.bowl.fruit.ui.widget.XListView
+        android:id="@+id/lv_shopping"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/header"
+        android:layout_above="@id/ll_buy"
+        android:scrollbars="none"
+        android:divider="@null"/>
+
     <RelativeLayout
         android:id="@+id/rl_empty"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/header"
         android:background="@color/white"
-        android:visibility="visible">
+        android:visibility="gone">
 
         <ImageView
             android:id="@+id/iv_empty"
@@ -29,16 +95,8 @@
             android:layout_below="@id/iv_empty"
             android:layout_marginTop="10dp"
             android:text="您还没有添加任何商品哦~"
-            android:textSize="16dp"
+            android:textSize="@dimen/normalSize"
             android:textColor="@color/halfBlack"/>
     </RelativeLayout>
-
-    <com.bowl.fruit.ui.widget.XListView
-        android:id="@+id/lv_shopping"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/header"
-        android:scrollbars="none"
-        android:divider="@null"/>
 
 </RelativeLayout>

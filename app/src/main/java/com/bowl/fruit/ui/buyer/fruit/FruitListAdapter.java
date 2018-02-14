@@ -1,4 +1,4 @@
-package com.bowl.fruit.ui.buyer.enter;
+package com.bowl.fruit.ui.buyer.fruit;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bowl.fruit.fruit.R;
-import com.bowl.fruit.network.entity.Fruit;
+import com.bowl.fruit.network.entity.fruit.Fruit;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +29,12 @@ public class FruitListAdapter extends BaseAdapter {
 
     public void update(List<Fruit> fruits){
         mData.clear();
+        mData.addAll(fruits);
+        notifyDataSetChanged();
+    }
+
+    public void add(List<Fruit> fruits){
+//        mData.clear();
         mData.addAll(fruits);
         notifyDataSetChanged();
     }

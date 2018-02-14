@@ -1,4 +1,6 @@
-package com.bowl.fruit.network.entity;
+package com.bowl.fruit.network.entity.fruit;
+
+import com.bowl.fruit.network.entity.BaseResponse;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.bowl.fruit.network.entity;
+package com.bowl.fruit.network.entity.fruit;
 
 /**
  * Created by cathy on 2018/2/11.
