@@ -16,9 +16,7 @@ import com.bowl.fruit.ui.BaseActivity;
 
 import java.io.File;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
+import java.util.LinkedList;
 
 /**
  * Created by CJ on 2018/2/14.
@@ -31,6 +29,7 @@ public class GoodsEditActivity extends BaseActivity {
 
     private RecyclerView mPicList;
     private String mCurrentPhotoPath;
+    private GoodsPictureAdapter mAdapter;
 
 
     @Override
@@ -45,17 +44,17 @@ public class GoodsEditActivity extends BaseActivity {
 
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         mPicList.setLayoutManager(mLayoutManager);
-        final GoodsPictureAdapter adapter = new GoodsPictureAdapter(this);
-        mPicList.setAdapter(adapter);
-        adapter.setOnItemClickListener(new GoodsPictureAdapter.OnItemClickListener() {
+        mAdapter = new GoodsPictureAdapter(this);
+        mPicList.setAdapter(mAdapter);
+        mAdapter.setOnItemClickListener(new GoodsPictureAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int index) {
-                if(index == adapter.getItemCount() - 2){
+                if(index == mAdapter.getItemCount() - 1){
                     pickPhoto();
                 }
             }
         });
-        adapter.update(new ArrayList<String>());
+        mAdapter.update(new LinkedList<String>());
 
     }
 
@@ -81,7 +80,7 @@ public class GoodsEditActivity extends BaseActivity {
         File image = null;
         try {
             image = File.createTempFile(
-                    generateFileName(),  /* prefix */
+                    System.currentTimeMillis() + "",  /* prefix */
                     ".jpg",         /* suffix */
                     storageDir      /* directory */
             );
@@ -91,12 +90,6 @@ public class GoodsEditActivity extends BaseActivity {
 
         mCurrentPhotoPath = image.getAbsolutePath();
         return image;
-    }
-
-    public static String generateFileName() {
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String imageFileName = "JPEG_" + timeStamp + "_";
-        return imageFileName;
     }
 
     private void pickPhoto() {
@@ -120,6 +113,7 @@ public class GoodsEditActivity extends BaseActivity {
 
                 int columnIndex = cursor.getColumnIndexOrThrow(filePathColumn[0]);
                 final String picturePath = cursor.getString(columnIndex);
+                mAdapter.add(picturePath);
                 cursor.close();
             }else if (requestCode == RESULT_CAMERA_IMAGE){
 

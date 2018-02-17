@@ -4,7 +4,6 @@ import android.app.Fragment
 import android.os.Bundle
 import com.bowl.fruit.fruit.R
 import com.bowl.fruit.ui.BaseActivity
-import com.bowl.fruit.ui.buyer.enter.HomeFragment
 import com.bowl.fruit.ui.seller.enter.GoodsFragment
 import com.bowl.fruit.ui.seller.enter.MsgFragment
 import com.bowl.fruit.ui.seller.enter.OrderFragment
@@ -58,7 +57,7 @@ class SellerActivity:BaseActivity() {
 //        if(mMessageFragment != null ) fragmentTransaction.hide(mMessageFragment)
 //        if(mMineFragment != null ) fragmentTransaction.hide(mMineFragment)
         fragmentTransaction.commit()
-        switchToFrag(getOrCreateFragment(HomeFragment::class.java))
+        switchToFrag(getOrCreateFragment(GoodsFragment::class.java))
     }
 
     private fun switchToFrag(fragment:Fragment?){

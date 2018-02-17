@@ -9,11 +9,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bowl.fruit.fruit.R;
-import com.bowl.fruit.ui.buyer.order.RecyclerItemView;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
-import java.util.zip.Inflater;
 
 /**
  * Created by CJ on 2018/2/14.
@@ -23,7 +22,7 @@ public class GoodsPictureAdapter extends RecyclerView.Adapter<GoodsPictureAdapte
 
         private Context mContext;
         private List<String> mUrls;
-        private List<Integer> mData;
+//        private List<Integer> mData;
 
 //    private int mWidth, mHeight;
 
@@ -32,19 +31,23 @@ public class GoodsPictureAdapter extends RecyclerView.Adapter<GoodsPictureAdapte
 
         public GoodsPictureAdapter(Context context) {
             mContext = context;
-            mData = new ArrayList<>();
+            mUrls =  new LinkedList<>();
+//            mData = new ArrayList<>();
 //        mHeight = DensityUtil.dip2px(mContext, 56);
 //        mWidth = mHeight;
         }
 
         public void update(List<String> urls) {
 //        mUrls = urls;
-            mData.add(R.drawable.fruit);
-            mData.add(R.mipmap.logo);
-//            mData.add(R.drawable.fruit);
-//            mData.add(R.mipmap.logo);
-//            mData.add(R.drawable.fruit);
-//            mData.add(R.mipmap.logo);
+            mUrls.clear();
+            mUrls.addAll(urls);
+            mUrls.add("default");
+
+            notifyDataSetChanged();
+        }
+
+        public void add(String url){
+            mUrls.add(0,url);
             notifyDataSetChanged();
         }
 //
@@ -66,7 +69,12 @@ public class GoodsPictureAdapter extends RecyclerView.Adapter<GoodsPictureAdapte
         @Override
         public void onBindViewHolder(final PictureViewHolder holder, final int position) {
 //        loadImage(holder.imageView, mUrls.get(position));
-            holder.imageView.setImageResource(mData.get(position));
+            if(position == mUrls.size() - 1){
+                holder.imageView.setImageResource(R.drawable.add);
+            }else {
+                loadImage(holder.imageView,mUrls.get(position));
+//                holder.imageView.setImageResource(R.drawable.ic_back);
+            }
 //        if(position==mSelectedIndex) {
 //            holder.mask.setSelected(true);
 //        } else {
@@ -84,7 +92,7 @@ public class GoodsPictureAdapter extends RecyclerView.Adapter<GoodsPictureAdapte
 
         @Override
         public int getItemCount() {
-            return mData==null?0:mData.size();
+            return mUrls==null?0:mUrls.size();
         }
 
         private void loadImage(final ImageView imageView, final String url) {
@@ -93,6 +101,10 @@ public class GoodsPictureAdapter extends RecyclerView.Adapter<GoodsPictureAdapte
             if(!TextUtils.isEmpty(tag)&&tag.equals(url)) {
                 return;
             }
+
+            imageView.setTag(url);
+//            imageView.setImageResource(R.drawable.ic_back);
+            ImageLoader.getInstance().displayImage("file://" + url,imageView);
 
 //        Observable.just(url)
 //                .map(new Func1<String, Bitmap>() {
