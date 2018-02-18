@@ -29,13 +29,13 @@ class SellerActivity:BaseActivity() {
             switchToFrag(getOrCreateFragment(GoodsFragment::class.java))
         }
 
-//        rl_msg.setOnClickListener{
-//            switchToFrag(getOrCreateFragment(MsgFragment::class.java))
-//        }
-//
-//        rl_order.setOnClickListener {
-//            switchToFrag(getOrCreateFragment(MineFragment::class.java))
-//        }
+        rl_msg.setOnClickListener{
+            switchToFrag(getOrCreateFragment(MsgFragment::class.java))
+        }
+
+        rl_order.setOnClickListener {
+            switchToFrag(getOrCreateFragment(OrderFragment::class.java))
+        }
     }
 
     override fun onResume() {
@@ -49,13 +49,11 @@ class SellerActivity:BaseActivity() {
         }
         var fragmentTransaction = fragmentManager.beginTransaction()
         mGoodsFragment = getFragment(GoodsFragment::class.java)
-//        mShoppingFragment = getFragment(ShoppingFragment::class.java)
-//        mMessageFragment = getFragment(com.bowl.fruit.ui.buyer.enter.MsgFragment::class.java)
-//        mMineFragment = getFragment(MineFragment::class.java)
+        mMessageFragment = getFragment(MsgFragment::class.java)
+        mOrderFragment = getFragment(OrderFragment::class.java)
         if(mGoodsFragment != null ) fragmentTransaction.hide(mGoodsFragment)
-//        if(mShoppingFragment != null ) fragmentTransaction.hide(mShoppingFragment)
-//        if(mMessageFragment != null ) fragmentTransaction.hide(mMessageFragment)
-//        if(mMineFragment != null ) fragmentTransaction.hide(mMineFragment)
+        if(mMessageFragment != null ) fragmentTransaction.hide(mMessageFragment)
+        if(mOrderFragment != null ) fragmentTransaction.hide(mOrderFragment)
         fragmentTransaction.commit()
         switchToFrag(getOrCreateFragment(GoodsFragment::class.java))
     }

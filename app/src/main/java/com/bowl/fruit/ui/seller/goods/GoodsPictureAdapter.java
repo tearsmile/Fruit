@@ -20,66 +20,47 @@ import java.util.List;
 
 public class GoodsPictureAdapter extends RecyclerView.Adapter<GoodsPictureAdapter.PictureViewHolder> {
 
-        private Context mContext;
-        private List<String> mUrls;
-//        private List<Integer> mData;
+    private Context mContext;
+    private List<String> mUrls;
 
-//    private int mWidth, mHeight;
-
-//    private int mSelectedIndex;
     private OnItemClickListener mOnItemClick;
 
-        public GoodsPictureAdapter(Context context) {
-            mContext = context;
-            mUrls =  new LinkedList<>();
-//            mData = new ArrayList<>();
-//        mHeight = DensityUtil.dip2px(mContext, 56);
-//        mWidth = mHeight;
-        }
+    public GoodsPictureAdapter(Context context) {
+        mContext = context;
+        mUrls =  new LinkedList<>();
+    }
 
-        public void update(List<String> urls) {
-//        mUrls = urls;
-            mUrls.clear();
-            mUrls.addAll(urls);
-            mUrls.add("default");
+    public void update(List<String> urls) {
+        mUrls.clear();
+        mUrls.addAll(urls);
+        mUrls.add("default");
 
-            notifyDataSetChanged();
-        }
+        notifyDataSetChanged();
+    }
 
-        public void add(String url){
-            mUrls.add(0,url);
-            notifyDataSetChanged();
-        }
-//
-//    public void select(int index) {
-//        notifyItemChanged(index);
-//        notifyItemChanged(mSelectedIndex);
-//        mSelectedIndex = index;
-//    }
-//
+    public void add(String url){
+        mUrls.add(0,url);
+        notifyDataSetChanged();
+    }
+
     public void setOnItemClickListener(OnItemClickListener listener) {
         mOnItemClick = listener;
     }
 
-        @Override
-        public PictureViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            return new PictureViewHolder(LayoutInflater.from(mContext).inflate(R.layout.item_seller_pic,null));
-        }
+    @Override
+    public PictureViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        return new PictureViewHolder(LayoutInflater.from(mContext).inflate(R.layout.item_seller_pic,null));
+    }
 
-        @Override
-        public void onBindViewHolder(final PictureViewHolder holder, final int position) {
-//        loadImage(holder.imageView, mUrls.get(position));
-            if(position == mUrls.size() - 1){
-                holder.imageView.setImageResource(R.drawable.add);
-            }else {
-                loadImage(holder.imageView,mUrls.get(position));
-//                holder.imageView.setImageResource(R.drawable.ic_back);
-            }
-//        if(position==mSelectedIndex) {
-//            holder.mask.setSelected(true);
-//        } else {
-//            holder.mask.setSelected(false);
-//        }
+    @Override
+    public void onBindViewHolder(final PictureViewHolder holder, final int position) {
+        if(position == mUrls.size() - 1){
+            holder.imageView.setImageResource(R.drawable.add);
+            holder.delete.setVisibility(View.GONE);
+        }else {
+            loadImage(holder.imageView,mUrls.get(position));
+            holder.delete.setVisibility(View.VISIBLE);
+        }
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -88,63 +69,44 @@ public class GoodsPictureAdapter extends RecyclerView.Adapter<GoodsPictureAdapte
                 }
             }
         });
-        }
 
-        @Override
-        public int getItemCount() {
-            return mUrls==null?0:mUrls.size();
-        }
-
-        private void loadImage(final ImageView imageView, final String url) {
-
-            String tag = (String) imageView.getTag();
-            if(!TextUtils.isEmpty(tag)&&tag.equals(url)) {
-                return;
+        holder.delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mUrls.remove(position);
+                notifyDataSetChanged();
             }
+        });
+    }
 
-            imageView.setTag(url);
-//            imageView.setImageResource(R.drawable.ic_back);
-            ImageLoader.getInstance().displayImage("file://" + url,imageView);
+    @Override
+    public int getItemCount() {
+        return mUrls==null?0:mUrls.size();
+    }
 
-//        Observable.just(url)
-//                .map(new Func1<String, Bitmap>() {
-//                    @Override
-//                    public Bitmap call(String s) {
-//                        return EncryptedBitmapUtil.decryptDecodeBitmap(s, mWidth, mHeight);
-//                    }
-//                })
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(new Subscriber<Bitmap>() {
-//                    @Override
-//                    public void onCompleted() {
-//
-//                    }
-//
-//                    @Override
-//                    public void onError(Throwable e) {
-//
-//                    }
-//
-//                    @Override
-//                    public void onNext(Bitmap bitmap) {
-//                        imageView.setTag(url);
-//                        imageView.setImageBitmap(bitmap);
-//                    }
-//                });
+    private void loadImage(final ImageView imageView, final String url) {
+
+        String tag = (String) imageView.getTag();
+        if(!TextUtils.isEmpty(tag)&&tag.equals(url)) {
+            return;
         }
 
-        public class PictureViewHolder extends RecyclerView.ViewHolder {
+        imageView.setTag(url);
+        ImageLoader.getInstance().displayImage("file://" + url,imageView);
 
-            public ImageView imageView;
-//        public View mask;
+    }
 
-            public PictureViewHolder(View itemView) {
-                super(itemView);
-                imageView = itemView.findViewById(R.id.image);
-//            mask = itemView.findViewById(R.id.mask);
-            }
+    public class PictureViewHolder extends RecyclerView.ViewHolder {
+
+        public ImageView imageView;
+        public ImageView delete;
+
+        public PictureViewHolder(View itemView) {
+            super(itemView);
+            imageView = itemView.findViewById(R.id.image);
+            delete = itemView.findViewById(R.id.delete);
         }
+    }
 
     public interface OnItemClickListener {
         void onItemClick(View view, int index);

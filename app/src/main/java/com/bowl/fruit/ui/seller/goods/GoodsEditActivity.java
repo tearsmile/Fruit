@@ -50,7 +50,8 @@ public class GoodsEditActivity extends BaseActivity {
             @Override
             public void onItemClick(View view, int index) {
                 if(index == mAdapter.getItemCount() - 1){
-                    pickPhoto();
+//                    pickPhoto();
+                    takeCamera();
                 }
             }
         });
@@ -58,7 +59,7 @@ public class GoodsEditActivity extends BaseActivity {
 
     }
 
-    private void takeCamera(int num) {
+    private void takeCamera() {
 
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         // Ensure that there's a camera activity to handle the intent
@@ -116,7 +117,7 @@ public class GoodsEditActivity extends BaseActivity {
                 mAdapter.add(picturePath);
                 cursor.close();
             }else if (requestCode == RESULT_CAMERA_IMAGE){
-
+                mAdapter.add(mCurrentPhotoPath);
             }
         }
     }

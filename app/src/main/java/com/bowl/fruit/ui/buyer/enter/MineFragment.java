@@ -39,6 +39,8 @@ public class MineFragment extends Fragment {
         return view;
     }
 
+
+
     private void initViews(View view){
         mMineBg = view.findViewById(R.id.iv_bg);
         mOrder = view.findViewById(R.id.tv_order_all);

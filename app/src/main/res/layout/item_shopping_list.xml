@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:paddingLeft="20dp"
+    android:paddingTop="20dp"
+    android:paddingRight="20dp"
+    android:paddingBottom="20dp"
+    >
+    <ImageView
+        android:id="@+id/iv_select"
+        android:layout_width="40dp"
+        android:layout_height="80dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="15dp"
+        android:layout_centerVertical="true"
+        android:src="@drawable/icon_select"/>
+    <ImageView
+        android:id="@+id/iv_fruit"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@id/iv_select"
+        android:layout_marginLeft="5dp"
+        android:src="@drawable/fruit"/>
+
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/tv_desc"
+        android:layout_alignTop="@+id/iv_fruit"
+        android:text="智利蓝莓125g*1盒"
+        android:textColor="@color/black"
+        android:textSize="@dimen/normalSize" />
+    <TextView
+        android:id="@+id/tv_desc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/iv_fruit"
+        android:layout_below="@id/tv_name"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="5dp"
+        android:text="智利蓝莓125g*1盒"
+        android:textSize="@dimen/smallSize"
+        android:textColor="@color/halfBlack" />
+
+    <TextView
+        android:id="@+id/tv_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/iv_fruit"
+        android:layout_alignBottom="@id/iv_fruit"
+        android:layout_marginLeft="20dp"
+        android:text="￥12.9"
+        android:textSize="@dimen/normalSize"
+        android:textColor="@color/lightMainColor"/>
+    <TextView
+        android:id="@+id/tv_num"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/iv_fruit"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="10dp"
+        android:text="x1"
+        android:textSize="@dimen/normalSize"
+        android:textColor="@color/halfBlack"/>
+
+</RelativeLayout>

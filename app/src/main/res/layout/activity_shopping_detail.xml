@@ -126,6 +126,7 @@
                     android:textColor="@color/black"
                     android:textSize="@dimen/normalSize"/>
                 <TextView
+                    android:id="@+id/tv_total"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -151,15 +152,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
-                    android:text="商品实付"
+                    android:text="运费"
                     android:textColor="@color/black"
                     android:textSize="@dimen/normalSize"/>
                 <TextView
+                    android:id="@+id/tv_deliver"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_marginRight="20dp"
-                    android:text="￥20"
+                    android:text="￥5"
                     android:textColor="@color/black"
                     android:textSize="@dimen/normalSize"/>
             </RelativeLayout>
@@ -184,6 +186,7 @@
                     android:textColor="@color/black"
                     android:textSize="@dimen/normalSize"/>
                 <TextView
+                    android:id="@+id/tv_discount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"

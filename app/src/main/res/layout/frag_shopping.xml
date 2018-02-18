@@ -71,7 +71,7 @@
         android:layout_below="@id/header"
         android:layout_above="@id/ll_buy"
         android:scrollbars="none"
-        android:divider="@null"/>
+        />
 
     <RelativeLayout
         android:id="@+id/rl_empty"

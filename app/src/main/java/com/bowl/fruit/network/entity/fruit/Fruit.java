@@ -9,12 +9,16 @@ public class Fruit {
     private String mPic;
     private double mPrice;
     private String mDesc;
+    private int mNum;
+    private double discount;
 
     public Fruit(String name, String pic, double price, String desc){
         mName = name;
         mPic = pic;
         mPrice = price;
         mDesc = desc;
+        mNum = 1;
+        discount = 5;
     }
 
     public String getName() {
@@ -47,5 +51,21 @@ public class Fruit {
 
     public void setDesc(String mDesc) {
         this.mDesc = mDesc;
+    }
+
+    public int getNum() {
+        return mNum;
+    }
+
+    public void setNum(int mNum) {
+        this.mNum = mNum;
+    }
+
+    public double getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(double discount) {
+        this.discount = discount;
     }
 }

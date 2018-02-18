@@ -20,7 +20,7 @@
         android:layout_alignParentRight="true"
         android:gravity="center"
         android:paddingRight="12dp"
-        android:textColor="#80000000"
-        android:textSize="15sp"
+        android:textColor="@color/halfBlack"
+        android:textSize="@dimen/normalSize"
         />
 </RelativeLayout>
