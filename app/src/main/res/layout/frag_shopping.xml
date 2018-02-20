@@ -99,4 +99,46 @@
             android:textColor="@color/halfBlack"/>
     </RelativeLayout>
 
+    <RelativeLayout
+        android:id="@+id/rl_select"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/halfBlack"
+        android:visibility="gone"
+        >
+        <TextView
+            android:id="@+id/tv_cancel"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/white"
+            android:gravity="center"
+            android:text="取消"
+            android:textSize="@dimen/normalSize"
+            android:textColor="@color/halfBlack"/>
+        <TextView
+            android:id="@+id/tv_delete"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_above="@id/tv_cancel"
+            android:layout_marginBottom="5dp"
+            android:background="@color/white"
+            android:gravity="center"
+            android:text="删除"
+            android:textSize="@dimen/normalSize"
+            android:textColor="@color/halfBlack"/>
+        <TextView
+            android:id="@+id/tv_edit"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_above="@id/tv_delete"
+            android:layout_marginBottom="1px"
+            android:background="@color/white"
+            android:gravity="center"
+            android:text="编辑"
+            android:textSize="@dimen/normalSize"
+            android:textColor="@color/halfBlack"
+            android:visibility="gone"/>
+    </RelativeLayout>
+
 </RelativeLayout>

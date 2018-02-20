@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include android:id="@+id/header"
+        layout="@layout/common_title"/>
+    <View
+        android:id="@+id/line1"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_below="@id/header"
+        android:background="@color/lineDivider"
+        />
+    <ListView
+        android:id="@+id/lv_address"
+        android:layout_below="@id/line1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <RelativeLayout
+        android:id="@+id/rl_select"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/halfBlack"
+        android:visibility="gone"
+        >
+        <TextView
+            android:id="@+id/tv_cancel"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/white"
+            android:gravity="center"
+            android:text="取消"
+            android:textSize="@dimen/normalSize"
+            android:textColor="@color/halfBlack"/>
+        <TextView
+            android:id="@+id/tv_delete"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_above="@id/tv_cancel"
+            android:layout_marginBottom="5dp"
+            android:background="@color/white"
+            android:gravity="center"
+            android:text="删除"
+            android:textSize="@dimen/normalSize"
+            android:textColor="@color/halfBlack"/>
+        <TextView
+            android:id="@+id/tv_edit"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_above="@id/tv_delete"
+            android:layout_marginBottom="1px"
+            android:background="@color/white"
+            android:gravity="center"
+            android:text="编辑"
+            android:textSize="@dimen/normalSize"
+            android:textColor="@color/halfBlack"/>
+    </RelativeLayout>
+
+</RelativeLayout>

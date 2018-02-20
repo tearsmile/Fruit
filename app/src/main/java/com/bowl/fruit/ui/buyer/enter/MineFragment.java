@@ -10,9 +10,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.bowl.fruit.fruit.R;
+import com.bowl.fruit.R;
+import com.bowl.fruit.ui.AboutActivity;
+import com.bowl.fruit.ui.buyer.mine.AddressActivity;
 import com.bowl.fruit.ui.buyer.order.OrderListActivity;
 import com.bowl.fruit.util.FastBlur;
 
@@ -30,6 +33,7 @@ public class MineFragment extends Fragment {
 
     private ImageView mMineBg;
     private TextView mOrder;
+    private RelativeLayout mAddress, mAbout;
 
     @Nullable
     @Override
@@ -44,6 +48,24 @@ public class MineFragment extends Fragment {
     private void initViews(View view){
         mMineBg = view.findViewById(R.id.iv_bg);
         mOrder = view.findViewById(R.id.tv_order_all);
+        mAddress = view.findViewById(R.id.rl_address);
+        mAbout = view.findViewById(R.id.rl_about);
+
+        mAddress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), AddressActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        mAbout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), AboutActivity.class);
+                startActivity(intent);
+            }
+        });
 
         mOrder.setOnClickListener(new View.OnClickListener() {
             @Override

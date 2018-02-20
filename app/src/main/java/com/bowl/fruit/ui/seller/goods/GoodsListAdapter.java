@@ -1,31 +1,89 @@
 package com.bowl.fruit.ui.seller.goods;
 
+import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.bowl.fruit.R;
+import com.bowl.fruit.network.entity.fruit.Fruit;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by CJ on 2018/2/14.
  */
 
 public class GoodsListAdapter extends BaseAdapter {
+
+    private Context mContext;
+    private List<Fruit> mData;
+
+    public GoodsListAdapter(Context context){
+        mContext = context;
+        mData = new ArrayList<>();
+    }
+
+    public void update(List<Fruit> fruits){
+        mData.clear();
+        mData.addAll(fruits);
+        notifyDataSetChanged();
+    }
+
+    public void add(List<Fruit> fruits){
+//        mData.clear();
+        mData.addAll(fruits);
+        notifyDataSetChanged();
+    }
+
     @Override
     public int getCount() {
-        return 0;
+        return mData.size();
     }
 
     @Override
-    public Object getItem(int i) {
-        return null;
+    public Object getItem(int position) {
+        return mData.get(position);
     }
 
     @Override
-    public long getItemId(int i) {
-        return 0;
+    public long getItemId(int position) {
+        return position;
     }
 
     @Override
-    public View getView(int i, View view, ViewGroup viewGroup) {
-        return null;
+    public View getView(int position, View convertView, ViewGroup parent) {
+        ViewHolder viewHolder;
+        if(convertView==null) {
+            convertView = LayoutInflater.from(mContext).inflate(R.layout.item_goods_list, null);
+            viewHolder = new ViewHolder(convertView);
+            convertView.setTag(viewHolder);
+        } else {
+            viewHolder = (ViewHolder) convertView.getTag();
+        }
+
+        Fruit fruit = mData.get(position);
+        viewHolder.mName.setText(fruit.getName());
+        viewHolder.mDesc.setText(fruit.getDesc());
+        viewHolder.mPrice.setText("￥"+fruit.getPrice());
+        viewHolder.mStock.setText("库存：x4");
+        return convertView;
+    }
+
+    private class ViewHolder {
+        ImageView mPic;
+        TextView mName, mPrice, mDesc, mStock;
+
+        ViewHolder(View view) {
+            mPic = view.findViewById(R.id.iv_fruit);
+            mName = view.findViewById(R.id.tv_name);
+            mPrice = view.findViewById(R.id.tv_price);
+            mDesc = view.findViewById(R.id.tv_desc);
+            mStock = view.findViewById(R.id.tv_stock);
+        }
     }
 }

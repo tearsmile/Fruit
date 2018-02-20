@@ -67,6 +67,7 @@
         android:layout_centerVertical="true"
         android:layout_alignParentRight="true"
         android:src="@drawable/ic_back"
+        android:visibility="gone"
         />
 
 </RelativeLayout>

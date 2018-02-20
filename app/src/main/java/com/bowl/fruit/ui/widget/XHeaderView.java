@@ -12,7 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.bowl.fruit.fruit.R;
+import com.bowl.fruit.R;
 
 public class XHeaderView extends LinearLayout {
     public final static int STATE_NORMAL = 0;

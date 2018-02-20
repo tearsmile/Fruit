@@ -9,7 +9,7 @@ import android.view.animation.RotateAnimation;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.bowl.fruit.fruit.R;
+import com.bowl.fruit.R;
 
 
 public class XFooterView extends LinearLayout {

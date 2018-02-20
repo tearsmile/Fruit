@@ -3,6 +3,7 @@ package com.bowl.fruit;
 import android.app.Application;
 import android.content.Context;
 
+import com.bowl.fruit.preference.ContextHolder;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -19,6 +20,7 @@ public class FruitApplication extends Application {
     public void onCreate() {
         super.onCreate();
         initImageLoader(this);
+        ContextHolder.getInstance().setContext(this);
     }
 
     private void initImageLoader(Context context) {

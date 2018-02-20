@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.widget.TextView;
 
-import com.bowl.fruit.fruit.R;
+import com.bowl.fruit.R;
 import com.bowl.fruit.ui.BaseActivity;
 
 /**

@@ -1,4 +1,4 @@
-package com.bowl.fruit.fruit
+package com.bowl.fruit
 
 import android.app.Activity
 import android.os.Bundle

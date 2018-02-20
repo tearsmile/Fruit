@@ -7,10 +7,12 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.bowl.fruit.fruit.R;
+import com.bowl.fruit.R;
 import com.bowl.fruit.ui.buyer.shopping.ShoppingDetailActivity;
 import com.bowl.fruit.ui.buyer.shopping.ShoppingItem;
 import com.bowl.fruit.ui.buyer.shopping.ShoppingListAdapter;
@@ -29,6 +31,9 @@ public class ShoppingFragment extends Fragment {
     private XListView mListView;
     private ShoppingListAdapter mAdapter;
     private ImageView mSelectAll;
+    private RelativeLayout mSelect;
+    private TextView mCancel, mDelete;
+    private int mSelectPosition = -1;
 
     @Nullable
     @Override
@@ -48,14 +53,17 @@ public class ShoppingFragment extends Fragment {
         mRight.setVisibility(View.VISIBLE);
 
         mTitle.setText("购物车");
-        mRight.setText("搜索");
     }
 
     private void initView(View view){
+        mSelect = view.findViewById(R.id.rl_select);
+        mCancel = view.findViewById(R.id.tv_cancel);
+        mDelete = view.findViewById(R.id.tv_delete);
         mSettle = view.findViewById(R.id.tv_settle);
+
         mListView = view.findViewById(R.id.lv_shopping);
         mListView.setPullRefreshEnable(true);
-        mListView.setPullLoadEnable(true);
+        mListView.setPullLoadEnable(false);
         mListView.setAutoLoadEnable(false);
         mListView.setXListViewListener(new XListView.IXListViewListener() {
 
@@ -71,6 +79,13 @@ public class ShoppingFragment extends Fragment {
         });
         mAdapter = new ShoppingListAdapter(getActivity());
         mListView.setAdapter(mAdapter);
+
+        mListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                return false;
+            }
+        });
         mSettle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -112,6 +127,27 @@ public class ShoppingFragment extends Fragment {
                     mSelectAll.setImageResource(R.drawable.icon_selected);
                     mAdapter.selectAll();
                 }
+            }
+        });
+
+        mSelect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mSelect.setVisibility(View.GONE);
+            }
+        });
+        mDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mSelect.setVisibility(View.GONE);
+                mAdapter.remove(mSelectPosition);
+            }
+        });
+
+        mCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mSelect.setVisibility(View.GONE);
             }
         });
     }

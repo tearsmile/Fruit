@@ -10,8 +10,10 @@ import android.provider.MediaStore;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
-import com.bowl.fruit.fruit.R;
+import com.bowl.fruit.R;
 import com.bowl.fruit.ui.BaseActivity;
 
 import java.io.File;
@@ -31,6 +33,10 @@ public class GoodsEditActivity extends BaseActivity {
     private String mCurrentPhotoPath;
     private GoodsPictureAdapter mAdapter;
 
+    private RelativeLayout mSelect;
+    private TextView mCancel, mCamera, mAlbum;
+    private int mSelectPosition = -1;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +47,37 @@ public class GoodsEditActivity extends BaseActivity {
 
     private void initViews(){
         mPicList = findViewById(R.id.rv_pic);
+        mSelect = findViewById(R.id.rl_select);
+        mCancel = findViewById(R.id.tv_cancel);
+        mCamera = findViewById(R.id.tv_camera);
+        mAlbum = findViewById(R.id.tv_album);
+
+        mSelect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mSelect.setVisibility(View.GONE);
+            }
+        });
+        mAlbum.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mSelect.setVisibility(View.GONE);
+                pickPhoto();
+            }
+        });
+        mCamera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mSelect.setVisibility(View.GONE);
+                takeCamera();
+            }
+        });
+        mCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mSelect.setVisibility(View.GONE);
+            }
+        });
 
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         mPicList.setLayoutManager(mLayoutManager);
@@ -51,7 +88,7 @@ public class GoodsEditActivity extends BaseActivity {
             public void onItemClick(View view, int index) {
                 if(index == mAdapter.getItemCount() - 1){
 //                    pickPhoto();
-                    takeCamera();
+                    mSelect.setVisibility(View.VISIBLE);
                 }
             }
         });

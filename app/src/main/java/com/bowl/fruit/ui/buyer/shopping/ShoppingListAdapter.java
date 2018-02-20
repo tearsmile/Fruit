@@ -8,7 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bowl.fruit.fruit.R;
+import com.bowl.fruit.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +35,11 @@ public class ShoppingListAdapter extends BaseAdapter {
 
     public void add(List<ShoppingItem> fruits){
         mData.addAll(fruits);
+        notifyDataSetChanged();
+    }
+
+    public void remove(int position){
+        mData.remove(position);
         notifyDataSetChanged();
     }
 

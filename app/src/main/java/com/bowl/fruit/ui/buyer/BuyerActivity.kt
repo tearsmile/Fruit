@@ -1,9 +1,8 @@
 package com.bowl.fruit.ui.buyer
 
-import android.app.Activity
 import android.app.Fragment
 import android.os.Bundle
-import com.bowl.fruit.fruit.R
+import com.bowl.fruit.R
 import com.bowl.fruit.ui.BaseActivity
 import com.bowl.fruit.ui.buyer.enter.HomeFragment
 import com.bowl.fruit.ui.buyer.enter.MessageFragment

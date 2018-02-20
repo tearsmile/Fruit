@@ -8,8 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
-import com.bowl.fruit.fruit.R;
-import com.bowl.fruit.network.entity.fruit.Fruit;
+import com.bowl.fruit.R;
+import com.bowl.fruit.network.entity.order.Order;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,16 +20,16 @@ import java.util.List;
 
 public class OrderListAdapter extends BaseAdapter {
     private Context mContext;
-    private List<Fruit> mData;
+    private List<Order> mData;
 
     public OrderListAdapter(Context context){
         mContext = context;
         mData = new ArrayList<>();
     }
 
-    public void update(List<Fruit> fruits){
+    public void update(List<Order> orders){
         mData.clear();
-        mData.addAll(fruits);
+        mData.addAll(orders);
         notifyDataSetChanged();
     }
 

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <include android:id="@+id/header"
+        layout="@layout/common_title"/>
+
+    <View
+        android:id="@+id/line1"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_below="@id/header"
+        android:background="@color/lineDivider"/>
+
+    <ImageView
+        android:id="@+id/iv_logo"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/line1"
+        android:layout_marginTop="30dp"
+        android:src="@drawable/fruit"/>
+    <TextView
+        android:id="@+id/tv_version"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/iv_logo"
+        android:layout_marginTop="10dp"
+        android:text="V1.0.0"
+        android:textSize="@dimen/normalSize"
+        android:textColor="@color/halfBlack"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/tv_version"
+        android:layout_marginTop="10dp"
+        android:text="联系电话：13123456789"
+        android:textSize="@dimen/normalSize"
+        android:textColor="@color/halfBlack"/>
+
+    <Button
+        android:id="@+id/btn_logout"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="40dp"
+        android:text="退出登录"
+        android:textColor="@color/white"
+        android:textSize="@dimen/normalSize"
+        android:background="@drawable/bg_button"/>
+
+</RelativeLayout>

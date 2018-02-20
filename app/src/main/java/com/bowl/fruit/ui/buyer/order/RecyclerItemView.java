@@ -5,7 +5,7 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.widget.RelativeLayout;
 
-import com.bowl.fruit.fruit.R;
+import com.bowl.fruit.R;
 
 
 /**

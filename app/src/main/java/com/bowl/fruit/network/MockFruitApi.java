@@ -1,11 +1,12 @@
 package com.bowl.fruit.network;
 
-import com.bowl.fruit.network.entity.ResponseLogin;
+import com.bowl.fruit.network.entity.BaseResponse;
 import com.bowl.fruit.network.entity.fruit.Fruit;
 import com.bowl.fruit.network.entity.fruit.FruitDetailResponse;
 import com.bowl.fruit.network.entity.fruit.ResponseFruits;
 import com.bowl.fruit.network.entity.order.ResponseOrderNum;
 import com.bowl.fruit.network.entity.order.ResponseOrders;
+import com.bowl.fruit.network.entity.user.ResponseLogin;
 import com.bowl.fruit.network.entity.user.User;
 
 import java.util.ArrayList;
@@ -29,6 +30,11 @@ public class MockFruitApi implements FruitApi {
     @Override
     public Observable<ResponseLogin> login(User user) {
         return delegate.returningResponse(new ResponseLogin()).login(user);
+    }
+
+    @Override
+    public Observable<BaseResponse> register(User user) {
+        return delegate.returningResponse(new BaseResponse()).register(user);
     }
 
     @Override

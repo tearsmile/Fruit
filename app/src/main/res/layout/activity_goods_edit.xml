@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -7,9 +7,18 @@
     <include android:id="@+id/header"
         layout="@layout/common_title"/>
 
+    <View
+        android:id="@+id/line1"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_below="@id/header"
+        android:background="@color/lineDivider"
+        />
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@id/line1"
         >
         <RelativeLayout
             android:layout_width="match_parent"
@@ -80,12 +89,31 @@
                 android:layout_below="@id/et_desc"
                 android:textSize="@dimen/normalSize"
                 />
+            <TextView
+                android:id="@+id/tv_discount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_stock"
+                android:layout_marginTop="15dp"
+                android:text="优惠:"
+                android:textSize="@dimen/normalSize"/>
+            <EditText
+                android:id="@+id/et_discount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minWidth="240dp"
+                android:layout_marginTop="5dp"
+                android:layout_toRightOf="@id/tv_discount"
+                android:layout_below="@id/tv_stock"
+                android:textSize="@dimen/normalSize"
+                android:hint="请输入优惠价格，无优惠可不填"
+                />
 
             <RelativeLayout
                 android:id="@+id/rl_param"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/tv_stock"
+                android:layout_below="@id/tv_discount"
                 android:layout_marginTop="30dp"
                 android:visibility="visible">
                 <TextView
@@ -230,4 +258,45 @@
         </RelativeLayout>
     </ScrollView>
 
-</LinearLayout>
+    <RelativeLayout
+        android:id="@+id/rl_select"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/halfBlack"
+        android:visibility="gone"
+        >
+        <TextView
+            android:id="@+id/tv_cancel"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/white"
+            android:gravity="center"
+            android:text="取消"
+            android:textSize="@dimen/normalSize"
+            android:textColor="@color/halfBlack"/>
+        <TextView
+            android:id="@+id/tv_album"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_above="@id/tv_cancel"
+            android:layout_marginBottom="5dp"
+            android:background="@color/white"
+            android:gravity="center"
+            android:text="相册"
+            android:textSize="@dimen/normalSize"
+            android:textColor="@color/halfBlack"/>
+        <TextView
+            android:id="@+id/tv_camera"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_above="@id/tv_album"
+            android:layout_marginBottom="1px"
+            android:background="@color/white"
+            android:gravity="center"
+            android:text="拍摄"
+            android:textSize="@dimen/normalSize"
+            android:textColor="@color/halfBlack"/>
+    </RelativeLayout>
+
+</RelativeLayout>

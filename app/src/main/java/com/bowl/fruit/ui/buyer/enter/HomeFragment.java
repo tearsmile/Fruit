@@ -10,7 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bowl.fruit.fruit.R;
+import com.bowl.fruit.R;
 import com.bowl.fruit.network.entity.fruit.Fruit;
 import com.bowl.fruit.repository.FruitRepository;
 import com.bowl.fruit.ui.BaseFragment;

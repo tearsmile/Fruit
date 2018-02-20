@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.bowl.fruit.fruit">
+    package="com.bowl.fruit">
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -21,13 +21,18 @@
             </intent-filter>
         </activity>
 
+        <activity android:name="com.bowl.fruit.ui.AboutActivity"/>
+        <activity android:name="com.bowl.fruit.ui.user.RegisterActivity"/>
         <activity android:name="com.bowl.fruit.ui.buyer.BuyerActivity"/>
         <activity android:name="com.bowl.fruit.ui.buyer.fruit.FruitDetailActivity"/>
         <activity android:name="com.bowl.fruit.ui.buyer.order.OrderListActivity"/>
         <activity android:name="com.bowl.fruit.ui.buyer.shopping.ShoppingDetailActivity"/>
+        <activity android:name="com.bowl.fruit.ui.buyer.mine.AddressActivity"/>
+        <activity android:name="com.bowl.fruit.ui.buyer.mine.AddressEditActivity"/>
 
         <activity android:name="com.bowl.fruit.ui.seller.SellerActivity"/>
         <activity android:name="com.bowl.fruit.ui.seller.goods.GoodsEditActivity" />
+        <activity android:name="com.bowl.fruit.ui.seller.orders.SellerOrderDetailActivity" />
 
     </application>
 
