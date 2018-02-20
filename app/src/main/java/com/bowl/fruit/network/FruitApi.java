@@ -1,6 +1,9 @@
 package com.bowl.fruit.network;
 
 import com.bowl.fruit.network.entity.BaseResponse;
+import com.bowl.fruit.network.entity.message.ResponseMessage;
+import com.bowl.fruit.network.entity.mine.RequestAddress;
+import com.bowl.fruit.network.entity.mine.ResponseAddress;
 import com.bowl.fruit.network.entity.user.ResponseLogin;
 import com.bowl.fruit.network.entity.fruit.FruitDetailResponse;
 import com.bowl.fruit.network.entity.fruit.ResponseFruits;
@@ -28,13 +31,22 @@ public interface FruitApi {
     @POST("/fruitList")
     Observable<ResponseFruits> getFruitList(@Field("type") int type, @Field("page") int page);
 
-    @POST("/login")
+    @POST("/fruitDetail")
     Observable<FruitDetailResponse> getFruitDetail(@Field("id") int id);
+
+    @POST("/message")
+    Observable<ResponseMessage> getMessageList(@Field("userType") int type, @Field("page") int page);
+
+    @POST("/address")
+    Observable<ResponseAddress> getAddressList(@Field("uid") String uid);
+
+    @POST("/editAddress")
+    Observable<BaseResponse> editAddress(@Body RequestAddress requestAddress);
 
     @POST("/login")
     Observable<ResponseOrderNum> getOrderNum(@Field("uid") int userId);
 
-    @POST("/login")
-    Observable<ResponseOrders> getOrderList(@Field("type") int type);
+    @POST("/orderList")
+    Observable<ResponseOrders> getOrderList(@Field("type") int type, @Field("page") int page);
 
 }

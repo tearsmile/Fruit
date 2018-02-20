@@ -4,6 +4,12 @@ import com.bowl.fruit.network.entity.BaseResponse;
 import com.bowl.fruit.network.entity.fruit.Fruit;
 import com.bowl.fruit.network.entity.fruit.FruitDetailResponse;
 import com.bowl.fruit.network.entity.fruit.ResponseFruits;
+import com.bowl.fruit.network.entity.message.Message;
+import com.bowl.fruit.network.entity.message.ResponseMessage;
+import com.bowl.fruit.network.entity.mine.Address;
+import com.bowl.fruit.network.entity.mine.RequestAddress;
+import com.bowl.fruit.network.entity.mine.ResponseAddress;
+import com.bowl.fruit.network.entity.order.Order;
 import com.bowl.fruit.network.entity.order.ResponseOrderNum;
 import com.bowl.fruit.network.entity.order.ResponseOrders;
 import com.bowl.fruit.network.entity.user.ResponseLogin;
@@ -57,12 +63,57 @@ public class MockFruitApi implements FruitApi {
     }
 
     @Override
+    public Observable<ResponseMessage> getMessageList(int type, int page) {
+        ResponseMessage responseMessage = new ResponseMessage();
+        Message message = new Message();
+        message.setTitle("物流信息");
+        message.setDesc("商品 智利蓝莓 已发货");
+
+        List<Message> messageList = new ArrayList<>();
+        for (int i = 0; i < 3; i++) {
+            messageList.add(message);
+        }
+
+        responseMessage.setMessages(messageList);
+        return delegate.returningResponse(responseMessage).getMessageList(type, page);
+    }
+
+    @Override
+    public Observable<ResponseAddress> getAddressList(String uid) {
+        ResponseAddress responseAddress = new ResponseAddress();
+        Address address = new Address();
+        address.setName("小碗");
+        address.setPhone("13123456789");
+        address.setAddress("广阳区荣华里小区");
+        address.setCity("河北省廊坊市");
+
+        List<Address> addressList = new ArrayList<>();
+        for (int i = 0; i < 3; i++) {
+            addressList.add(address);
+        }
+        responseAddress.setAddressList(addressList);
+        return delegate.returningResponse(responseAddress).getAddressList(uid);
+    }
+
+    @Override
+    public Observable<BaseResponse> editAddress(RequestAddress requestAddress) {
+        return delegate.returningResponse(new BaseResponse()).editAddress(requestAddress);
+    }
+
+    @Override
     public Observable<ResponseOrderNum> getOrderNum(int userId) {
         return null;
     }
 
     @Override
-    public Observable<ResponseOrders> getOrderList(int type) {
-        return null;
+    public Observable<ResponseOrders> getOrderList(int type, int page) {
+        ResponseOrders responseOrders = new ResponseOrders();
+        List<Order> orders = new ArrayList<>();
+        Order order = new Order();
+        for (int i = 0; i < 5; i++) {
+            orders.add(order);
+        }
+        responseOrders.setOrders(orders);
+        return delegate.returningResponse(responseOrders).getOrderList(type,page);
     }
 }

@@ -34,6 +34,7 @@ public class ShoppingFragment extends Fragment {
     private RelativeLayout mSelect;
     private TextView mCancel, mDelete;
     private int mSelectPosition = -1;
+    private boolean hasNext = true;
 
     @Nullable
     @Override
@@ -69,12 +70,12 @@ public class ShoppingFragment extends Fragment {
 
             @Override
             public void onRefresh() {
-
+                refresh();
             }
 
             @Override
             public void onLoadMore() {
-
+                loadMore();
             }
         });
         mAdapter = new ShoppingListAdapter(getActivity());
@@ -83,7 +84,8 @@ public class ShoppingFragment extends Fragment {
         mListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-                return false;
+                mSelect.setVisibility(View.VISIBLE);
+                return true;
             }
         });
         mSettle.setOnClickListener(new View.OnClickListener() {
@@ -150,5 +152,36 @@ public class ShoppingFragment extends Fragment {
                 mSelect.setVisibility(View.GONE);
             }
         });
+    }
+
+    private void resetListViewState() {
+        mListView.stopRefresh();
+        mListView.stopLoadMore();
+        mListView.setPullRefreshEnable(true);
+        if(!hasNext){
+            mListView.setPullLoadEnable(false);
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        refresh();
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if(!hidden){
+            refresh();
+        }
+    }
+
+    private void refresh(){
+
+    }
+
+    private void loadMore(){
+
     }
 }

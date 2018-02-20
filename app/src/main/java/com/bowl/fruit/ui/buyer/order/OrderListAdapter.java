@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.TextView;
 
 import com.bowl.fruit.R;
 import com.bowl.fruit.network.entity.order.Order;
@@ -29,6 +30,11 @@ public class OrderListAdapter extends BaseAdapter {
 
     public void update(List<Order> orders){
         mData.clear();
+        mData.addAll(orders);
+        notifyDataSetChanged();
+    }
+
+    public void add(List<Order> orders){
         mData.addAll(orders);
         notifyDataSetChanged();
     }
@@ -59,18 +65,51 @@ public class OrderListAdapter extends BaseAdapter {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
+
+        Order order = mData.get(position);
+
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false);
         viewHolder.mRecycler.setLayoutManager(mLayoutManager);
         RecyclerAdapter adapter = new RecyclerAdapter(mContext);
         viewHolder.mRecycler.setAdapter(adapter);
         adapter.update(new ArrayList<String>());
+
+        if(order.getStatus() == 0){
+            viewHolder.mHandle.setText("取消");
+            viewHolder.mHandle.setTextColor(mContext.getResources().getColor(R.color.lightMainColor));
+            viewHolder.mHandle.setBackgroundResource(R.drawable.bg_text_btn);
+        } else if (order.getStatus() == 1){
+            viewHolder.mHandle.setText("收货");
+            viewHolder.mHandle.setTextColor(mContext.getResources().getColor(R.color.lightMainColor));
+            viewHolder.mHandle.setBackgroundResource(R.drawable.bg_text_btn);
+        } else if(order.getStatus() == 2){
+            viewHolder.mHandle.setText("已完成");
+            viewHolder.mHandle.setTextColor(mContext.getResources().getColor(R.color.halfBlack));
+            viewHolder.mHandle.setBackground(null);
+        }
+
+        viewHolder.mOrderId.setText("订单号:" + order.getOrderId());
+        if(order.getStatus() == 0) {
+            viewHolder.mDeliverId.setText("快递单号:"+"暂未发货");
+        } else {
+            viewHolder.mDeliverId.setText("快递单号:"+order.getDeliverId());
+        }
+        viewHolder.mPrice.setText("实付:￥" + order.getPrice());
+        viewHolder.mDiscount.setText("优惠￥" + order.getDiscount());
         return convertView;
     }
 
     class ViewHolder{
         RecyclerView mRecycler;
+        TextView mHandle, mTime, mOrderId, mDeliverId, mPrice, mDiscount;
         ViewHolder(View view){
             mRecycler = view.findViewById(R.id.rv_fruit);
+            mHandle = view.findViewById(R.id.tv_handle);
+            mTime = view.findViewById(R.id.tv_time);
+            mOrderId = view.findViewById(R.id.tv_order_id);
+            mDeliverId = view.findViewById(R.id.tv_deliver_id);
+            mPrice = view.findViewById(R.id.tv_price);
+            mDiscount = view.findViewById(R.id.tv_price_down);
         }
     }
 }

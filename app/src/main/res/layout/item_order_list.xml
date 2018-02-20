@@ -97,13 +97,16 @@
         android:textSize="@dimen/smallSize"/>
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/tv_handle"
+        android:layout_width="60dp"
+        android:layout_height="30dp"
         android:layout_alignParentRight="true"
+        android:gravity="center"
         android:layout_below="@id/line3"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="8dp"
         android:text="配送中"
         android:textColor="@color/halfBlack"
-        android:textSize="@dimen/normalSize" />
+        android:textSize="@dimen/normalSize"
+        android:background="@drawable/bg_text_btn"/>
 
 </RelativeLayout>

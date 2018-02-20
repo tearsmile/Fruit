@@ -36,6 +36,7 @@
                     app:border_color="@android:color/white"
                     app:border_width="1dp"/>
                 <TextView
+                    android:id="@+id/tv_user_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@id/iv_head"
@@ -83,6 +84,7 @@
                 android:layout_below="@id/tv_order">
 
                 <RelativeLayout
+                    android:id="@+id/rl_order_ready"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -106,6 +108,7 @@
                         android:text ="已下单(0)"/>
                 </RelativeLayout>
                 <RelativeLayout
+                    android:id="@+id/rl_deliver"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -129,12 +132,13 @@
                         android:text ="配送中(0)"/>
                 </RelativeLayout>
                 <RelativeLayout
+                    android:id="@+id/rl_finish"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:paddingBottom="20dp">
                     <ImageView
-                        android:id="@+id/iv_evaluate"
+                        android:id="@+id/iv_finish"
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:layout_centerHorizontal="true"
@@ -142,14 +146,14 @@
                         android:adjustViewBounds="true"
                         android:src="@drawable/evaluate_fill"/>
                     <TextView
-                        android:id="@+id/tv_evaluate"
+                        android:id="@+id/tv_finish"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentBottom="true"
                         android:layout_centerHorizontal="true"
                         android:textSize="@dimen/smallSize"
                         android:textColor="@color/halfBlack"
-                        android:text ="待评价(0)"/>
+                        android:text ="已完成(0)"/>
                 </RelativeLayout>
 
             </LinearLayout>

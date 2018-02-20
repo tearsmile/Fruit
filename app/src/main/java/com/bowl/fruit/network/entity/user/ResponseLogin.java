@@ -8,6 +8,7 @@ import com.bowl.fruit.network.entity.BaseResponse;
 
 public class ResponseLogin extends BaseResponse {
     private int type;
+    private String uid;
 
     public int getType() {
         return type;
@@ -15,5 +16,13 @@ public class ResponseLogin extends BaseResponse {
 
     public void setType(int type) {
         this.type = type;
+    }
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
     }
 }

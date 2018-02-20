@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bowl.fruit.R;
@@ -32,6 +33,8 @@ public class HomeFragment extends BaseFragment {
 
     private XListView mListView;
     private FruitListAdapter mAdapter;
+    private RelativeLayout mKey;
+    private ImageView mSearch, mClose;
     private int page = 1;
     private boolean hasNext = true;
 
@@ -55,15 +58,36 @@ public class HomeFragment extends BaseFragment {
 
         mTitle.setText("商品列表");
         mRight.setText("搜索");
+        mRight.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mKey.setVisibility(View.VISIBLE);
+            }
+        });
     }
 
     private void initViews(View view){
+        mKey = view.findViewById(R.id.rl_key);
+        mSearch = view.findViewById(R.id.iv_search);
+        mClose = view.findViewById(R.id.iv_close);
         mListView = view.findViewById(R.id.lv_fruit);
+
+        mSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                requestPage();
+            }
+        });
+        mClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mKey.setVisibility(View.GONE);
+            }
+        });
         mListView.setPullRefreshEnable(true);
         mListView.setPullLoadEnable(true);
         mListView.setAutoLoadEnable(false);
         mListView.setXListViewListener(new XListView.IXListViewListener() {
-
             @Override
             public void onRefresh() {
                 requestPage();

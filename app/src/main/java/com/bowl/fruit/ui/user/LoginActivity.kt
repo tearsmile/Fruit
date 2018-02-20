@@ -25,6 +25,8 @@ class LoginActivity: BaseActivity() {
     companion object {
         val KEY_LOGIN = "key_login"
         val KEY_LOGIN_TYPE = "key_login_type"
+        val KEY_LOGIN_USER_NAME = "key_login_user_name"
+        val KEY_LOGIN_USER_ID = "key_login_user_id"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -70,6 +72,8 @@ class LoginActivity: BaseActivity() {
                         override fun onNext(response: ResponseLogin) {
                             if(response.code == 0){
                                 PreferenceDao.getInstance().putBoolean(KEY_LOGIN,true);
+                                PreferenceDao.getInstance().putString(KEY_LOGIN_USER_NAME,et_name.text.toString());
+                                PreferenceDao.getInstance().putString(KEY_LOGIN_USER_ID,response.uid);
                                 var intent = Intent()
                                 if(response.type == 1) {
                                     PreferenceDao.getInstance().putInt(KEY_LOGIN_TYPE,1)

@@ -10,11 +10,12 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bowl.fruit.R;
-import com.bowl.fruit.network.entity.mine.Address;
+import com.bowl.fruit.network.FruitNetService;
+import com.bowl.fruit.network.entity.mine.ResponseAddress;
 import com.bowl.fruit.ui.BaseActivity;
 
-import java.util.ArrayList;
-import java.util.List;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by CJ on 2018/2/19.
@@ -34,7 +35,6 @@ public class AddressActivity extends BaseActivity {
         setContentView(R.layout.activity_address);
         initTitle();
         initViews();
-        initData();
     }
 
     private void initTitle(){
@@ -52,6 +52,7 @@ public class AddressActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(AddressActivity.this, AddressEditActivity.class);
+                intent.putExtra("type",0);
                 startActivity(intent);
             }
         });
@@ -96,6 +97,7 @@ public class AddressActivity extends BaseActivity {
                 intent.putExtra("phone", mAdapter.getItem(mSelectPosition).getPhone());
                 intent.putExtra("address", mAdapter.getItem(mSelectPosition).getAddress());
                 intent.putExtra("city", mAdapter.getItem(mSelectPosition).getCity());
+                intent.putExtra("type",1);
                 startActivity(intent);
             }
         });
@@ -107,17 +109,36 @@ public class AddressActivity extends BaseActivity {
         });
     }
 
-    private void initData(){
-        Address address = new Address();
-        address.setName("小碗");
-        address.setPhone("13123456789");
-        address.setAddress("广阳区荣华里小区");
-        address.setCity("河北省廊坊市");
+    @Override
+    protected void onResume() {
+        super.onResume();
+        initData();
+    }
 
-        List<Address> addressList = new ArrayList<>();
-        for (int i = 0; i < 3; i++) {
-            addressList.add(address);
-        }
-        mAdapter.update(addressList);
+    private void initData(){
+        FruitNetService.getInstance().getFruitApi()
+                .getAddressList("")
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new BaseSafeSubscriber<ResponseAddress>(){
+                    @Override
+                    public void onCompleted() {
+                        super.onCompleted();
+                    }
+
+                    @Override
+                    public void onError(Throwable throwable) {
+                        super.onError(throwable);
+                    }
+
+                    @Override
+                    public void onNext(ResponseAddress responseAddress) {
+                        super.onNext(responseAddress);
+                        if(responseAddress.getCode() == 0) {
+                            mAdapter.update(responseAddress.getAddressList());
+                        }
+                    }
+                });
+
     }
 }
