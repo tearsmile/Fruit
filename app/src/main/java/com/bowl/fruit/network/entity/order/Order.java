@@ -1,19 +1,23 @@
 package com.bowl.fruit.network.entity.order;
 
+import com.bowl.fruit.network.entity.mine.Address;
+
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by cathy on 2018/2/12.
  */
 
-public class Order {
+public class Order implements Serializable{
     private long timeStamp;
     private String orderId;
     private String deliverId;
     private double price;
     private double discount;
     private int status;
-    private List<String> pics;
+    private Address address;
+    private List<Goods> goods;
 
     public long getTimeStamp() {
         return timeStamp;
@@ -63,11 +67,19 @@ public class Order {
         this.status = status;
     }
 
-    public List<String> getPics() {
-        return pics;
+    public List<Goods> getGoods() {
+        return goods;
     }
 
-    public void setPics(List<String> pics) {
-        this.pics = pics;
+    public void setGoods(List<Goods> goods) {
+        this.goods = goods;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
     }
 }

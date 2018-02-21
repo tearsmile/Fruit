@@ -13,13 +13,20 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bowl.fruit.R;
+import com.bowl.fruit.network.entity.order.Goods;
+import com.bowl.fruit.network.entity.shopping.Shopping;
+import com.bowl.fruit.preference.PreferenceDao;
+import com.bowl.fruit.repository.ShoppingRepository;
 import com.bowl.fruit.ui.buyer.shopping.ShoppingDetailActivity;
-import com.bowl.fruit.ui.buyer.shopping.ShoppingItem;
 import com.bowl.fruit.ui.buyer.shopping.ShoppingListAdapter;
 import com.bowl.fruit.ui.widget.XListView;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by cathy on 2018/2/11.
@@ -34,6 +41,7 @@ public class ShoppingFragment extends Fragment {
     private RelativeLayout mSelect;
     private TextView mCancel, mDelete;
     private int mSelectPosition = -1;
+    private int page = 1;
     private boolean hasNext = true;
 
     @Nullable
@@ -85,38 +93,36 @@ public class ShoppingFragment extends Fragment {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
                 mSelect.setVisibility(View.VISIBLE);
+                mSelectPosition = i - 1;
                 return true;
             }
         });
         mSettle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ArrayList<String> urls = new ArrayList<>();
+                ArrayList<Goods> goods = new ArrayList<>();
                 double total = 0;
                 double discount = 0;
-                for (ShoppingItem item : mAdapter.getData()) {
+                for (Shopping item : mAdapter.getData()) {
                     if(item.isSelect()){
-                        urls.add(item.getPic());
+                        Goods g = new Goods();
+                        g.setPic(item.getPic());
+                        g.setNum(item.getNum());
+                        g.setName(item.getName());
+                        goods.add(g);
                         total += item.getPrice();
                         discount += item.getDiscount();
                     }
                 }
                 Intent intent = new Intent(getActivity(), ShoppingDetailActivity.class);
                 Bundle bundle = new Bundle();
-                bundle.putStringArrayList("urls", urls);
+                bundle.putSerializable("goods", goods);
                 bundle.putDouble("total",total);
                 bundle.putDouble("discount",discount);
                 intent.putExtras(bundle);
                 startActivity(intent);
             }
         });
-
-        List<ShoppingItem> fruits = new ArrayList<>();
-        ShoppingItem f = new ShoppingItem("智利蓝莓125g*1盒", "", 12.9, "这么好的蓝莓 都想留给你吃");
-        for (int i = 0; i < 5; i++) {
-            fruits.add(f);
-        }
-        mAdapter.update(fruits);
 
         mSelectAll = view.findViewById(R.id.iv_select_all);
         mSelectAll.setOnClickListener(new View.OnClickListener() {
@@ -178,10 +184,62 @@ public class ShoppingFragment extends Fragment {
     }
 
     private void refresh(){
+        page = 1;
+        ShoppingRepository.instance().getShoppingList(PreferenceDao.getInstance().getString("key_login_user_id",""),page)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<List<Shopping>>() {
+                    @Override
+                    public void onCompleted() {
+                        resetListViewState();
+                    }
 
+                    @Override
+                    public void onError(Throwable e) {
+                        resetListViewState();
+                    }
+
+                    @Override
+                    public void onNext(List<Shopping> shoppings) {
+                        if(shoppings != null && shoppings.size() > 0){
+                            if(shoppings.size() < 10){
+                                hasNext = false;
+                            }
+                            mAdapter.update(shoppings);
+                        }else {
+
+                        }
+                    }
+                });
     }
 
     private void loadMore(){
+        page++;
+        ShoppingRepository.instance().getShoppingList(PreferenceDao.getInstance().getString("key_login_user_id",""),page)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<List<Shopping>>() {
+                    @Override
+                    public void onCompleted() {
+                        resetListViewState();
+                    }
 
+                    @Override
+                    public void onError(Throwable e) {
+                        resetListViewState();
+                    }
+
+                    @Override
+                    public void onNext(List<Shopping> shoppings) {
+                        if(shoppings != null && shoppings.size() >= 0){
+                            if(shoppings.size() < 10){
+                                hasNext = false;
+                            }
+                            mAdapter.add(shoppings);
+                        }else {
+
+                        }
+                    }
+                });
     }
 }

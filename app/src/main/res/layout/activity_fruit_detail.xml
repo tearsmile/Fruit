@@ -13,10 +13,12 @@
         android:layout_height="60dp"
         android:layout_alignParentBottom="true">
         <RelativeLayout
+            android:id="@+id/rl_shopping"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="3">
             <ImageView
+                android:id="@+id/iv_buy"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_centerHorizontal="true"
@@ -24,17 +26,19 @@
                 android:src="@drawable/icon_shopping"
                 />
             <TextView
+                android:id="@+id/tv_buy"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_marginBottom="5dp"
-                android:text="购物车(0)"
+                android:text="购物车"
                 android:textSize="13dp"
                 android:textColor="@color/halfBlack"
                 android:layout_alignParentBottom="true"/>
         </RelativeLayout>
 
         <TextView
+            android:id="@+id/tv_add_shopping"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"

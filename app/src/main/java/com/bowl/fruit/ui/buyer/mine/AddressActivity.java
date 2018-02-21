@@ -75,6 +75,17 @@ public class AddressActivity extends BaseActivity {
                 return true;
             }
         });
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                if(getIntent().getBooleanExtra("choose",false)){
+                    Intent intent = new Intent();
+                    intent.putExtra("address", mAdapter.getItem(i));
+                    setResult(RESULT_OK,intent);
+                    finish();
+                }
+            }
+        });
         mSelect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

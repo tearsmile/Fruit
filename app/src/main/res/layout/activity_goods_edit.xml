@@ -82,6 +82,7 @@
                 android:textSize="@dimen/normalSize"
                 android:textColor="@color/halfBlack"/>
             <EditText
+                android:id="@+id/et_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:minWidth="120dp"
@@ -183,7 +184,7 @@
                     android:textSize="@dimen/normalSize"
                     android:textColor="@color/halfBlack"/>
                 <TextView
-                    android:id="@+id/tv_save"
+                    android:id="@+id/tv_store"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/tv_life"
@@ -192,11 +193,11 @@
                     android:textSize="@dimen/normalSize"
                     android:textColor="@color/halfBlack"/>
                 <EditText
-                    android:id="@+id/et_save"
+                    android:id="@+id/et_store"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:minWidth="230dp"
-                    android:layout_toRightOf="@id/tv_save"
+                    android:layout_toRightOf="@id/tv_store"
                     android:layout_marginTop="20dp"
                     android:layout_below="@id/tv_life"
                     android:textSize="@dimen/normalSize"

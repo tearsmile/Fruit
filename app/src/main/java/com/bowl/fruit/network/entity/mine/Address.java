@@ -1,10 +1,12 @@
 package com.bowl.fruit.network.entity.mine;
 
+import java.io.Serializable;
+
 /**
  * Created by CJ on 2018/2/19.
  */
 
-public class Address {
+public class Address implements Serializable {
     private String name;
     private String phone;
     private String address;

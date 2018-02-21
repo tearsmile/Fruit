@@ -16,6 +16,8 @@ import com.bowl.fruit.ui.buyer.BuyerActivity
 import com.bowl.fruit.ui.seller.SellerActivity
 import kotlinx.android.synthetic.main.activity_login.*
 import rx.Subscriber
+import rx.android.schedulers.AndroidSchedulers
+import rx.schedulers.Schedulers
 
 /**
  * Created by cathy on 2018/2/9.
@@ -60,6 +62,8 @@ class LoginActivity: BaseActivity() {
         btn_login.setOnClickListener {
             FruitNetService.getInstance().fruitApi
                     .login(User(et_name.text.toString(),et_password.text.toString()))
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(object: Subscriber<ResponseLogin>(){
                         override fun onCompleted() {
 

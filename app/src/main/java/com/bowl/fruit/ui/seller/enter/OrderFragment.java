@@ -12,13 +12,17 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bowl.fruit.R;
-import com.bowl.fruit.network.entity.order.SellerOrder;
+import com.bowl.fruit.network.entity.order.Order;
+import com.bowl.fruit.repository.OrderRepository;
 import com.bowl.fruit.ui.seller.orders.SellerOrderDetailActivity;
 import com.bowl.fruit.ui.seller.orders.SellerOrderListAdapter;
 import com.bowl.fruit.ui.widget.XListView;
 
-import java.util.ArrayList;
 import java.util.List;
+
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by CJ on 2018/2/14.
@@ -33,32 +37,37 @@ public class OrderFragment extends Fragment {
     private TextView mOrderText, mDeliverText, mFinishText;
     private View mOrderLine, mDeliverLine, mFinishLine;
 
+    private int page = 1;
+    private int type = 0;
+    private boolean hasNext = true;
+
     private View.OnClickListener mOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             int cycleCondition = -1;
             if (v.getId() == R.id.rl_order){
-//                cycleCondition = RankingConstants.CYCLE_WEEK;
+                cycleCondition = 0;
                 mOrderLine.setVisibility(View.VISIBLE);
                 mDeliverLine.setVisibility(View.GONE);
                 mFinishLine.setVisibility(View.GONE);
 
             } else if (v.getId() == R.id.rl_deliver){
-//                cycleCondition = RankingConstants.CYCLE_MONTH;
+                cycleCondition = 1;
                 mOrderLine.setVisibility(View.GONE);
                 mDeliverLine.setVisibility(View.VISIBLE);
                 mFinishLine.setVisibility(View.GONE);
             } else if (v.getId() == R.id.rl_finish){
-//                cycleCondition = RankingConstants.CYCLE_ALL;
+                cycleCondition = 2;
                 mOrderLine.setVisibility(View.GONE);
                 mDeliverLine.setVisibility(View.GONE);
                 mFinishLine.setVisibility(View.VISIBLE);
             }
-//            if(cycleCondition == request.getCycle_cond()){
-//                return;
-//            }
+            if(cycleCondition == type){
+                return;
+            }
+            type = cycleCondition;
 //            request.setCycle_cond(cycleCondition);
-//            refreshData(request);
+            refresh(type);
         }
     };
 
@@ -87,23 +96,122 @@ public class OrderFragment extends Fragment {
         mOrderList.setPullLoadEnable(false);
         mAdapter = new SellerOrderListAdapter(getActivity());
         mOrderList.setAdapter(mAdapter);
+        resetListViewState();
 
-        SellerOrder order = new SellerOrder();
-        order.setTimeStamp(11111L);
-        order.setOrderId("12343545");
-        order.setDeliverId("北京市海淀区西土城路10号");
-        List<SellerOrder> orders = new ArrayList<>();
-        for (int i = 0; i < 3; i++) {
-            orders.add(order);
+        mOrderList.setXListViewListener(new XListView.IXListViewListener() {
+            @Override
+            public void onRefresh() {
+                refresh(type);
+            }
+
+            @Override
+            public void onLoadMore() {
+                loadMore();
+            }
+        });
+
+        mOrder.setOnClickListener(mOnClickListener);
+        mDeliver.setOnClickListener(mOnClickListener);
+        mFinish.setOnClickListener(mOnClickListener);
+
+        if(type == 0){
+            mOrderLine.setVisibility(View.VISIBLE);
+            mDeliverLine.setVisibility(View.GONE);
+            mFinishLine.setVisibility(View.GONE);
+        } else if (type == 1){
+            mOrderLine.setVisibility(View.GONE);
+            mDeliverLine.setVisibility(View.VISIBLE);
+            mFinishLine.setVisibility(View.GONE);
+        } else if (type == 2){
+            mOrderLine.setVisibility(View.GONE);
+            mDeliverLine.setVisibility(View.GONE);
+            mFinishLine.setVisibility(View.VISIBLE);
         }
-        mAdapter.update(orders);
 
         mOrderList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(getActivity(), SellerOrderDetailActivity.class);
+                Order order = mAdapter.getItem(i-1);
+                intent.putExtra("order",order);
                 startActivity(intent);
             }
         });
+    }
+
+    private void resetListViewState() {
+        mOrderList.stopRefresh();
+        mOrderList.stopLoadMore();
+        mOrderList.setAutoLoadEnable(false);
+        mOrderList.setPullRefreshEnable(true);
+        if(!hasNext){
+            mOrderList.setPullLoadEnable(false);
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        refresh(type);
+    }
+
+    private void refresh(int type){
+        page = 1;
+        OrderRepository.instance().getOrderList(type, page)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<List<Order>>(){
+                    @Override
+                    public void onCompleted() {
+                        resetListViewState();
+                    }
+
+                    @Override
+                    public void onError(Throwable throwable) {
+                        resetListViewState();
+                    }
+
+                    @Override
+                    public void onNext(List<Order> orders) {
+                        if(orders == null){
+                            return;
+                        }else {
+                            if(orders.size() < 10){
+                                hasNext = false;
+                            }
+                            mAdapter.update(orders);
+                        }
+                    }
+                });
+    }
+
+    private void loadMore() {
+        page++;
+        OrderRepository.instance().getOrderList(type, page)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<List<Order>>() {
+                    @Override
+                    public void onCompleted() {
+                        resetListViewState();
+                    }
+
+                    @Override
+                    public void onError(Throwable throwable) {
+                        resetListViewState();
+                    }
+
+                    @Override
+                    public void onNext(List<Order> orders) {
+                        if (orders == null) {
+                            return;
+                        } else {
+                            if (orders.size() < 10) {
+                                hasNext = false;
+                            }
+                            mAdapter.add(orders);
+                        }
+                    }
+                });
     }
 }

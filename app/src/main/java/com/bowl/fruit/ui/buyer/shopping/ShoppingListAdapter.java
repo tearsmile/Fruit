@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bowl.fruit.R;
+import com.bowl.fruit.network.entity.shopping.Shopping;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +20,7 @@ import java.util.List;
 
 public class ShoppingListAdapter extends BaseAdapter {
     private Context mContext;
-    private List<ShoppingItem> mData;
+    private List<Shopping> mData;
     int selectSize = 0;
 
     public ShoppingListAdapter(Context context){
@@ -27,13 +28,13 @@ public class ShoppingListAdapter extends BaseAdapter {
         mData = new ArrayList<>();
     }
 
-    public void update(List<ShoppingItem> fruits){
+    public void update(List<Shopping> fruits){
         mData.clear();
         mData.addAll(fruits);
         notifyDataSetChanged();
     }
 
-    public void add(List<ShoppingItem> fruits){
+    public void add(List<Shopping> fruits){
         mData.addAll(fruits);
         notifyDataSetChanged();
     }
@@ -44,7 +45,7 @@ public class ShoppingListAdapter extends BaseAdapter {
     }
 
     public void selectAll(){
-        for (ShoppingItem item : mData) {
+        for (Shopping item : mData) {
             item.setSelect(true);
         }
         selectSize = mData.size();
@@ -52,7 +53,7 @@ public class ShoppingListAdapter extends BaseAdapter {
     }
 
     public void unSelectAll(){
-        for (ShoppingItem item : mData) {
+        for (Shopping item : mData) {
             item.setSelect(false);
         }
         selectSize = 0;
@@ -63,7 +64,7 @@ public class ShoppingListAdapter extends BaseAdapter {
         return selectSize == mData.size();
     }
 
-    public List<ShoppingItem> getData(){
+    public List<Shopping> getData(){
         return mData;
     }
 
@@ -93,7 +94,7 @@ public class ShoppingListAdapter extends BaseAdapter {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        final ShoppingItem fruit = mData.get(position);
+        final Shopping fruit = mData.get(position);
         viewHolder.mName.setText(fruit.getName());
         viewHolder.mDesc.setText(fruit.getDesc());
         viewHolder.mPrice.setText("￥"+fruit.getPrice());

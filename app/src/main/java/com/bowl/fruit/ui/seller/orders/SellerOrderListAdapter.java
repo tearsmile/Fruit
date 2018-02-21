@@ -8,7 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.bowl.fruit.R;
-import com.bowl.fruit.network.entity.order.SellerOrder;
+import com.bowl.fruit.network.entity.order.Order;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,15 +20,20 @@ import java.util.List;
 public class SellerOrderListAdapter extends BaseAdapter {
 
     private Context context;
-    private List<SellerOrder> data;
+    private List<Order> data;
 
     public SellerOrderListAdapter(Context context){
         this.context = context;
         data = new ArrayList<>();
     }
 
-    public void update(List<SellerOrder> orders){
+    public void update(List<Order> orders){
         data.clear();
+        data.addAll(orders);
+        notifyDataSetChanged();
+    }
+
+    public void add(List<Order> orders){
         data.addAll(orders);
         notifyDataSetChanged();
     }
@@ -39,7 +44,7 @@ public class SellerOrderListAdapter extends BaseAdapter {
     }
 
     @Override
-    public Object getItem(int i) {
+    public Order getItem(int i) {
         return data.get(i);
     }
 
@@ -58,7 +63,7 @@ public class SellerOrderListAdapter extends BaseAdapter {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        SellerOrder order = data.get(i);
+        Order order = data.get(i);
         viewHolder.mTime.setText("创建时间：" + "2018-10-12 10:33:23");
         viewHolder.mOrderId.setText("订单号：" + order.getOrderId());
         viewHolder.mDeliverId.setText("收货地址：" + order.getDeliverId());

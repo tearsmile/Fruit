@@ -56,6 +56,7 @@ public class MsgFragment extends Fragment{
     }
 
     private void initViews(View view){
+        mEmpty = view.findViewById(R.id.rl_empty);
         mListView = view.findViewById(R.id.lv_message);
         adapter = new MessageListAdapter(getActivity());
         mListView.setAdapter(adapter);

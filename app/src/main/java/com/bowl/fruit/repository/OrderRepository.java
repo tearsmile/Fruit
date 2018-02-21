@@ -2,6 +2,8 @@ package com.bowl.fruit.repository;
 
 import com.bowl.fruit.network.FruitApi;
 import com.bowl.fruit.network.FruitNetService;
+import com.bowl.fruit.network.entity.BaseResponse;
+import com.bowl.fruit.network.entity.order.Goods;
 import com.bowl.fruit.network.entity.order.Order;
 import com.bowl.fruit.network.entity.order.ResponseOrders;
 
@@ -40,5 +42,16 @@ public class OrderRepository {
                         return null;
                     }
                 });
+    }
+
+    public Observable<BaseResponse> addOrder(List<Goods> goods, double price, double discount){
+        Order order = new Order();
+        order.setOrderId(System.currentTimeMillis()+"");
+        order.setTimeStamp(System.currentTimeMillis());
+        order.setPrice(price);
+        order.setDiscount(discount);
+        order.setGoods(goods);
+        order.setStatus(0);
+        return mApi.addOrder(order);
     }
 }

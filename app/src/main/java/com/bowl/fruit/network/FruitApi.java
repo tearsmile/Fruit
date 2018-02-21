@@ -1,19 +1,24 @@
 package com.bowl.fruit.network;
 
 import com.bowl.fruit.network.entity.BaseResponse;
+import com.bowl.fruit.network.entity.fruit.ResponseFruits;
 import com.bowl.fruit.network.entity.message.ResponseMessage;
 import com.bowl.fruit.network.entity.mine.RequestAddress;
 import com.bowl.fruit.network.entity.mine.ResponseAddress;
-import com.bowl.fruit.network.entity.user.ResponseLogin;
-import com.bowl.fruit.network.entity.fruit.FruitDetailResponse;
-import com.bowl.fruit.network.entity.fruit.ResponseFruits;
+import com.bowl.fruit.network.entity.order.Order;
 import com.bowl.fruit.network.entity.order.ResponseOrderNum;
 import com.bowl.fruit.network.entity.order.ResponseOrders;
+import com.bowl.fruit.network.entity.shopping.RequestAddShopping;
+import com.bowl.fruit.network.entity.shopping.ResponseShopping;
+import com.bowl.fruit.network.entity.user.ResponseLogin;
 import com.bowl.fruit.network.entity.user.User;
 
+import okhttp3.MultipartBody;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 import rx.Observable;
 
 /**
@@ -31,22 +36,35 @@ public interface FruitApi {
     @POST("/fruitList")
     Observable<ResponseFruits> getFruitList(@Field("type") int type, @Field("page") int page);
 
-    @POST("/fruitDetail")
-    Observable<FruitDetailResponse> getFruitDetail(@Field("id") int id);
-
     @POST("/message")
     Observable<ResponseMessage> getMessageList(@Field("userType") int type, @Field("page") int page);
 
     @POST("/address")
     Observable<ResponseAddress> getAddressList(@Field("uid") String uid);
 
+    @POST("/shopping")
+    Observable<ResponseShopping> getShoppingList(@Field("uid") String uid, int page);
+
+    @POST("/addShopping")
+    Observable<BaseResponse> addShopping(@Body RequestAddShopping requestAddShopping);
+
     @POST("/editAddress")
     Observable<BaseResponse> editAddress(@Body RequestAddress requestAddress);
 
-    @POST("/login")
+    @POST("/addOrder")
+    Observable<BaseResponse> addOrder(@Body Order order);
+
+    @POST("/changeOrderStatus")
+    Observable<BaseResponse> changeOrderStatus(@Field("orderId") String orderId, @Field("status") int status, @Field("deliverId") String deliverId);
+
+    @POST("/orderNum")
     Observable<ResponseOrderNum> getOrderNum(@Field("uid") int userId);
 
     @POST("/orderList")
     Observable<ResponseOrders> getOrderList(@Field("type") int type, @Field("page") int page);
+
+    @Multipart
+    @POST("/upload")
+    Observable<BaseResponse> upload(@Part MultipartBody.Part image);
 
 }

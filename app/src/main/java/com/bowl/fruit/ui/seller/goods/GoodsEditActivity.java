@@ -10,10 +10,13 @@ import android.provider.MediaStore;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bowl.fruit.R;
+import com.bowl.fruit.network.entity.fruit.Fruit;
 import com.bowl.fruit.ui.BaseActivity;
 
 import java.io.File;
@@ -35,22 +38,61 @@ public class GoodsEditActivity extends BaseActivity {
 
     private RelativeLayout mSelect;
     private TextView mCancel, mCamera, mAlbum;
-    private int mSelectPosition = -1;
+    private EditText mName, mDesc, mStock, mPrice, mDiscount;
+    private EditText mStandard, mWeight, mLife, mStore;
+    private EditText mDetail;
+    private Button mSave;
 
+    private Fruit fruit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_goods_edit);
+        initIntent();
         initViews();
     }
 
+    private void initIntent(){
+        fruit = (Fruit) getIntent().getSerializableExtra("fruit");
+        if(fruit == null){
+            fruit = new Fruit();
+        }
+    }
+
     private void initViews(){
+        mName = findViewById(R.id.et_name);
+        mDesc = findViewById(R.id.et_desc);
+        mStock = findViewById(R.id.et_stock);
+        mPrice = findViewById(R.id.et_price);
+        mDiscount = findViewById(R.id.et_discount);
+        mStandard = findViewById(R.id.et_standard);
+        mWeight = findViewById(R.id.et_weight);
+        mLife = findViewById(R.id.et_life);
+        mStore = findViewById(R.id.et_store);
+        mDetail = findViewById(R.id.et_detail_desc);
+
+        if(!fruit.getName().equals("")) {
+            mName.setText(fruit.getName());
+            mDesc.setText(fruit.getDesc());
+            mStock.setText(fruit.getStock() + "");
+            mPrice.setText("" + fruit.getPrice());
+            mDiscount.setText(fruit.getDiscount() + "");
+            mStandard.setText(fruit.getStandard());
+            mWeight.setText(fruit.getWeight() + "");
+            mLife.setText(fruit.getLife());
+            mStore.setText(fruit.getStore());
+            mDetail.setText(fruit.getDetailDesc());
+        }
+
+
         mPicList = findViewById(R.id.rv_pic);
         mSelect = findViewById(R.id.rl_select);
         mCancel = findViewById(R.id.tv_cancel);
         mCamera = findViewById(R.id.tv_camera);
         mAlbum = findViewById(R.id.tv_album);
+        
+        mSave = findViewById(R.id.btn_save);
 
         mSelect.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,12 +129,19 @@ public class GoodsEditActivity extends BaseActivity {
             @Override
             public void onItemClick(View view, int index) {
                 if(index == mAdapter.getItemCount() - 1){
-//                    pickPhoto();
                     mSelect.setVisibility(View.VISIBLE);
                 }
             }
         });
         mAdapter.update(new LinkedList<String>());
+        
+        mSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // TODO: 2018/2/21 上传图片及水果信息
+
+            }
+        });
 
     }
 

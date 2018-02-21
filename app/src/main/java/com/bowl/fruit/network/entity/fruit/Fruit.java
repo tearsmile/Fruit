@@ -1,64 +1,116 @@
 package com.bowl.fruit.network.entity.fruit;
 
+import java.io.Serializable;
+import java.util.List;
+
 /**
  * Created by cathy on 2018/2/11.
  */
 
-public class Fruit {
-    private String mName;
-    private String mPic;
-    private double mPrice;
-    private String mDesc;
-    private int mNum;
+public class Fruit implements Serializable {
+
+    private String name;
+    private String desc;
+    private int stock;
+    private double price;
     private double discount;
 
+    private String standard;
+    private int weight;
+    private String life;
+    private String store;
+
+    private String detailDesc;
+    private List<String> pic;
+
+    public Fruit(){
+
+    }
+
     public Fruit(String name, String pic, double price, String desc){
-        mName = name;
-        mPic = pic;
-        mPrice = price;
-        mDesc = desc;
-        mNum = 1;
-        discount = 5;
-    }
-
-    public String getName() {
-        return mName;
-    }
-
-    public void setName(String mName) {
-        this.mName = mName;
-    }
-
-    public String getPic() {
-        return mPic;
-    }
-
-    public void setPic(String mPic) {
-        this.mPic = mPic;
-    }
-
-    public double getPrice() {
-        return mPrice;
-    }
-
-    public void setPrice(double mPrice) {
-        this.mPrice = mPrice;
+        this.name = name;
+        this.price = price;
+        this.desc = desc;
     }
 
     public String getDesc() {
-        return mDesc;
+        return desc;
     }
 
-    public void setDesc(String mDesc) {
-        this.mDesc = mDesc;
+    public void setDesc(String desc) {
+        this.desc = desc;
     }
 
-    public int getNum() {
-        return mNum;
+    public String getName() {
+        return name;
     }
 
-    public void setNum(int mNum) {
-        this.mNum = mNum;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public String getStandard() {
+        return standard;
+    }
+
+    public void setStandard(String standard) {
+        this.standard = standard;
+    }
+
+    public int getWeight() {
+        return weight;
+    }
+
+    public void setWeight(int weight) {
+        this.weight = weight;
+    }
+
+    public String getLife() {
+        return life;
+    }
+
+    public void setLife(String life) {
+        this.life = life;
+    }
+
+    public String getStore() {
+        return store;
+    }
+
+    public void setStore(String store) {
+        this.store = store;
+    }
+
+    public String getDetailDesc() {
+        return detailDesc;
+    }
+
+    public void setDetailDesc(String detailDesc) {
+        this.detailDesc = detailDesc;
+    }
+
+    public List<String> getPic() {
+        return pic;
+    }
+
+    public void setPic(List<String> pic) {
+        this.pic = pic;
+    }
+
+    public int getStock() {
+        return stock;
+    }
+
+    public void setStock(int stock) {
+        this.stock = stock;
     }
 
     public double getDiscount() {

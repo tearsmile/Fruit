@@ -44,7 +44,6 @@ public class HomeFragment extends BaseFragment {
         View view = inflater.inflate(R.layout.frag_fruit_list,null);
         initTitle(view);
         initViews(view);
-        requestPage();
         return view;
     }
 
@@ -102,6 +101,7 @@ public class HomeFragment extends BaseFragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(getActivity(), FruitDetailActivity.class);
+                intent.putExtra("fruit",mAdapter.getItem(position-1));
                 getActivity().startActivity(intent);
             }
         });
@@ -116,6 +116,20 @@ public class HomeFragment extends BaseFragment {
         mListView.setPullRefreshEnable(true);
         if(!hasNext){
             mListView.setPullLoadEnable(false);
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        requestPage();
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if(!hidden){
+            requestPage();
         }
     }
 

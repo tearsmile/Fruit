@@ -1,6 +1,7 @@
 package com.bowl.fruit.ui.buyer.fruit;
 
 import android.content.Context;
+import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,7 +46,7 @@ public class FruitListAdapter extends BaseAdapter {
     }
 
     @Override
-    public Object getItem(int position) {
+    public Fruit getItem(int position) {
         return mData.get(position);
     }
 
@@ -69,17 +70,25 @@ public class FruitListAdapter extends BaseAdapter {
         viewHolder.mName.setText(fruit.getName());
         viewHolder.mDesc.setText(fruit.getDesc());
         viewHolder.mPrice.setText("￥"+fruit.getPrice());
+        viewHolder.mOriginPrice.getPaint().setFlags(Paint. STRIKE_THRU_TEXT_FLAG);
+        if(fruit.getDiscount() <= 0.1){
+            viewHolder.mOriginPrice.setVisibility(View.GONE);
+        } else {
+            viewHolder.mOriginPrice.setVisibility(View.VISIBLE);
+            viewHolder.mOriginPrice.setText("原价:￥" + (fruit.getPrice()+ fruit.getDiscount()));
+        }
         return convertView;
     }
 
     private class ViewHolder{
         ImageView mPic;
-        TextView mName, mPrice, mDesc;
+        TextView mName, mPrice, mDesc, mOriginPrice;
 
         ViewHolder(View view){
             mPic = view.findViewById(R.id.iv_fruit);
             mName = view.findViewById(R.id.tv_name);
             mPrice = view.findViewById(R.id.tv_price);
+            mOriginPrice = view.findViewById(R.id.tv_price_origin);
             mDesc = view.findViewById(R.id.tv_desc);
         }
     }

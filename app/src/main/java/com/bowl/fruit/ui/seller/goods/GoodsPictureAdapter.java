@@ -43,6 +43,10 @@ public class GoodsPictureAdapter extends RecyclerView.Adapter<GoodsPictureAdapte
         notifyDataSetChanged();
     }
 
+    public List<String> getData(){
+        return mUrls;
+    }
+
     public void setOnItemClickListener(OnItemClickListener listener) {
         mOnItemClick = listener;
     }

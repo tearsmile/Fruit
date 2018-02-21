@@ -14,12 +14,16 @@ import android.widget.TextView;
 
 import com.bowl.fruit.R;
 import com.bowl.fruit.network.entity.fruit.Fruit;
+import com.bowl.fruit.repository.FruitRepository;
 import com.bowl.fruit.ui.seller.goods.GoodsEditActivity;
 import com.bowl.fruit.ui.seller.goods.GoodsListAdapter;
 import com.bowl.fruit.ui.widget.XListView;
 
-import java.util.ArrayList;
 import java.util.List;
+
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by CJ on 2018/2/14.
@@ -31,6 +35,9 @@ public class GoodsFragment extends Fragment{
     private GoodsListAdapter mAdapter;
     private RelativeLayout mSelect;
     private TextView mCancel, mEdit, mDelete;
+    private int mSelectPosition = -1;
+    private int page = 1;
+    private boolean hasNext = true;
 
     @Nullable
     @Override
@@ -69,6 +76,21 @@ public class GoodsFragment extends Fragment{
         mAdapter = new GoodsListAdapter(getActivity());
         mGoodsList.setAdapter(mAdapter);
 
+        mGoodsList.setPullRefreshEnable(true);
+        mGoodsList.setPullLoadEnable(true);
+        mGoodsList.setAutoLoadEnable(false);
+        mGoodsList.setXListViewListener(new XListView.IXListViewListener() {
+            @Override
+            public void onRefresh() {
+                requestPage();
+            }
+
+            @Override
+            public void onLoadMore() {
+                requestNextPage();
+            }
+        });
+
         mSelect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -87,7 +109,7 @@ public class GoodsFragment extends Fragment{
             public void onClick(View view) {
                 mSelect.setVisibility(View.GONE);
                 Intent intent = new Intent(getActivity(), GoodsEditActivity.class);
-
+                intent.putExtra("fruit",mAdapter.getItem(mSelectPosition -1));
                 startActivity(intent);
             }
         });
@@ -98,22 +120,88 @@ public class GoodsFragment extends Fragment{
             }
         });
 
-
-        List<Fruit> fruits = new ArrayList<>();
-        Fruit f = new Fruit("智利蓝莓125g*1盒", "", 12.9, "这么好的蓝莓 都想留给你吃");
-        for (int i = 0; i < 5; i++) {
-            fruits.add(f);
-        }
-
-        mAdapter.update(fruits);
         mGoodsList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
                 mSelect.setVisibility(View.VISIBLE);
-//                Intent intent = new Intent(getActivity(), GoodsEditActivity.class);
-//                startActivity(intent);
+                mSelectPosition = i;
                 return true;
             }
         });
+    }
+
+    private void resetListViewState() {
+        mGoodsList.stopRefresh();
+        mGoodsList.stopLoadMore();
+        mGoodsList.setPullRefreshEnable(true);
+        if(!hasNext){
+            mGoodsList.setPullLoadEnable(false);
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        requestPage();
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if(!hidden){
+            requestPage();
+        }
+    }
+
+    private void requestPage(){
+        page = 1;
+        FruitRepository.instance().getList(0,page)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<List<Fruit>>() {
+                    @Override
+                    public void onCompleted() {
+                        resetListViewState();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        resetListViewState();
+                    }
+
+                    @Override
+                    public void onNext(List<Fruit> fruits) {
+                        mAdapter.update(fruits);
+                        if(fruits.size() < 5){
+                            hasNext = false;
+                        }
+                    }
+                });
+    }
+
+    private void requestNextPage(){
+        page++;
+        FruitRepository.instance().getList(0,page)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<List<Fruit>>() {
+                    @Override
+                    public void onCompleted() {
+                        resetListViewState();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        resetListViewState();
+                    }
+
+                    @Override
+                    public void onNext(List<Fruit> fruits) {
+                        mAdapter.add(fruits);
+                        if(fruits.size() < 5){
+                            hasNext = false;
+                        }
+                    }
+                });
     }
 }
