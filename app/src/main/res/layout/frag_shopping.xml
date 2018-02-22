@@ -46,7 +46,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@id/tv_sum"
-                android:text="￥12.9"
+                android:text="￥0.0"
                 android:textSize="@dimen/normalSize"
                 android:textColor="@color/mainColor"/>
         </RelativeLayout>

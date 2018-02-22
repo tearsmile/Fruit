@@ -53,7 +53,7 @@ public class HomeFragment extends BaseFragment {
         TextView mRight= view.findViewById(R.id.rightBtn);
 
         mBack.setVisibility(View.GONE);
-        mRight.setVisibility(View.VISIBLE);
+        mRight.setVisibility(View.GONE);
 
         mTitle.setText("商品列表");
         mRight.setText("搜索");

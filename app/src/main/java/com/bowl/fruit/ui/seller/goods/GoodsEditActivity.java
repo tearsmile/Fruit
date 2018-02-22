@@ -14,14 +14,23 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bowl.fruit.R;
+import com.bowl.fruit.network.FruitNetService;
+import com.bowl.fruit.network.entity.BaseResponse;
 import com.bowl.fruit.network.entity.fruit.Fruit;
 import com.bowl.fruit.ui.BaseActivity;
+import com.bowl.fruit.ui.widget.TransparentLoadingDialog;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.LinkedList;
+
+import rx.Observable;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Func1;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by CJ on 2018/2/14.
@@ -42,6 +51,7 @@ public class GoodsEditActivity extends BaseActivity {
     private EditText mStandard, mWeight, mLife, mStore;
     private EditText mDetail;
     private Button mSave;
+    private TransparentLoadingDialog mDialog;
 
     private Fruit fruit;
 
@@ -94,6 +104,8 @@ public class GoodsEditActivity extends BaseActivity {
         
         mSave = findViewById(R.id.btn_save);
 
+        mDialog = new TransparentLoadingDialog(this,R.style.transparentDialog);
+
         mSelect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -138,8 +150,101 @@ public class GoodsEditActivity extends BaseActivity {
         mSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // TODO: 2018/2/21 上传图片及水果信息
+                mDialog.show();
+                Observable.just("")
+                        .map(new Func1<String, Fruit>() {
+                            @Override
+                            public Fruit call(String s) {
+                                Uploader uploader = new Uploader(mAdapter.getData());
+                                uploader.startUpload();
+                                Fruit f = new Fruit();
+                                f.setName(mName.getText().toString());
+                                f.setDesc(mDesc.getText().toString());
+                                f.setStock(Integer.parseInt(mStock.getText().toString()));
+                                f.setPrice(Double.parseDouble(mPrice.getText().toString()));
+                                f.setDiscount(Double.parseDouble(mDiscount.getText().toString()));
+                                f.setStandard(mStandard.getText().toString());
+                                f.setWeight(Integer.parseInt(mWeight.getText().toString()));
+                                f.setLife(mLife.getText().toString());
+                                f.setStore(mStore.getText().toString());
+                                f.setDetailDesc(mDetail.getText().toString());
+                                f.setPic(uploader.getServerUrls());
+                                return f;
+                            }
+                        })
+                        .flatMap(new Func1<Fruit, Observable<BaseResponse>>() {
+                            @Override
+                            public Observable<BaseResponse> call(Fruit fruit) {
+                                return FruitNetService.getInstance().getFruitApi()
+                                        .editFruit(fruit);
+                            }
+                        })
+//                        .map(new Func1<Fruit, Boolean>() {
+//                            @Override
+//                            public Boolean call(Fruit fruit) {
+//                                FruitNetService.getInstance().getFruitApi()
+//                                        .editFruit(fruit)
+//                                        .subscribe(new Subscriber<BaseResponse>() {
+//                                            @Override
+//                                            public void onCompleted() {
+//
+//                                            }
+//
+//                                            @Override
+//                                            public void onError(Throwable e) {
+//
+//                                            }
+//
+//                                            @Override
+//                                            public void onNext(BaseResponse baseResponse) {
+//                                                res = baseResponse.getCode() == 0;
+//                                            }
+//                                        });
+//                                return res;
+//                            }
+//                        })
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new BaseSafeSubscriber<BaseResponse>(){
+                            @Override
+                            public void onCompleted() {
+                                super.onCompleted();
+                            }
 
+                            @Override
+                            public void onError(Throwable throwable) {
+                                super.onError(throwable);
+                            }
+
+                            @Override
+                            public void onNext(BaseResponse baseResponse) {
+                                super.onNext(baseResponse);
+                                if(baseResponse.getCode() == 0){
+                                    Toast.makeText(GoodsEditActivity.this,"保存成功",Toast.LENGTH_LONG).show();
+                                }
+                            }
+                        });
+//                        .subscribe(new BaseSafeSubscriber<Boolean>(){
+//                            @Override
+//                            public void onCompleted() {
+//                                super.onCompleted();
+//                                mDialog.dismiss();
+//                            }
+//
+//                            @Override
+//                            public void onError(Throwable throwable) {
+//                                super.onError(throwable);
+//                                mDialog.dismiss();
+//                            }
+//
+//                            @Override
+//                            public void onNext(Boolean s) {
+//                                super.onNext(s);
+//                                if(s){
+//                                    Toast.makeText(GoodsEditActivity.this,"保存成功",Toast.LENGTH_LONG).show();
+//                                }
+//                            }
+//                        });
             }
         });
 

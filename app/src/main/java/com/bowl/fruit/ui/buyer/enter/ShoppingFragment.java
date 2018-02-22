@@ -39,7 +39,7 @@ public class ShoppingFragment extends Fragment {
     private ShoppingListAdapter mAdapter;
     private ImageView mSelectAll;
     private RelativeLayout mSelect;
-    private TextView mCancel, mDelete;
+    private TextView mCancel, mDelete, mSum;
     private int mSelectPosition = -1;
     private int page = 1;
     private boolean hasNext = true;
@@ -69,6 +69,7 @@ public class ShoppingFragment extends Fragment {
         mCancel = view.findViewById(R.id.tv_cancel);
         mDelete = view.findViewById(R.id.tv_delete);
         mSettle = view.findViewById(R.id.tv_settle);
+        mSum = view.findViewById(R.id.tv_price);
 
         mListView = view.findViewById(R.id.lv_shopping);
         mListView.setPullRefreshEnable(true);
@@ -87,6 +88,12 @@ public class ShoppingFragment extends Fragment {
             }
         });
         mAdapter = new ShoppingListAdapter(getActivity());
+        mAdapter.setSelectChangeListener(new ShoppingListAdapter.SelectChangeListener() {
+            @Override
+            public void onSelectChange() {
+                mSum.setText("￥"+mAdapter.getPrice());
+            }
+        });
         mListView.setAdapter(mAdapter);
 
         mListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
@@ -135,6 +142,7 @@ public class ShoppingFragment extends Fragment {
                     mSelectAll.setImageResource(R.drawable.icon_selected);
                     mAdapter.selectAll();
                 }
+                mSum.setText("￥"+mAdapter.getPrice());
             }
         });
 

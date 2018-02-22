@@ -1,6 +1,8 @@
 package com.bowl.fruit.network;
 
 import com.bowl.fruit.network.entity.BaseResponse;
+import com.bowl.fruit.network.entity.fruit.Fruit;
+import com.bowl.fruit.network.entity.fruit.ResponseEditFruit;
 import com.bowl.fruit.network.entity.fruit.ResponseFruits;
 import com.bowl.fruit.network.entity.message.ResponseMessage;
 import com.bowl.fruit.network.entity.mine.RequestAddress;
@@ -58,13 +60,16 @@ public interface FruitApi {
     Observable<BaseResponse> changeOrderStatus(@Field("orderId") String orderId, @Field("status") int status, @Field("deliverId") String deliverId);
 
     @POST("/orderNum")
-    Observable<ResponseOrderNum> getOrderNum(@Field("uid") int userId);
+    Observable<ResponseOrderNum> getOrderNum(@Field("uid") String userId);
 
     @POST("/orderList")
     Observable<ResponseOrders> getOrderList(@Field("type") int type, @Field("page") int page);
 
     @Multipart
     @POST("/upload")
-    Observable<BaseResponse> upload(@Part MultipartBody.Part image);
+    Observable<ResponseEditFruit> upload(@Part MultipartBody.Part image);
+
+    @POST("/editFruit")
+    Observable<BaseResponse> editFruit(@Body Fruit fruit);
 
 }

@@ -2,6 +2,7 @@ package com.bowl.fruit.network;
 
 import com.bowl.fruit.network.entity.BaseResponse;
 import com.bowl.fruit.network.entity.fruit.Fruit;
+import com.bowl.fruit.network.entity.fruit.ResponseEditFruit;
 import com.bowl.fruit.network.entity.fruit.ResponseFruits;
 import com.bowl.fruit.network.entity.message.Message;
 import com.bowl.fruit.network.entity.message.ResponseMessage;
@@ -131,8 +132,14 @@ public class MockFruitApi implements FruitApi {
     }
 
     @Override
-    public Observable<ResponseOrderNum> getOrderNum(int userId) {
-        return null;
+    public Observable<ResponseOrderNum> getOrderNum(String userId) {
+        ResponseOrderNum orderNum = new ResponseOrderNum();
+        List<Integer> nums = new ArrayList<>();
+        nums.add(1);
+        nums.add(3);
+        nums.add(2);
+        orderNum.setNums(nums);
+        return delegate.returningResponse(orderNum).getOrderNum(userId);
     }
 
     @Override
@@ -150,7 +157,12 @@ public class MockFruitApi implements FruitApi {
     }
 
     @Override
-    public Observable<BaseResponse> upload(MultipartBody.Part image) {
+    public Observable<ResponseEditFruit> upload(MultipartBody.Part image) {
         return delegate.returningResponse(new BaseResponse()).upload(image);
+    }
+
+    @Override
+    public Observable<BaseResponse> editFruit(Fruit fruit) {
+        return delegate.returningResponse(new BaseResponse()).editFruit(fruit);
     }
 }

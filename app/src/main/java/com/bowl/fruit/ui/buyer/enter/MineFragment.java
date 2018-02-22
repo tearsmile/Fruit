@@ -12,10 +12,18 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bowl.fruit.R;
+import com.bowl.fruit.network.FruitNetService;
+import com.bowl.fruit.network.entity.order.ResponseOrderNum;
 import com.bowl.fruit.preference.PreferenceDao;
 import com.bowl.fruit.ui.AboutActivity;
 import com.bowl.fruit.ui.buyer.mine.AddressActivity;
 import com.bowl.fruit.ui.buyer.order.OrderListActivity;
+
+import java.util.List;
+
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by cathy on 2018/2/11.
@@ -27,6 +35,7 @@ public class MineFragment extends Fragment {
     private TextView mOrderAll, mUserName;
     private RelativeLayout mAddress, mAbout;
     private RelativeLayout mOrder, mDeliver, mFinish;
+    private TextView mOrderedNum, mDeliverNum, mFinishNum;
 
     @Nullable
     @Override
@@ -40,6 +49,10 @@ public class MineFragment extends Fragment {
         mOrder = view.findViewById(R.id.rl_order_ready);
         mDeliver = view.findViewById(R.id.rl_deliver);
         mFinish = view.findViewById(R.id.rl_finish);
+
+        mOrderedNum = view.findViewById(R.id.tv_ordered);
+        mDeliverNum = view.findViewById(R.id.tv_deliver);
+        mFinishNum = view.findViewById(R.id.tv_finish);
 
         mMineBg = view.findViewById(R.id.iv_bg);
         mUserName = view.findViewById(R.id.tv_user_name);
@@ -125,5 +138,47 @@ public class MineFragment extends Fragment {
 //                    }
 //                });
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        refreshOrderNum();
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if(!hidden){
+            refreshOrderNum();
+        }
+    }
+
+    private void refreshOrderNum(){
+        FruitNetService.getInstance().getFruitApi()
+                .getOrderNum(PreferenceDao.getInstance().getString("key_login_user_id",""))
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<ResponseOrderNum>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onNext(ResponseOrderNum responseOrderNum) {
+                        if(responseOrderNum.getCode() == 0){
+                            List<Integer> nums = responseOrderNum.getNums();
+                            mOrderedNum.setText("已下单("+nums.get(0)+")");
+                            mDeliverNum.setText("配送中("+nums.get(1)+")");
+                            mFinishNum.setText("已完成("+nums.get(2)+")");
+                        }
+                    }
+                });
     }
 }

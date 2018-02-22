@@ -21,7 +21,17 @@ import java.util.List;
 public class ShoppingListAdapter extends BaseAdapter {
     private Context mContext;
     private List<Shopping> mData;
-    int selectSize = 0;
+    private int selectSize = 0;
+    private double price = 0;
+    private SelectChangeListener mListener;
+
+    public interface SelectChangeListener{
+        void onSelectChange();
+    }
+
+    public void setSelectChangeListener(SelectChangeListener listener){
+        mListener = listener;
+    }
 
     public ShoppingListAdapter(Context context){
         mContext = context;
@@ -45,8 +55,10 @@ public class ShoppingListAdapter extends BaseAdapter {
     }
 
     public void selectAll(){
+        price = 0;
         for (Shopping item : mData) {
             item.setSelect(true);
+            price += item.getPrice();
         }
         selectSize = mData.size();
         notifyDataSetChanged();
@@ -57,6 +69,7 @@ public class ShoppingListAdapter extends BaseAdapter {
             item.setSelect(false);
         }
         selectSize = 0;
+        price = 0;
         notifyDataSetChanged();
     }
 
@@ -66,6 +79,10 @@ public class ShoppingListAdapter extends BaseAdapter {
 
     public List<Shopping> getData(){
         return mData;
+    }
+
+    public double getPrice(){
+        return price;
     }
 
     @Override
@@ -111,12 +128,17 @@ public class ShoppingListAdapter extends BaseAdapter {
             public void onClick(View view) {
                 if(fruit.isSelect()){
                     selectSize--;
+                    price -= fruit.getPrice();
                     fruit.setSelect(false);
                     viewHolder.mSelect.setImageResource(R.drawable.icon_select);
                 }else {
                     selectSize++;
+                    price += fruit.getPrice();
                     fruit.setSelect(true);
                     viewHolder.mSelect.setImageResource(R.drawable.icon_selected);
+                }
+                if(mListener != null){
+                    mListener.onSelectChange();
                 }
             }
         });

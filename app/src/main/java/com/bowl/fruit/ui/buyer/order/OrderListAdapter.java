@@ -8,12 +8,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bowl.fruit.R;
+import com.bowl.fruit.network.FruitNetService;
+import com.bowl.fruit.network.entity.BaseResponse;
 import com.bowl.fruit.network.entity.order.Order;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by cathy on 2018/2/12.
@@ -66,7 +73,7 @@ public class OrderListAdapter extends BaseAdapter {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        Order order = mData.get(position);
+        final Order order = mData.get(position);
 
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false);
         viewHolder.mRecycler.setLayoutManager(mLayoutManager);
@@ -87,6 +94,40 @@ public class OrderListAdapter extends BaseAdapter {
             viewHolder.mHandle.setTextColor(mContext.getResources().getColor(R.color.halfBlack));
             viewHolder.mHandle.setBackground(null);
         }
+
+        viewHolder.mHandle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int status = 0;
+                switch (order.getStatus()){
+                    case 0:
+                        status = -1;
+                        break;
+                    default:
+                        status++;
+                        break;
+                }
+                FruitNetService.getInstance().getFruitApi().changeOrderStatus(order.getOrderId(),status,"")
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new Subscriber<BaseResponse>(){
+                            @Override
+                            public void onCompleted() {
+                            }
+
+                            @Override
+                            public void onError(Throwable throwable) {
+                            }
+
+                            @Override
+                            public void onNext(BaseResponse baseResponse) {
+                                if(baseResponse.getCode() == 0){
+                                    Toast.makeText(mContext,"操作成功",Toast.LENGTH_LONG).show();
+                                }
+                            }
+                        });
+            }
+        });
 
         viewHolder.mOrderId.setText("订单号:" + order.getOrderId());
         if(order.getStatus() == 0) {

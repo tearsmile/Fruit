@@ -8,14 +8,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bowl.fruit.R;
 import com.bowl.fruit.network.entity.order.Order;
+import com.bowl.fruit.preference.PreferenceDao;
 import com.bowl.fruit.repository.OrderRepository;
+import com.bowl.fruit.ui.ActivityHelper;
 import com.bowl.fruit.ui.seller.orders.SellerOrderDetailActivity;
 import com.bowl.fruit.ui.seller.orders.SellerOrderListAdapter;
+import com.bowl.fruit.ui.user.LoginActivity;
 import com.bowl.fruit.ui.widget.XListView;
 
 import java.util.List;
@@ -29,6 +33,11 @@ import rx.schedulers.Schedulers;
  */
 
 public class OrderFragment extends Fragment {
+
+    private static final String KEY_LOGIN = "key_login";
+    private static final String KEY_LOGIN_TYPE = "key_login_type";
+    private static final String KEY_LOGIN_USER_NAME = "key_login_user_name";
+    private static final String KEY_LOGIN_USER_ID = "key_login_user_id";
 
     private XListView mOrderList;
     private SellerOrderListAdapter mAdapter;
@@ -75,8 +84,33 @@ public class OrderFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.frag_order,null);
+        initTitle(view);
         initViews(view);
         return view;
+    }
+
+    private void initTitle(View view){
+        ImageView mBack = view.findViewById(R.id.backBtn);
+        TextView mTitle = view.findViewById(R.id.title);
+        TextView mRight= view.findViewById(R.id.rightBtn);
+
+        mBack.setVisibility(View.GONE);
+        mRight.setVisibility(View.VISIBLE);
+
+        mTitle.setText("订单");
+        mRight.setText("退出登录");
+        mRight.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), LoginActivity.class);
+                PreferenceDao.getInstance().putBoolean(KEY_LOGIN,false);
+                PreferenceDao.getInstance().putString(KEY_LOGIN_USER_NAME,"");
+                PreferenceDao.getInstance().putString(KEY_LOGIN_USER_ID,"");
+                PreferenceDao.getInstance().putInt(KEY_LOGIN_TYPE,-1);
+                startActivity(intent);
+                ActivityHelper.exitAll();
+            }
+        });
     }
 
     private void initViews(View view){
