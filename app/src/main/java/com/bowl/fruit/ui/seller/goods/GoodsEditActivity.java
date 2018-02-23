@@ -12,6 +12,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -60,6 +61,7 @@ public class GoodsEditActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_goods_edit);
         initIntent();
+        initTitle();
         initViews();
     }
 
@@ -68,6 +70,23 @@ public class GoodsEditActivity extends BaseActivity {
         if(fruit == null){
             fruit = new Fruit();
         }
+    }
+
+    private void initTitle(){
+        ImageView mBack = findViewById(R.id.backBtn);
+        TextView mTitle = findViewById(R.id.title);
+        TextView mRight= findViewById(R.id.rightBtn);
+
+        mBack.setVisibility(View.VISIBLE);
+        mRight.setVisibility(View.GONE);
+
+        mTitle.setText("商品发布");
+        mBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
     }
 
     private void initViews(){

@@ -7,6 +7,7 @@ import com.bowl.fruit.network.entity.fruit.Fruit;
  */
 
 public class Shopping {
+    private String id;
     private String name;
     private String desc;
     private double price;
@@ -29,6 +30,14 @@ public class Shopping {
         discount = fruit.getDiscount();
         num = 1;
 //        pic = fruit.getPic().get(0);
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getName() {

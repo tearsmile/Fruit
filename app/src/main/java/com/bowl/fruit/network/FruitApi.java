@@ -50,6 +50,10 @@ public interface FruitApi {
     @POST("/addShopping")
     Observable<BaseResponse> addShopping(@Body RequestAddShopping requestAddShopping);
 
+    @POST("/deleteShopping")
+    Observable<BaseResponse> deleteShopping(@Field("shoppingId") String id);
+
+
     @POST("/editAddress")
     Observable<BaseResponse> editAddress(@Body RequestAddress requestAddress);
 

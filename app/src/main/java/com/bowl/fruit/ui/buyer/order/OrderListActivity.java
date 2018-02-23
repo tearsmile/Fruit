@@ -3,6 +3,7 @@ package com.bowl.fruit.ui.buyer.order;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -69,11 +70,31 @@ public class OrderListActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_list);
         initIntent();
+        initTitle();
         initViews();
     }
 
     private void initIntent(){
         type = getIntent().getIntExtra("type",0);
+    }
+
+    private void initTitle(){
+        ImageView mBack = findViewById(R.id.backBtn);
+        TextView mTitle = findViewById(R.id.title);
+        TextView mRight= findViewById(R.id.rightBtn);
+
+        mBack.setVisibility(View.VISIBLE);
+        mRight.setVisibility(View.GONE);
+
+        mTitle.setText("订单列表");
+        mRight.setText("添加");
+
+        mBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
     }
 
     private void initViews(){

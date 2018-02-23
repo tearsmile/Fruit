@@ -106,6 +106,7 @@ class LoginActivity: BaseActivity() {
                 intent.setClass(this@LoginActivity, BuyerActivity::class.java)
             }
             startActivity(intent)
+            finish()
         }
     }
 }

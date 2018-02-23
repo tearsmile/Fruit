@@ -117,6 +117,11 @@ public class MockFruitApi implements FruitApi {
     }
 
     @Override
+    public Observable<BaseResponse> deleteShopping(String id) {
+        return delegate.returningResponse(new BaseResponse()).deleteShopping(id);
+    }
+
+    @Override
     public Observable<BaseResponse> editAddress(RequestAddress requestAddress) {
         return delegate.returningResponse(new BaseResponse()).editAddress(requestAddress);
     }

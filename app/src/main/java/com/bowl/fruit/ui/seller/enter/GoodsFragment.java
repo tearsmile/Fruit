@@ -50,11 +50,13 @@ public class GoodsFragment extends Fragment{
 
     private void initTitle(View view){
         ImageView mBack = view.findViewById(R.id.backBtn);
+        TextView mTitle = view.findViewById(R.id.title);
         TextView mRight = view.findViewById(R.id.rightBtn);
 
         mBack.setVisibility(View.GONE);
         mRight.setVisibility(View.VISIBLE);
 
+        mTitle.setText("商品列表");
         mRight.setText("添加");
         mRight.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bowl.fruit.R;
@@ -28,7 +30,26 @@ public class AddressEditActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_address_edit);
+        initTitle();
         initViews();
+    }
+
+    private void initTitle(){
+        ImageView mBack = findViewById(R.id.backBtn);
+        TextView mTitle = findViewById(R.id.title);
+        TextView mRight= findViewById(R.id.rightBtn);
+
+        mBack.setVisibility(View.VISIBLE);
+        mRight.setVisibility(View.GONE);
+
+        mTitle.setText("编辑地址");
+
+        mBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
     }
 
     private void initViews(){

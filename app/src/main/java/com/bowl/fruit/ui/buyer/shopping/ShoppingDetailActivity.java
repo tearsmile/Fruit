@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -46,6 +47,7 @@ public class ShoppingDetailActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shopping_detail);
         initIntent();
+        initTitle();
         initViews();
     }
 
@@ -67,6 +69,25 @@ public class ShoppingDetailActivity extends BaseActivity {
             ((TextView)findViewById(R.id.tv_pay)).setText("￥"+pay);
             ((TextView)findViewById(R.id.tv_price)).setText("￥"+pay);
         }
+    }
+
+    private void initTitle(){
+        ImageView mBack = findViewById(R.id.backBtn);
+        TextView mTitle = findViewById(R.id.title);
+        TextView mRight= findViewById(R.id.rightBtn);
+
+        mBack.setVisibility(View.VISIBLE);
+        mRight.setVisibility(View.GONE);
+
+        mTitle.setText("立即下单");
+        mRight.setText("添加");
+
+        mBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
     }
 
     private void initViews(){

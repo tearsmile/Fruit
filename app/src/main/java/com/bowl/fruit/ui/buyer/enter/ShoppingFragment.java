@@ -11,8 +11,11 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bowl.fruit.R;
+import com.bowl.fruit.network.FruitNetService;
+import com.bowl.fruit.network.entity.BaseResponse;
 import com.bowl.fruit.network.entity.order.Goods;
 import com.bowl.fruit.network.entity.shopping.Shopping;
 import com.bowl.fruit.preference.PreferenceDao;
@@ -156,7 +159,30 @@ public class ShoppingFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 mSelect.setVisibility(View.GONE);
-                mAdapter.remove(mSelectPosition);
+                FruitNetService.getInstance().getFruitApi()
+                        .deleteShopping(mAdapter.getItem(mSelectPosition).getId())
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new Subscriber<BaseResponse>() {
+                            @Override
+                            public void onCompleted() {
+
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+
+                            }
+
+                            @Override
+                            public void onNext(BaseResponse baseResponse) {
+                                if(baseResponse.getCode() == 0){
+                                    Toast.makeText(getActivity(),"删除成功",Toast.LENGTH_LONG).show();
+                                    mAdapter.remove(mSelectPosition);
+                                }
+                            }
+                        });
+
             }
         });
 

@@ -42,12 +42,18 @@ public class AddressActivity extends BaseActivity {
         TextView mTitle = findViewById(R.id.title);
         TextView mRight= findViewById(R.id.rightBtn);
 
-        mBack.setVisibility(View.GONE);
+        mBack.setVisibility(View.VISIBLE);
         mRight.setVisibility(View.VISIBLE);
 
         mTitle.setText("收货地址");
         mRight.setText("添加");
 
+        mBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
         mRight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

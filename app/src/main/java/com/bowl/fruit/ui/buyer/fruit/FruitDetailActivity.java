@@ -44,11 +44,29 @@ public class FruitDetailActivity extends BaseActivity {
         setContentView(R.layout.activity_fruit_detail);
         initIntent();
         initViews();
+        initTitle();
         initData();
     }
 
     private void initIntent(){
         fruit = (Fruit) getIntent().getSerializableExtra("fruit");
+    }
+
+    private void initTitle(){
+        ImageView mBack = findViewById(R.id.backBtn);
+        TextView mTitle = findViewById(R.id.title);
+        TextView mRight= findViewById(R.id.rightBtn);
+
+        mBack.setVisibility(View.VISIBLE);
+        mRight.setVisibility(View.GONE);
+
+        mTitle.setText("商品详情");
+        mBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
     }
 
     private void initViews(){

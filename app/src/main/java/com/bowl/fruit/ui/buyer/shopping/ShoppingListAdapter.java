@@ -91,7 +91,7 @@ public class ShoppingListAdapter extends BaseAdapter {
     }
 
     @Override
-    public Object getItem(int position) {
+    public Shopping getItem(int position) {
         return mData.get(position);
     }
 

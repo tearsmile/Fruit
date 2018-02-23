@@ -51,7 +51,7 @@ public class MsgFragment extends Fragment{
         mBack.setVisibility(View.GONE);
         mRight.setVisibility(View.VISIBLE);
 
-        mTitle.setText("消息列表");
+        mTitle.setText("消息中心");
 //        mRight.setText("发布");
     }
 
