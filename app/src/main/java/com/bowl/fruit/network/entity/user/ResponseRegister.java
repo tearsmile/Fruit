@@ -7,4 +7,13 @@ import com.bowl.fruit.network.entity.BaseResponse;
  */
 
 public class ResponseRegister extends BaseResponse {
+    private String uid;
+
+    public String getId() {
+        return uid;
+    }
+
+    public void setId(String id) {
+        this.uid = id;
+    }
 }

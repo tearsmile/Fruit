@@ -13,11 +13,13 @@ import com.bowl.fruit.network.entity.order.ResponseOrders;
 import com.bowl.fruit.network.entity.shopping.RequestAddShopping;
 import com.bowl.fruit.network.entity.shopping.ResponseShopping;
 import com.bowl.fruit.network.entity.user.ResponseLogin;
+import com.bowl.fruit.network.entity.user.ResponseRegister;
 import com.bowl.fruit.network.entity.user.User;
 
 import okhttp3.MultipartBody;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
@@ -29,12 +31,13 @@ import rx.Observable;
 
 public interface FruitApi {
 
-    @POST("/login")
+    @POST("/users/login")
     Observable<ResponseLogin> login(@Body User user);
 
-    @POST("/register")
-    Observable<BaseResponse> register(@Body User user);
+    @POST("/users/register")
+    Observable<ResponseRegister> register(@Body User user);
 
+    @FormUrlEncoded
     @POST("/fruitList")
     Observable<ResponseFruits> getFruitList(@Field("type") int type, @Field("page") int page);
 

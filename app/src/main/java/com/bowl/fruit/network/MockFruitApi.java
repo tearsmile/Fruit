@@ -17,6 +17,7 @@ import com.bowl.fruit.network.entity.shopping.RequestAddShopping;
 import com.bowl.fruit.network.entity.shopping.ResponseShopping;
 import com.bowl.fruit.network.entity.shopping.Shopping;
 import com.bowl.fruit.network.entity.user.ResponseLogin;
+import com.bowl.fruit.network.entity.user.ResponseRegister;
 import com.bowl.fruit.network.entity.user.User;
 
 import java.util.ArrayList;
@@ -48,8 +49,8 @@ public class MockFruitApi implements FruitApi {
     }
 
     @Override
-    public Observable<BaseResponse> register(User user) {
-        return delegate.returningResponse(new BaseResponse()).register(user);
+    public Observable<ResponseRegister> register(User user) {
+        return delegate.returningResponse(new ResponseRegister()).register(user);
     }
 
     @Override
