@@ -9,6 +9,7 @@ import java.util.List;
 
 public class Fruit implements Serializable {
 
+    private String _id;
     private String name;
     private String desc;
     private int stock;
@@ -22,6 +23,8 @@ public class Fruit implements Serializable {
 
     private String detailDesc;
     private List<String> pic;
+
+    private int type;
 
     public Fruit(){
 
@@ -119,5 +122,21 @@ public class Fruit implements Serializable {
 
     public void setDiscount(double discount) {
         this.discount = discount;
+    }
+
+    public String getId() {
+        return _id;
+    }
+
+    public void setId(String id) {
+        this._id = id;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
     }
 }

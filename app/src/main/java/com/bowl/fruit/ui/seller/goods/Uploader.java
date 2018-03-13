@@ -1,5 +1,7 @@
 package com.bowl.fruit.ui.seller.goods;
 
+import android.util.Log;
+
 import com.bowl.fruit.network.FruitNetService;
 import com.bowl.fruit.network.entity.fruit.ResponseEditFruit;
 
@@ -39,8 +41,11 @@ public class Uploader {
 
 //    public void upload(final String url){
             File file = new File(url);
+            if(!file.exists() && !url.equals("default")){
+                serverUrls.add(url);
+            }
             RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
-            MultipartBody.Part part = MultipartBody.Part.createFormData("file", file.getName(), requestFile);
+            MultipartBody.Part part = MultipartBody.Part.createFormData("img", file.getName(), requestFile);
 
             FruitNetService.getInstance().getFruitApi()
                     .upload(part)
@@ -57,6 +62,7 @@ public class Uploader {
 
                         @Override
                         public void onNext(ResponseEditFruit baseResponse) {
+                            Log.d("cathy","upload img code:"+baseResponse.getCode()+";msg:"+baseResponse.getMsg()+";url:"+baseResponse.getUrl());
                             if (baseResponse.getCode() == 0) {
                                 serverUrls.add(baseResponse.getUrl());
                             }

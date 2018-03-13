@@ -26,7 +26,7 @@ import com.bowl.fruit.ui.widget.TransparentLoadingDialog;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.LinkedList;
+import java.util.List;
 
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
@@ -45,6 +45,7 @@ public class GoodsEditActivity extends BaseActivity {
     private RecyclerView mPicList;
     private String mCurrentPhotoPath;
     private GoodsPictureAdapter mAdapter;
+    private List<String> mPicUrls;
 
     private RelativeLayout mSelect;
     private TextView mCancel, mCamera, mAlbum;
@@ -101,7 +102,7 @@ public class GoodsEditActivity extends BaseActivity {
         mStore = findViewById(R.id.et_store);
         mDetail = findViewById(R.id.et_detail_desc);
 
-        if(!fruit.getName().equals("")) {
+        if(fruit.getName() != null && !fruit.getName().equals("")) {
             mName.setText(fruit.getName());
             mDesc.setText(fruit.getDesc());
             mStock.setText(fruit.getStock() + "");
@@ -112,6 +113,7 @@ public class GoodsEditActivity extends BaseActivity {
             mLife.setText(fruit.getLife());
             mStore.setText(fruit.getStore());
             mDetail.setText(fruit.getDetailDesc());
+            mPicUrls = fruit.getPic();
         }
 
 
@@ -164,7 +166,7 @@ public class GoodsEditActivity extends BaseActivity {
                 }
             }
         });
-        mAdapter.update(new LinkedList<String>());
+        mAdapter.update(mPicUrls);
         
         mSave.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -188,6 +190,8 @@ public class GoodsEditActivity extends BaseActivity {
                                 f.setStore(mStore.getText().toString());
                                 f.setDetailDesc(mDetail.getText().toString());
                                 f.setPic(uploader.getServerUrls());
+                                f.setType(fruit.getId() == null?0:1);
+                                f.setId(fruit.getId());
                                 return f;
                             }
                         })
@@ -198,41 +202,19 @@ public class GoodsEditActivity extends BaseActivity {
                                         .editFruit(fruit);
                             }
                         })
-//                        .map(new Func1<Fruit, Boolean>() {
-//                            @Override
-//                            public Boolean call(Fruit fruit) {
-//                                FruitNetService.getInstance().getFruitApi()
-//                                        .editFruit(fruit)
-//                                        .subscribe(new Subscriber<BaseResponse>() {
-//                                            @Override
-//                                            public void onCompleted() {
-//
-//                                            }
-//
-//                                            @Override
-//                                            public void onError(Throwable e) {
-//
-//                                            }
-//
-//                                            @Override
-//                                            public void onNext(BaseResponse baseResponse) {
-//                                                res = baseResponse.getCode() == 0;
-//                                            }
-//                                        });
-//                                return res;
-//                            }
-//                        })
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(new BaseSafeSubscriber<BaseResponse>(){
                             @Override
                             public void onCompleted() {
                                 super.onCompleted();
+                                mDialog.dismiss();
                             }
 
                             @Override
                             public void onError(Throwable throwable) {
                                 super.onError(throwable);
+                                mDialog.dismiss();
                             }
 
                             @Override

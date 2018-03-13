@@ -174,7 +174,7 @@ public class GoodsFragment extends Fragment{
                     @Override
                     public void onNext(List<Fruit> fruits) {
                         mAdapter.update(fruits);
-                        if(fruits.size() < 5){
+                        if(fruits.size() < 10){
                             hasNext = false;
                         }
                     }

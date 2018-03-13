@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bowl.fruit.R;
+import com.bowl.fruit.network.FruitNetService;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.LinkedList;
@@ -62,7 +63,7 @@ public class GoodsPictureAdapter extends RecyclerView.Adapter<GoodsPictureAdapte
             holder.imageView.setImageResource(R.drawable.add);
             holder.delete.setVisibility(View.GONE);
         }else {
-            loadImage(holder.imageView,mUrls.get(position));
+            loadImage(holder.imageView, mUrls.get(position));
             holder.delete.setVisibility(View.VISIBLE);
         }
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -96,7 +97,11 @@ public class GoodsPictureAdapter extends RecyclerView.Adapter<GoodsPictureAdapte
         }
 
         imageView.setTag(url);
-        ImageLoader.getInstance().displayImage("file://" + url,imageView);
+        if(url.startsWith("/images")){
+            ImageLoader.getInstance().displayImage(FruitNetService.BASE_URL+url, imageView);
+        }else {
+            ImageLoader.getInstance().displayImage("file://" + url, imageView);
+        }
 
     }
 

@@ -38,7 +38,7 @@ public interface FruitApi {
     Observable<ResponseRegister> register(@Body User user);
 
     @FormUrlEncoded
-    @POST("/fruitList")
+    @POST("/fruit/list")
     Observable<ResponseFruits> getFruitList(@Field("type") int type, @Field("page") int page);
 
     @POST("/message")
@@ -73,10 +73,10 @@ public interface FruitApi {
     Observable<ResponseOrders> getOrderList(@Field("type") int type, @Field("page") int page);
 
     @Multipart
-    @POST("/upload")
-    Observable<ResponseEditFruit> upload(@Part MultipartBody.Part image);
+    @POST("/upload/img")
+    Observable<ResponseEditFruit> upload(@Part MultipartBody.Part img);
 
-    @POST("/editFruit")
+    @POST("/fruit/edit")
     Observable<BaseResponse> editFruit(@Body Fruit fruit);
 
 }

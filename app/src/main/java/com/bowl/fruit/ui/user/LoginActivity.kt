@@ -2,6 +2,7 @@ package com.bowl.fruit.ui.user
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -70,7 +71,7 @@ class LoginActivity: BaseActivity() {
                         }
 
                         override fun onError(e: Throwable?) {
-
+                            Log.d("cathy",e.toString())
                         }
 
                         override fun onNext(response: ResponseLogin) {
