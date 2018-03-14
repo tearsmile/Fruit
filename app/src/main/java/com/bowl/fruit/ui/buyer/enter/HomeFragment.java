@@ -152,7 +152,7 @@ public class HomeFragment extends BaseFragment {
                     @Override
                     public void onNext(List<Fruit> fruits) {
                         mAdapter.update(fruits);
-                        if(fruits.size() < 5){
+                        if(fruits.size() < 10){
                             hasNext = false;
                         }
                     }
@@ -178,7 +178,7 @@ public class HomeFragment extends BaseFragment {
                     @Override
                     public void onNext(List<Fruit> fruits) {
                         mAdapter.add(fruits);
-                        if(fruits.size() < 5){
+                        if(fruits.size() < 10){
                             hasNext = false;
                         }
                     }

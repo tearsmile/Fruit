@@ -222,6 +222,7 @@ public class GoodsEditActivity extends BaseActivity {
                                 super.onNext(baseResponse);
                                 if(baseResponse.getCode() == 0){
                                     Toast.makeText(GoodsEditActivity.this,"保存成功",Toast.LENGTH_LONG).show();
+                                    GoodsEditActivity.this.finish();
                                 }
                             }
                         });

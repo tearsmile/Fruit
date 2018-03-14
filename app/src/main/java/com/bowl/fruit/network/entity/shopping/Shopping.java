@@ -24,6 +24,7 @@ public class Shopping {
     }
 
     public Shopping(Fruit fruit){
+        id = fruit.getId();
         name = fruit.getName();
         desc = fruit.getDesc();
         price = fruit.getPrice();

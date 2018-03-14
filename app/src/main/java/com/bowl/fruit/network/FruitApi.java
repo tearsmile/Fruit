@@ -47,13 +47,14 @@ public interface FruitApi {
     @POST("/address")
     Observable<ResponseAddress> getAddressList(@Field("uid") String uid);
 
-    @POST("/shopping")
-    Observable<ResponseShopping> getShoppingList(@Field("uid") String uid, int page);
+    @FormUrlEncoded
+    @POST("/shopping/list")
+    Observable<ResponseShopping> getShoppingList(@Field("uid") String uid, @Field("page") int page);
 
-    @POST("/addShopping")
+    @POST("/shopping/add")
     Observable<BaseResponse> addShopping(@Body RequestAddShopping requestAddShopping);
 
-    @POST("/deleteShopping")
+    @POST("/shopping/delete")
     Observable<BaseResponse> deleteShopping(@Field("shoppingId") String id);
 
 

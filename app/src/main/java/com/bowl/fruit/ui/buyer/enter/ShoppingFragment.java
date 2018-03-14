@@ -76,7 +76,7 @@ public class ShoppingFragment extends Fragment {
 
         mListView = view.findViewById(R.id.lv_shopping);
         mListView.setPullRefreshEnable(true);
-        mListView.setPullLoadEnable(false);
+        mListView.setPullLoadEnable(true);
         mListView.setAutoLoadEnable(false);
         mListView.setXListViewListener(new XListView.IXListViewListener() {
 
@@ -200,6 +200,8 @@ public class ShoppingFragment extends Fragment {
         mListView.setPullRefreshEnable(true);
         if(!hasNext){
             mListView.setPullLoadEnable(false);
+        } else {
+            mListView.setPullLoadEnable(true);
         }
     }
 
@@ -219,6 +221,7 @@ public class ShoppingFragment extends Fragment {
 
     private void refresh(){
         page = 1;
+        hasNext = true;
         ShoppingRepository.instance().getShoppingList(PreferenceDao.getInstance().getString("key_login_user_id",""),page)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
