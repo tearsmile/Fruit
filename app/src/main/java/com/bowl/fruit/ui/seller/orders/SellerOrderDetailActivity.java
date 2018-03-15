@@ -12,6 +12,7 @@ import com.bowl.fruit.R;
 import com.bowl.fruit.network.FruitNetService;
 import com.bowl.fruit.network.entity.BaseResponse;
 import com.bowl.fruit.network.entity.order.Order;
+import com.bowl.fruit.preference.PreferenceDao;
 import com.bowl.fruit.ui.BaseActivity;
 
 import rx.android.schedulers.AndroidSchedulers;
@@ -55,7 +56,7 @@ public class SellerOrderDetailActivity extends BaseActivity {
                 if(mEditDeliver.getText().toString().equals("")){
                     Toast.makeText(SellerOrderDetailActivity.this,"请输入快递单号",Toast.LENGTH_LONG).show();
                 } else {
-                    FruitNetService.getInstance().getFruitApi().changeOrderStatus(order.getOrderId(),1,mEditDeliver.getText().toString())
+                    FruitNetService.getInstance().getFruitApi().changeOrderStatus(PreferenceDao.getInstance().getString("key_login_user_id",""),order.getOrderId(),1,mEditDeliver.getText().toString())
                             .subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread())
                             .subscribe(new BaseSafeSubscriber<BaseResponse>(){
@@ -94,9 +95,11 @@ public class SellerOrderDetailActivity extends BaseActivity {
         mEditDeliver = findViewById(R.id.et_deliver);
         mListView = findViewById(R.id.lv_detail);
 
-        mPerson.setText("收货人："+order.getAddress().getName() + "  " + order.getAddress().getPhone());
-        mOrderId.setText("订单号："+order.getOrderId());
-        mAddress.setText("收货地址："+order.getAddress().getCity()+order.getAddress().getAddress());
+        if(order.getAddress() != null) {
+            mPerson.setText("收货人：" + order.getAddress().getName() + "  " + order.getAddress().getPhone());
+            mOrderId.setText("订单号：" + order.getOrderId());
+            mAddress.setText("收货地址：" + order.getAddress().getCity() + order.getAddress().getAddress());
+        }
 
         if(order.getStatus() > 0){
             mEditDeliver.setVisibility(View.GONE);

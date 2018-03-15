@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bowl.fruit.R;
+import com.bowl.fruit.network.FruitNetService;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,8 +20,8 @@ import java.util.List;
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.PictureViewHolder> {
 
     private Context mContext;
-    private List<String> mUrls;
-    private List<Integer> mData;
+    private List<String> mData;
+//    private List<Integer> mData;
 
 //    private int mWidth, mHeight;
 
@@ -34,13 +36,15 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Pictur
     }
 
     public void update(List<String> urls) {
-//        mUrls = urls;
-        mData.add(R.drawable.fruit);
-        mData.add(R.mipmap.logo);
-        mData.add(R.drawable.fruit);
-        mData.add(R.mipmap.logo);
-        mData.add(R.drawable.fruit);
-        mData.add(R.mipmap.logo);
+        mData.clear();
+        mData.addAll(urls);
+//        mData = urls;
+//        mData.add(R.drawable.fruit);
+//        mData.add(R.mipmap.logo);
+//        mData.add(R.drawable.fruit);
+//        mData.add(R.mipmap.logo);
+//        mData.add(R.drawable.fruit);
+//        mData.add(R.mipmap.logo);
         notifyDataSetChanged();
     }
 //
@@ -62,7 +66,12 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Pictur
     @Override
     public void onBindViewHolder(final PictureViewHolder holder, final int position) {
 //        loadImage(holder.imageView, mUrls.get(position));
-        holder.imageView.setImageResource(mData.get(position));
+//        holder.imageView.setImageResource(mData.get(position));
+        if(mData.get(position).startsWith("/image")) {
+            ImageLoader.getInstance().displayImage(FruitNetService.BASE_URL + mData.get(position), holder.imageView);
+        }else{
+            ImageLoader.getInstance().displayImage("file://" + mData.get(position), holder.imageView);
+        }
 //        if(position==mSelectedIndex) {
 //            holder.mask.setSelected(true);
 //        } else {

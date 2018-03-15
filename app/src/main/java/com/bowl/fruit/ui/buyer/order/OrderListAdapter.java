@@ -13,7 +13,10 @@ import android.widget.Toast;
 import com.bowl.fruit.R;
 import com.bowl.fruit.network.FruitNetService;
 import com.bowl.fruit.network.entity.BaseResponse;
+import com.bowl.fruit.network.entity.order.Goods;
 import com.bowl.fruit.network.entity.order.Order;
+import com.bowl.fruit.preference.PreferenceDao;
+import com.bowl.fruit.util.TimeUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -79,7 +82,11 @@ public class OrderListAdapter extends BaseAdapter {
         viewHolder.mRecycler.setLayoutManager(mLayoutManager);
         RecyclerAdapter adapter = new RecyclerAdapter(mContext);
         viewHolder.mRecycler.setAdapter(adapter);
-        adapter.update(new ArrayList<String>());
+        List<String> urls = new ArrayList<>();
+        for (Goods goods : order.getGoods()) {
+            urls.add(goods.getPic());
+        }
+        adapter.update(urls);
 
         if(order.getStatus() == 0){
             viewHolder.mHandle.setText("取消");
@@ -107,7 +114,7 @@ public class OrderListAdapter extends BaseAdapter {
                         status++;
                         break;
                 }
-                FruitNetService.getInstance().getFruitApi().changeOrderStatus(order.getOrderId(),status,"")
+                FruitNetService.getInstance().getFruitApi().changeOrderStatus(PreferenceDao.getInstance().getString("key_login_user_id",""),order.getOrderId(),status,"")
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(new Subscriber<BaseResponse>(){
@@ -137,6 +144,7 @@ public class OrderListAdapter extends BaseAdapter {
         }
         viewHolder.mPrice.setText("实付:￥" + order.getPrice());
         viewHolder.mDiscount.setText("优惠￥" + order.getDiscount());
+        viewHolder.mTime.setText(TimeUtil.format(order.getTimeStamp()));
         return convertView;
     }
 

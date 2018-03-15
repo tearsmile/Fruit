@@ -43,6 +43,7 @@ public class ShoppingFragment extends Fragment {
     private ImageView mSelectAll;
     private RelativeLayout mSelect;
     private TextView mCancel, mDelete, mSum;
+    private RelativeLayout mEmpty;
     private int mSelectPosition = -1;
     private int page = 1;
     private boolean hasNext = true;
@@ -68,6 +69,8 @@ public class ShoppingFragment extends Fragment {
     }
 
     private void initView(View view){
+        mEmpty = view.findViewById(R.id.rl_empty);
+
         mSelect = view.findViewById(R.id.rl_select);
         mCancel = view.findViewById(R.id.tv_cancel);
         mDelete = view.findViewById(R.id.tv_delete);
@@ -116,6 +119,7 @@ public class ShoppingFragment extends Fragment {
                 for (Shopping item : mAdapter.getData()) {
                     if(item.isSelect()){
                         Goods g = new Goods();
+                        g.setId(item.getId());
                         g.setPic(item.getPic());
                         g.setNum(item.getNum());
                         g.setName(item.getName());
@@ -160,7 +164,7 @@ public class ShoppingFragment extends Fragment {
             public void onClick(View view) {
                 mSelect.setVisibility(View.GONE);
                 FruitNetService.getInstance().getFruitApi()
-                        .deleteShopping(mAdapter.getItem(mSelectPosition).getId())
+                        .deleteShopping(mAdapter.getItem(mSelectPosition).getId(),PreferenceDao.getInstance().getString("key_login_user_id",""))
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(new Subscriber<BaseResponse>() {
@@ -239,12 +243,15 @@ public class ShoppingFragment extends Fragment {
                     @Override
                     public void onNext(List<Shopping> shoppings) {
                         if(shoppings != null && shoppings.size() > 0){
+                            mListView.setVisibility(View.VISIBLE);
+                            mEmpty.setVisibility(View.GONE);
                             if(shoppings.size() < 10){
                                 hasNext = false;
                             }
                             mAdapter.update(shoppings);
                         }else {
-
+                            mListView.setVisibility(View.GONE);
+                            mEmpty.setVisibility(View.VISIBLE);
                         }
                     }
                 });

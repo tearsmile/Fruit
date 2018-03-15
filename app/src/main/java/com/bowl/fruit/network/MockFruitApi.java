@@ -11,6 +11,7 @@ import com.bowl.fruit.network.entity.mine.RequestAddress;
 import com.bowl.fruit.network.entity.mine.ResponseAddress;
 import com.bowl.fruit.network.entity.order.Goods;
 import com.bowl.fruit.network.entity.order.Order;
+import com.bowl.fruit.network.entity.order.RequestAddOrder;
 import com.bowl.fruit.network.entity.order.ResponseOrderNum;
 import com.bowl.fruit.network.entity.order.ResponseOrders;
 import com.bowl.fruit.network.entity.shopping.RequestAddShopping;
@@ -118,8 +119,8 @@ public class MockFruitApi implements FruitApi {
     }
 
     @Override
-    public Observable<BaseResponse> deleteShopping(String id) {
-        return delegate.returningResponse(new BaseResponse()).deleteShopping(id);
+    public Observable<BaseResponse> deleteShopping(String id, String uid) {
+        return delegate.returningResponse(new BaseResponse()).deleteShopping(id,uid);
     }
 
     @Override
@@ -128,13 +129,13 @@ public class MockFruitApi implements FruitApi {
     }
 
     @Override
-    public Observable<BaseResponse> addOrder(Order order) {
+    public Observable<BaseResponse> addOrder(RequestAddOrder order) {
         return delegate.returningResponse(new BaseResponse()).addOrder(order);
     }
 
     @Override
-    public Observable<BaseResponse> changeOrderStatus(String orderId, int status, String deliverId) {
-        return delegate.returningResponse(new BaseResponse()).changeOrderStatus(orderId,status,deliverId);
+    public Observable<BaseResponse> changeOrderStatus(String uid, String orderId, int status, String deliverId) {
+        return delegate.returningResponse(new BaseResponse()).changeOrderStatus(uid,orderId,status,deliverId);
     }
 
     @Override
@@ -149,7 +150,7 @@ public class MockFruitApi implements FruitApi {
     }
 
     @Override
-    public Observable<ResponseOrders> getOrderList(int type, int page) {
+    public Observable<ResponseOrders> getOrderList(String uid, int uType, int type, int page) {
         ResponseOrders responseOrders = new ResponseOrders();
         List<Order> orders = new ArrayList<>();
         Order order = new Order();
@@ -159,7 +160,7 @@ public class MockFruitApi implements FruitApi {
             orders.add(order);
         }
         responseOrders.setOrders(orders);
-        return delegate.returningResponse(responseOrders).getOrderList(type,page);
+        return delegate.returningResponse(responseOrders).getOrderList(uid,uType,type,page);
     }
 
     @Override

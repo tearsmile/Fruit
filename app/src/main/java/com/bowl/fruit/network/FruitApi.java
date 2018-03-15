@@ -7,7 +7,7 @@ import com.bowl.fruit.network.entity.fruit.ResponseFruits;
 import com.bowl.fruit.network.entity.message.ResponseMessage;
 import com.bowl.fruit.network.entity.mine.RequestAddress;
 import com.bowl.fruit.network.entity.mine.ResponseAddress;
-import com.bowl.fruit.network.entity.order.Order;
+import com.bowl.fruit.network.entity.order.RequestAddOrder;
 import com.bowl.fruit.network.entity.order.ResponseOrderNum;
 import com.bowl.fruit.network.entity.order.ResponseOrders;
 import com.bowl.fruit.network.entity.shopping.RequestAddShopping;
@@ -54,24 +54,28 @@ public interface FruitApi {
     @POST("/shopping/add")
     Observable<BaseResponse> addShopping(@Body RequestAddShopping requestAddShopping);
 
+    @FormUrlEncoded
     @POST("/shopping/delete")
-    Observable<BaseResponse> deleteShopping(@Field("shoppingId") String id);
+    Observable<BaseResponse> deleteShopping(@Field("shoppingId") String id, @Field("uid") String uid);
 
 
     @POST("/editAddress")
     Observable<BaseResponse> editAddress(@Body RequestAddress requestAddress);
 
-    @POST("/addOrder")
-    Observable<BaseResponse> addOrder(@Body Order order);
+    @POST("/order/add")
+    Observable<BaseResponse> addOrder(@Body RequestAddOrder order);
 
-    @POST("/changeOrderStatus")
-    Observable<BaseResponse> changeOrderStatus(@Field("orderId") String orderId, @Field("status") int status, @Field("deliverId") String deliverId);
+    @FormUrlEncoded
+    @POST("/order/update")
+    Observable<BaseResponse> changeOrderStatus(@Field("uid") String uid, @Field("orderId") String orderId, @Field("status") int status, @Field("deliverId") String deliverId);
 
-    @POST("/orderNum")
+    @FormUrlEncoded
+    @POST("/order/nums")
     Observable<ResponseOrderNum> getOrderNum(@Field("uid") String userId);
 
-    @POST("/orderList")
-    Observable<ResponseOrders> getOrderList(@Field("type") int type, @Field("page") int page);
+    @FormUrlEncoded
+    @POST("/order/list")
+    Observable<ResponseOrders> getOrderList(@Field("uid") String userId,@Field("uType")int uType, @Field("status") int type, @Field("page") int page);
 
     @Multipart
     @POST("/upload/img")

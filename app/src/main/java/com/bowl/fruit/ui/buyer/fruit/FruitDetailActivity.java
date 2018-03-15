@@ -10,13 +10,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bowl.fruit.R;
+import com.bowl.fruit.network.FruitNetService;
 import com.bowl.fruit.network.entity.BaseResponse;
 import com.bowl.fruit.network.entity.fruit.Fruit;
 import com.bowl.fruit.repository.ShoppingRepository;
 import com.bowl.fruit.ui.BaseActivity;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -86,11 +85,12 @@ public class FruitDetailActivity extends BaseActivity {
         mShopping = findViewById(R.id.rl_shopping);
         mBuy = findViewById(R.id.tv_add_shopping);
 
+        ImageLoader.getInstance().displayImage(FruitNetService.BASE_URL+fruit.getPic().get(0),mPic);
         mAdapter = new PictureAdapter(this);
-        List<Integer> pics = new ArrayList<>();
-        pics.add(R.drawable.fruit);
-        pics.add(R.mipmap.logo);
-        mAdapter.update(pics);
+//        List<Integer> pics = new ArrayList<>();
+//        pics.add(R.drawable.fruit);
+//        pics.add(R.mipmap.logo);
+        mAdapter.update(fruit.getPic());
 
         mViewPager.setAdapter(mAdapter);
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {

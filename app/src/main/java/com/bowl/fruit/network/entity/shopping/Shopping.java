@@ -29,6 +29,7 @@ public class Shopping {
         desc = fruit.getDesc();
         price = fruit.getPrice();
         discount = fruit.getDiscount();
+        pic = fruit.getPic().get(0);
         num = 1;
 //        pic = fruit.getPic().get(0);
     }

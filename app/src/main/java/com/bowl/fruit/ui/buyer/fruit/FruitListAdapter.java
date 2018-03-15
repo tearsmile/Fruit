@@ -10,7 +10,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bowl.fruit.R;
+import com.bowl.fruit.network.FruitNetService;
 import com.bowl.fruit.network.entity.fruit.Fruit;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -71,6 +73,7 @@ public class FruitListAdapter extends BaseAdapter {
         viewHolder.mDesc.setText(fruit.getDesc());
         viewHolder.mPrice.setText("￥"+fruit.getPrice());
         viewHolder.mOriginPrice.getPaint().setFlags(Paint. STRIKE_THRU_TEXT_FLAG);
+        ImageLoader.getInstance().displayImage(FruitNetService.BASE_URL+fruit.getPic().get(0),viewHolder.mPic);
         if(fruit.getDiscount() <= 0.1){
             viewHolder.mOriginPrice.setVisibility(View.GONE);
         } else {

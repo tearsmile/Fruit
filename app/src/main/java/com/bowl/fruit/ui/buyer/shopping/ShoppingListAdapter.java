@@ -9,7 +9,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bowl.fruit.R;
+import com.bowl.fruit.network.FruitNetService;
 import com.bowl.fruit.network.entity.shopping.Shopping;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,7 +60,7 @@ public class ShoppingListAdapter extends BaseAdapter {
         price = 0;
         for (Shopping item : mData) {
             item.setSelect(true);
-            price += item.getPrice();
+            price += item.getPrice()*item.getNum();
         }
         selectSize = mData.size();
         notifyDataSetChanged();
@@ -116,6 +118,7 @@ public class ShoppingListAdapter extends BaseAdapter {
         viewHolder.mDesc.setText(fruit.getDesc());
         viewHolder.mPrice.setText("￥"+fruit.getPrice());
         viewHolder.mNum.setText("x"+fruit.getNum());
+        ImageLoader.getInstance().displayImage(FruitNetService.BASE_URL+fruit.getPic(),viewHolder.mPic);
 
         if(fruit.isSelect()){
             viewHolder.mSelect.setImageResource(R.drawable.icon_selected);
@@ -128,12 +131,12 @@ public class ShoppingListAdapter extends BaseAdapter {
             public void onClick(View view) {
                 if(fruit.isSelect()){
                     selectSize--;
-                    price -= fruit.getPrice();
+                    price -= fruit.getPrice()*fruit.getNum();
                     fruit.setSelect(false);
                     viewHolder.mSelect.setImageResource(R.drawable.icon_select);
                 }else {
                     selectSize++;
-                    price += fruit.getPrice();
+                    price += fruit.getPrice()*fruit.getNum();
                     fruit.setSelect(true);
                     viewHolder.mSelect.setImageResource(R.drawable.icon_selected);
                 }

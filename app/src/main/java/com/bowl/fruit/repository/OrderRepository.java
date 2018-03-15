@@ -5,7 +5,9 @@ import com.bowl.fruit.network.FruitNetService;
 import com.bowl.fruit.network.entity.BaseResponse;
 import com.bowl.fruit.network.entity.order.Goods;
 import com.bowl.fruit.network.entity.order.Order;
+import com.bowl.fruit.network.entity.order.RequestAddOrder;
 import com.bowl.fruit.network.entity.order.ResponseOrders;
+import com.bowl.fruit.preference.PreferenceDao;
 
 import java.util.List;
 
@@ -32,7 +34,7 @@ public class OrderRepository {
     }
 
     public Observable<List<Order>> getOrderList(int type, int page){
-        return mApi.getOrderList(type, page)
+        return mApi.getOrderList(PreferenceDao.getInstance().getString("key_login_user_id",""),PreferenceDao.getInstance().getInt("key_login_type",0),type, page)
                 .map(new Func1<ResponseOrders, List<Order>>() {
                     @Override
                     public List<Order> call(ResponseOrders responseOrders) {
@@ -52,6 +54,9 @@ public class OrderRepository {
         order.setDiscount(discount);
         order.setGoods(goods);
         order.setStatus(0);
-        return mApi.addOrder(order);
+        RequestAddOrder requestAddOrder = new RequestAddOrder();
+        requestAddOrder.setUid(PreferenceDao.getInstance().getString("key_login_user_id",""));
+        requestAddOrder.setOrder(order);
+        return mApi.addOrder(requestAddOrder);
     }
 }

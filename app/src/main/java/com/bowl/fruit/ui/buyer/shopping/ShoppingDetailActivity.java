@@ -148,8 +148,11 @@ public class ShoppingDetailActivity extends BaseActivity {
         fruits.setLayoutManager(mLayoutManager);
         adapter = new RecyclerAdapter(this);
         fruits.setAdapter(adapter);
-
-        adapter.update(new ArrayList<String>());
+        List<String> urls = new ArrayList<>();
+        for (Goods good : goods) {
+            urls.add(good.getPic());
+        }
+        adapter.update(urls);
     }
 
     @Override

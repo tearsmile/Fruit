@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bowl.fruit.R;
+import com.bowl.fruit.network.FruitNetService;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -18,8 +20,8 @@ import java.util.List;
 
 public class PictureAdapter extends PagerAdapter {
 
-//    private List<String> mData = null;
-    private List<Integer> mData = null;
+    private List<String> mData = null;
+//    private List<Integer> mData = null;
     private LinkedList<View> mViewCache = null;
     private Context mContext ;
 
@@ -29,7 +31,7 @@ public class PictureAdapter extends PagerAdapter {
         this.mViewCache = new LinkedList<>();
     }
 
-    public void update(List<Integer> data) {
+    public void update(List<String> data) {
         this.mData = data;
         notifyDataSetChanged();
     }
@@ -58,7 +60,8 @@ public class PictureAdapter extends PagerAdapter {
             convertView = mViewCache.removeFirst();
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        viewHolder.imageView.setImageResource(mData.get(position));
+        ImageLoader.getInstance().displayImage(FruitNetService.BASE_URL+mData.get(position),viewHolder.imageView);
+//        viewHolder.imageView.setImageResource(mData.get(position));
 //        String text = getTimeStamp(mData.get(position));
 //        viewHolder.timeView.setText(text);
 //        loadImage(viewHolder.imageView, mData.get(position));

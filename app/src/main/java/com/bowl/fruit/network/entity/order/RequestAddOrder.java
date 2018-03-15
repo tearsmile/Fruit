@@ -5,5 +5,22 @@ package com.bowl.fruit.network.entity.order;
  */
 
 public class RequestAddOrder {
+    private String uid;
+    private Order order;
 
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
+    }
 }
