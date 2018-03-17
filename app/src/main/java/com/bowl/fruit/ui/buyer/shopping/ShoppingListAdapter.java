@@ -29,7 +29,7 @@ public class ShoppingListAdapter extends BaseAdapter {
     private SelectChangeListener mListener;
 
     public interface SelectChangeListener{
-        void onSelectChange();
+        void onSelectChange(int selectSize);
     }
 
     public void setSelectChangeListener(SelectChangeListener listener){
@@ -142,7 +142,7 @@ public class ShoppingListAdapter extends BaseAdapter {
                     viewHolder.mSelect.setImageResource(R.drawable.icon_selected);
                 }
                 if(mListener != null){
-                    mListener.onSelectChange();
+                    mListener.onSelectChange(selectSize);
                 }
             }
         });

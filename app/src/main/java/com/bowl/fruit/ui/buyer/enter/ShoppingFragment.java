@@ -96,8 +96,13 @@ public class ShoppingFragment extends Fragment {
         mAdapter = new ShoppingListAdapter(getActivity());
         mAdapter.setSelectChangeListener(new ShoppingListAdapter.SelectChangeListener() {
             @Override
-            public void onSelectChange() {
+            public void onSelectChange(int selectSize) {
                 mSum.setText("￥"+mAdapter.getPrice());
+                if(selectSize == mAdapter.getCount()){
+                    mSelectAll.setImageResource(R.drawable.icon_selected);
+                } else {
+                    mSelectAll.setImageResource(R.drawable.icon_select);
+                }
             }
         });
         mListView.setAdapter(mAdapter);
