@@ -41,6 +41,7 @@ public class ShoppingDetailActivity extends BaseActivity {
 
     private List<Goods> goods;
     private double total, discount, pay;
+    private Address address;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -116,7 +117,7 @@ public class ShoppingDetailActivity extends BaseActivity {
         mSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                OrderRepository.instance().addOrder(goods,total,discount)
+                OrderRepository.instance().addOrder(goods,total,discount,address)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(new BaseSafeSubscriber<BaseResponse>(){
@@ -163,7 +164,7 @@ public class ShoppingDetailActivity extends BaseActivity {
             mName.setVisibility(View.VISIBLE);
             mPhone.setVisibility(View.VISIBLE);
             mAddressText.setVisibility(View.VISIBLE);
-            Address address = (Address) data.getSerializableExtra("address");
+            address = (Address) data.getSerializableExtra("address");
             mName.setText(address.getName());
             mPhone.setText(address.getPhone());
             mAddressText.setText(address.getCity() + address.getAddress());

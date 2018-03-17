@@ -101,7 +101,7 @@ public class MessageFragment extends Fragment {
 
     private void refresh(){
         page = 1;
-        MessageRepository.instance().getMessage(1,page)
+        MessageRepository.instance().getMessage(0,page)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<List<Message>>() {
@@ -113,6 +113,8 @@ public class MessageFragment extends Fragment {
                     @Override
                     public void onError(Throwable e) {
                         resetListViewState();
+                        mEmpty.setVisibility(View.VISIBLE);
+                        mListView.setVisibility(View.GONE);
                     }
 
                     @Override
@@ -135,7 +137,7 @@ public class MessageFragment extends Fragment {
 
     private void loadMore(){
         page++;
-        MessageRepository.instance().getMessage(1,page)
+        MessageRepository.instance().getMessage(0,page)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<List<Message>>() {

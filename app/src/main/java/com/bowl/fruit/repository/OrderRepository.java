@@ -3,6 +3,7 @@ package com.bowl.fruit.repository;
 import com.bowl.fruit.network.FruitApi;
 import com.bowl.fruit.network.FruitNetService;
 import com.bowl.fruit.network.entity.BaseResponse;
+import com.bowl.fruit.network.entity.mine.Address;
 import com.bowl.fruit.network.entity.order.Goods;
 import com.bowl.fruit.network.entity.order.Order;
 import com.bowl.fruit.network.entity.order.RequestAddOrder;
@@ -46,7 +47,7 @@ public class OrderRepository {
                 });
     }
 
-    public Observable<BaseResponse> addOrder(List<Goods> goods, double price, double discount){
+    public Observable<BaseResponse> addOrder(List<Goods> goods, double price, double discount, Address address){
         Order order = new Order();
         order.setOrderId(System.currentTimeMillis()+"");
         order.setTimeStamp(System.currentTimeMillis());
@@ -54,6 +55,7 @@ public class OrderRepository {
         order.setDiscount(discount);
         order.setGoods(goods);
         order.setStatus(0);
+        order.setAddress(address);
         RequestAddOrder requestAddOrder = new RequestAddOrder();
         requestAddOrder.setUid(PreferenceDao.getInstance().getString("key_login_user_id",""));
         requestAddOrder.setOrder(order);

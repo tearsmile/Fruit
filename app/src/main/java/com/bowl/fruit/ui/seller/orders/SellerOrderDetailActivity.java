@@ -14,6 +14,7 @@ import com.bowl.fruit.network.entity.BaseResponse;
 import com.bowl.fruit.network.entity.order.Order;
 import com.bowl.fruit.preference.PreferenceDao;
 import com.bowl.fruit.ui.BaseActivity;
+import com.bowl.fruit.util.TimeUtil;
 
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -108,6 +109,7 @@ public class SellerOrderDetailActivity extends BaseActivity {
             mDeliver.setText("快递单号：");
             mEditDeliver.setVisibility(View.VISIBLE);
         }
+        mTime.setText("创建时间："+ TimeUtil.format(order.getTimeStamp()));
         mAdapter = new DetailListAdapter(this);
         mListView.setAdapter(mAdapter);
         mAdapter.update(order.getGoods());

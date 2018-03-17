@@ -7,7 +7,6 @@ import com.bowl.fruit.network.entity.fruit.ResponseFruits;
 import com.bowl.fruit.network.entity.message.Message;
 import com.bowl.fruit.network.entity.message.ResponseMessage;
 import com.bowl.fruit.network.entity.mine.Address;
-import com.bowl.fruit.network.entity.mine.RequestAddress;
 import com.bowl.fruit.network.entity.mine.ResponseAddress;
 import com.bowl.fruit.network.entity.order.Goods;
 import com.bowl.fruit.network.entity.order.Order;
@@ -69,7 +68,7 @@ public class MockFruitApi implements FruitApi {
     }
 
     @Override
-    public Observable<ResponseMessage> getMessageList(int type, int page) {
+    public Observable<ResponseMessage> getMessageList(String uid, int type, int page) {
         ResponseMessage responseMessage = new ResponseMessage();
         Message message = new Message();
         message.setTitle("物流信息");
@@ -81,7 +80,7 @@ public class MockFruitApi implements FruitApi {
         }
 
         responseMessage.setMessages(messageList);
-        return delegate.returningResponse(responseMessage).getMessageList(type, page);
+        return delegate.returningResponse(responseMessage).getMessageList(uid,type, page);
     }
 
     @Override
@@ -124,8 +123,13 @@ public class MockFruitApi implements FruitApi {
     }
 
     @Override
-    public Observable<BaseResponse> editAddress(RequestAddress requestAddress) {
+    public Observable<BaseResponse> editAddress(Address requestAddress) {
         return delegate.returningResponse(new BaseResponse()).editAddress(requestAddress);
+    }
+
+    @Override
+    public Observable<BaseResponse> deleteAddress(String uid, String addressId) {
+        return null;
     }
 
     @Override

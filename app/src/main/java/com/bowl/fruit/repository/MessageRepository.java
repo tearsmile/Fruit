@@ -4,6 +4,7 @@ import com.bowl.fruit.network.FruitApi;
 import com.bowl.fruit.network.FruitNetService;
 import com.bowl.fruit.network.entity.message.Message;
 import com.bowl.fruit.network.entity.message.ResponseMessage;
+import com.bowl.fruit.preference.PreferenceDao;
 
 import java.util.List;
 
@@ -30,7 +31,7 @@ public class MessageRepository {
     }
 
     public Observable<List<Message>> getMessage(int type, int page){
-        return mApi.getMessageList(type, page)
+        return mApi.getMessageList(PreferenceDao.getInstance().getString("key_login_user_id",""),type, page)
                 .map(new Func1<ResponseMessage, List<Message>>() {
                     @Override
                     public List<Message> call(ResponseMessage responseMessage) {

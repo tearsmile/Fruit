@@ -16,6 +16,7 @@ import com.bowl.fruit.network.entity.BaseResponse;
 import com.bowl.fruit.network.entity.order.Goods;
 import com.bowl.fruit.network.entity.order.Order;
 import com.bowl.fruit.preference.PreferenceDao;
+import com.bowl.fruit.util.FormatUtil;
 import com.bowl.fruit.util.TimeUtil;
 
 import java.util.ArrayList;
@@ -105,7 +106,7 @@ public class OrderListAdapter extends BaseAdapter {
         viewHolder.mHandle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int status = 0;
+                int status = order.getStatus();
                 switch (order.getStatus()){
                     case 0:
                         status = -1;
@@ -142,7 +143,7 @@ public class OrderListAdapter extends BaseAdapter {
         } else {
             viewHolder.mDeliverId.setText("快递单号:"+order.getDeliverId());
         }
-        viewHolder.mPrice.setText("实付:￥" + order.getPrice());
+        viewHolder.mPrice.setText("实付:￥" + FormatUtil.formatDouble(order.getPrice()));
         viewHolder.mDiscount.setText("优惠￥" + order.getDiscount());
         viewHolder.mTime.setText(TimeUtil.format(order.getTimeStamp()));
         return convertView;

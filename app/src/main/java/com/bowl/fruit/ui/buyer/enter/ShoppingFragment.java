@@ -238,6 +238,8 @@ public class ShoppingFragment extends Fragment {
                     @Override
                     public void onError(Throwable e) {
                         resetListViewState();
+                        mListView.setVisibility(View.GONE);
+                        mEmpty.setVisibility(View.VISIBLE);
                     }
 
                     @Override

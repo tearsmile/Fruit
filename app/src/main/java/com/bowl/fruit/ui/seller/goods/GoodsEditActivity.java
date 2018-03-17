@@ -26,6 +26,7 @@ import com.bowl.fruit.ui.widget.TransparentLoadingDialog;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.LinkedList;
 import java.util.List;
 
 import rx.Observable;
@@ -114,6 +115,8 @@ public class GoodsEditActivity extends BaseActivity {
             mStore.setText(fruit.getStore());
             mDetail.setText(fruit.getDetailDesc());
             mPicUrls = fruit.getPic();
+        }else {
+            mPicUrls = new LinkedList<>();
         }
 
 

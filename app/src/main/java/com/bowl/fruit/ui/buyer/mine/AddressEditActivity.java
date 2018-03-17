@@ -11,7 +11,8 @@ import android.widget.Toast;
 import com.bowl.fruit.R;
 import com.bowl.fruit.network.FruitNetService;
 import com.bowl.fruit.network.entity.BaseResponse;
-import com.bowl.fruit.network.entity.mine.RequestAddress;
+import com.bowl.fruit.network.entity.mine.Address;
+import com.bowl.fruit.preference.PreferenceDao;
 import com.bowl.fruit.ui.BaseActivity;
 
 import rx.android.schedulers.AndroidSchedulers;
@@ -70,12 +71,14 @@ public class AddressEditActivity extends BaseActivity {
                         ||mCity.getText().toString().equals("")||mAddress.getText().toString().equals("")){
                     Toast.makeText(AddressEditActivity.this, "信息不完善",Toast.LENGTH_LONG).show();
                 } else {
-                    RequestAddress address = new RequestAddress();
+                    Address address = new Address();
+                    address.setId(getIntent().getStringExtra("id"));
                     address.setName(mName.getText().toString());
                     address.setPhone(mPhone.getText().toString());
                     address.setCity(mCity.getText().toString());
                     address.setAddress(mAddress.getText().toString());
-                    address.setType(getIntent().getIntExtra("type",-1));
+                    address.setUid(PreferenceDao.getInstance().getString("key_login_user_id",""));
+//                    address.setType(getIntent().getIntExtra("type",-1));
                     FruitNetService.getInstance().getFruitApi()
                             .editAddress(address)
                             .subscribeOn(Schedulers.io())

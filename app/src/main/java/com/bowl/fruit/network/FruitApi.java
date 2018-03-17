@@ -5,7 +5,7 @@ import com.bowl.fruit.network.entity.fruit.Fruit;
 import com.bowl.fruit.network.entity.fruit.ResponseEditFruit;
 import com.bowl.fruit.network.entity.fruit.ResponseFruits;
 import com.bowl.fruit.network.entity.message.ResponseMessage;
-import com.bowl.fruit.network.entity.mine.RequestAddress;
+import com.bowl.fruit.network.entity.mine.Address;
 import com.bowl.fruit.network.entity.mine.ResponseAddress;
 import com.bowl.fruit.network.entity.order.RequestAddOrder;
 import com.bowl.fruit.network.entity.order.ResponseOrderNum;
@@ -41,11 +41,9 @@ public interface FruitApi {
     @POST("/fruit/list")
     Observable<ResponseFruits> getFruitList(@Field("type") int type, @Field("page") int page);
 
-    @POST("/message")
-    Observable<ResponseMessage> getMessageList(@Field("userType") int type, @Field("page") int page);
-
-    @POST("/address")
-    Observable<ResponseAddress> getAddressList(@Field("uid") String uid);
+    @FormUrlEncoded
+    @POST("/message/list")
+    Observable<ResponseMessage> getMessageList(@Field("uid") String uid,@Field("userType") int type, @Field("page") int page);
 
     @FormUrlEncoded
     @POST("/shopping/list")
@@ -58,9 +56,17 @@ public interface FruitApi {
     @POST("/shopping/delete")
     Observable<BaseResponse> deleteShopping(@Field("shoppingId") String id, @Field("uid") String uid);
 
+    @FormUrlEncoded
+    @POST("/address/list")
+    Observable<ResponseAddress> getAddressList(@Field("uid") String uid);
 
-    @POST("/editAddress")
-    Observable<BaseResponse> editAddress(@Body RequestAddress requestAddress);
+    @POST("/address/edit")
+    Observable<BaseResponse> editAddress(@Body Address address);
+
+    @FormUrlEncoded
+    @POST("/address/delete")
+    Observable<BaseResponse> deleteAddress(@Field("uid") String uid, @Field("id") String addressId);
+
 
     @POST("/order/add")
     Observable<BaseResponse> addOrder(@Body RequestAddOrder order);

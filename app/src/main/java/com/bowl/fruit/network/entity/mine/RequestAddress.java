@@ -5,11 +5,29 @@ package com.bowl.fruit.network.entity.mine;
  */
 
 public class RequestAddress {
+    private String id;
+    private String uid;
     private String name;
     private String phone;
     private String address;
     private String city;
     private int type;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
 
     public String getName() {
         return name;

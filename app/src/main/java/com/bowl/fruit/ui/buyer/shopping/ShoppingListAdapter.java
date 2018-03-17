@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.bowl.fruit.R;
 import com.bowl.fruit.network.FruitNetService;
 import com.bowl.fruit.network.entity.shopping.Shopping;
+import com.bowl.fruit.util.FormatUtil;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.ArrayList;
@@ -84,7 +85,7 @@ public class ShoppingListAdapter extends BaseAdapter {
     }
 
     public double getPrice(){
-        return price;
+        return Double.parseDouble(FormatUtil.formatDouble(price));
     }
 
     @Override

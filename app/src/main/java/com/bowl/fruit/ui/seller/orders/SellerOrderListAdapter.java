@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.bowl.fruit.R;
 import com.bowl.fruit.network.entity.order.Order;
+import com.bowl.fruit.util.TimeUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,9 +65,14 @@ public class SellerOrderListAdapter extends BaseAdapter {
             viewHolder = (ViewHolder) convertView.getTag();
         }
         Order order = data.get(i);
-        viewHolder.mTime.setText("创建时间：" + "2018-10-12 10:33:23");
+        viewHolder.mTime.setText("创建时间：" + TimeUtil.format(order.getTimeStamp()));
         viewHolder.mOrderId.setText("订单号：" + order.getOrderId());
-        viewHolder.mDeliverId.setText("收货地址：" + order.getDeliverId());
+        if(order.getAddress() != null) {
+            String address = order.getAddress().getCity() + " " + order.getAddress().getAddress();
+            viewHolder.mDeliverId.setText("收货地址：" + address);
+        } else {
+            viewHolder.mDeliverId.setText("收货地址：未知");
+        }
         return convertView;
     }
 

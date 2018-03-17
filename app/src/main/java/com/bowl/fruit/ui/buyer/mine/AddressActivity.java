@@ -8,10 +8,13 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bowl.fruit.R;
 import com.bowl.fruit.network.FruitNetService;
+import com.bowl.fruit.network.entity.BaseResponse;
 import com.bowl.fruit.network.entity.mine.ResponseAddress;
+import com.bowl.fruit.preference.PreferenceDao;
 import com.bowl.fruit.ui.BaseActivity;
 
 import rx.android.schedulers.AndroidSchedulers;
@@ -101,8 +104,31 @@ public class AddressActivity extends BaseActivity {
         mDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mSelect.setVisibility(View.GONE);
-                mAdapter.remove(mSelectPosition);
+                FruitNetService.getInstance().getFruitApi()
+                        .deleteAddress(mAdapter.getItem(mSelectPosition).getUid(),mAdapter.getItem(mSelectPosition).getId())
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new BaseSafeSubscriber<BaseResponse>(){
+
+                            @Override
+                            public void onCompleted() {
+                                super.onCompleted();
+                            }
+
+                            @Override
+                            public void onError(Throwable throwable) {
+                                super.onError(throwable);
+                            }
+
+                            @Override
+                            public void onNext(BaseResponse baseResponse) {
+                                super.onNext(baseResponse);
+                                mSelect.setVisibility(View.GONE);
+                                mAdapter.remove(mSelectPosition);
+                                Toast.makeText(AddressActivity.this,"删除成功",Toast.LENGTH_LONG).show();
+                            }
+                        });
+
             }
         });
         mEdit.setOnClickListener(new View.OnClickListener() {
@@ -110,6 +136,7 @@ public class AddressActivity extends BaseActivity {
             public void onClick(View view) {
                 mSelect.setVisibility(View.GONE);
                 Intent intent = new Intent(AddressActivity.this, AddressEditActivity.class);
+                intent.putExtra("id", mAdapter.getItem(mSelectPosition).getId());
                 intent.putExtra("name", mAdapter.getItem(mSelectPosition).getName());
                 intent.putExtra("phone", mAdapter.getItem(mSelectPosition).getPhone());
                 intent.putExtra("address", mAdapter.getItem(mSelectPosition).getAddress());
@@ -134,7 +161,7 @@ public class AddressActivity extends BaseActivity {
 
     private void initData(){
         FruitNetService.getInstance().getFruitApi()
-                .getAddressList("")
+                .getAddressList(PreferenceDao.getInstance().getString("key_login_user_id",""))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseSafeSubscriber<ResponseAddress>(){
