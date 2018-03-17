@@ -13,7 +13,7 @@ import com.bowl.fruit.R;
 public class TransparentLoadingDialog extends AlertDialog {
 
     TextView tv_msg;
-    String msg = "任务加载中...";
+    String msg = "数据保存中...";
 
     public TransparentLoadingDialog(Context context) {
         super(context);
