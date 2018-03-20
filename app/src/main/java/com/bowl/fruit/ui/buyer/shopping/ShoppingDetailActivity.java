@@ -38,6 +38,7 @@ public class ShoppingDetailActivity extends BaseActivity {
     private RelativeLayout mAddress;
     private TextView mChoose, mName, mPhone, mAddressText;
     private TextView mSubmit;
+    private ImageView mWechat, mAlipay;
 
     private List<Goods> goods;
     private double total, discount, pay;
@@ -104,6 +105,23 @@ public class ShoppingDetailActivity extends BaseActivity {
         mName.setVisibility(View.GONE);
         mPhone.setVisibility(View.GONE);
         mAddressText.setVisibility(View.GONE);
+
+        mWechat = findViewById(R.id.iv_wechat);
+        mAlipay = findViewById(R.id.iv_alipay);
+
+        mWechat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(ShoppingDetailActivity.this,"即将开通，敬请期待",Toast.LENGTH_LONG).show();
+            }
+        });
+
+        mAlipay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(ShoppingDetailActivity.this,"即将开通，敬请期待",Toast.LENGTH_LONG).show();
+            }
+        });
 
         mAddress.setOnClickListener(new View.OnClickListener() {
             @Override

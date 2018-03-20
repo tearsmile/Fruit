@@ -289,10 +289,12 @@
                     android:textColor="@color/halfBlack"/>
 
                 <ImageView
-                    android:id="@+id/iv_select"
+                    android:id="@+id/iv_cash"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:layout_alignParentRight="true"/>
+                    android:layout_alignParentRight="true"
+                    android:padding="15dp"
+                    android:src="@drawable/icon_selected"/>
             </RelativeLayout>
 
             <View
@@ -323,9 +325,12 @@
                     android:textColor="@color/halfBlack"/>
 
                 <ImageView
+                    android:id="@+id/iv_wechat"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:layout_alignParentRight="true"/>
+                    android:layout_alignParentRight="true"
+                    android:padding="15dp"
+                    android:src="@drawable/icon_select"/>
             </RelativeLayout>
 
             <View
@@ -356,9 +361,13 @@
                     android:textColor="@color/halfBlack"/>
 
                 <ImageView
+                    android:id="@+id/iv_alipay"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:layout_alignParentRight="true"/>
+                    android:padding="15dp"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/icon_select"
+                    />
             </RelativeLayout>
         </RelativeLayout>
 
