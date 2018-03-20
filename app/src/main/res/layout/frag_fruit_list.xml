@@ -12,7 +12,136 @@
         android:layout_height="1px"
         android:background="@color/lineDivider"
         />
-    <RelativeLayout
+    <LinearLayout
+        android:id="@+id/ll_type"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@color/white"
+        android:layout_below="@id/line1">
+        <RelativeLayout
+            android:id="@+id/rl_all"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            >
+            <TextView
+                android:id="@+id/tv_all"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="全部"
+                android:textSize="@dimen/normalSize"
+                android:textColor="@color/halfBlack"/>
+            <View
+                android:id="@+id/line_all"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:background="@color/mainColor"
+                android:layout_alignParentBottom="true"
+                />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_hot"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            >
+            <TextView
+                android:id="@+id/tv_hot"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="热销"
+                android:textSize="16sp"
+                android:textColor="@color/halfBlack"/>
+            <View
+                android:id="@+id/line_hot"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:background="@color/mainColor"
+                android:layout_alignParentBottom="true"
+                android:visibility="gone"
+                />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_discount"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            >
+            <TextView
+                android:id="@+id/tv_discount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="优惠"
+                android:textSize="16sp"
+                android:textColor="@color/halfBlack"/>
+            <View
+                android:id="@+id/line_discount"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/mainColor"
+                android:layout_alignParentBottom="true"
+                android:visibility="gone"
+                />
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/rl_recommend"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            >
+            <TextView
+                android:id="@+id/tv_recommend"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="推荐"
+                android:textSize="16sp"
+                android:textColor="@color/halfBlack"/>
+            <View
+                android:id="@+id/line_recommend"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/mainColor"
+                android:layout_alignParentBottom="true"
+                android:visibility="gone"
+                />
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/rl_platter"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            >
+            <TextView
+                android:id="@+id/tv_platter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="拼盘"
+                android:textSize="16sp"
+                android:textColor="@color/halfBlack"/>
+            <View
+                android:id="@+id/line_platter"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/mainColor"
+                android:layout_alignParentBottom="true"
+                android:visibility="gone"
+                />
+        </RelativeLayout>
+    </LinearLayout>
+    <!--<RelativeLayout
         android:id="@+id/rl_key"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -44,7 +173,7 @@
             android:textSize="@dimen/normalSize"
             android:visibility="visible"/>
 
-    </RelativeLayout>
+    </RelativeLayout>-->
     <com.bowl.fruit.ui.widget.XListView
         android:id="@+id/lv_fruit"
         android:layout_width="match_parent"

@@ -109,12 +109,60 @@
                 android:textSize="@dimen/normalSize"
                 android:hint="请输入优惠价格，无优惠可不填"
                 />
+            <TextView
+                android:id="@+id/tv_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_discount"
+                android:layout_marginTop="15dp"
+                android:text="分类:"
+                android:textSize="@dimen/normalSize"/>
 
+            <RadioGroup
+                android:id="@+id/radioGroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_below="@id/tv_type"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/btn_default"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="3dp"
+                    android:text="默认"
+                    android:checked="true"/>
+
+                <RadioButton
+                    android:id="@+id/btn_hot"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="3dp"
+                    android:text="热销"/>
+                <RadioButton
+                    android:id="@+id/btn_discount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="3dp"
+                    android:text="优惠"/>
+                <RadioButton
+                    android:id="@+id/btn_recommend"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="3dp"
+                    android:text="推荐"/>
+                <RadioButton
+                    android:id="@+id/btn_platter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="拼盘"/>
+            </RadioGroup>
             <RelativeLayout
                 android:id="@+id/rl_param"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/tv_discount"
+                android:layout_below="@id/radioGroup"
                 android:layout_marginTop="30dp"
                 android:visibility="visible">
                 <TextView

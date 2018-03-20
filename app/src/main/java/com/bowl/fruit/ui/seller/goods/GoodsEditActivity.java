@@ -13,6 +13,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -54,6 +56,7 @@ public class GoodsEditActivity extends BaseActivity {
     private EditText mStandard, mWeight, mLife, mStore;
     private EditText mDetail;
     private Button mSave;
+    private RadioGroup mRadioGroup;
     private TransparentLoadingDialog mDialog;
 
     private Fruit fruit;
@@ -102,6 +105,7 @@ public class GoodsEditActivity extends BaseActivity {
         mLife = findViewById(R.id.et_life);
         mStore = findViewById(R.id.et_store);
         mDetail = findViewById(R.id.et_detail_desc);
+        mRadioGroup = findViewById(R.id.radioGroup);
 
         if(fruit.getName() != null && !fruit.getName().equals("")) {
             mName.setText(fruit.getName());
@@ -195,6 +199,13 @@ public class GoodsEditActivity extends BaseActivity {
                                 f.setPic(uploader.getServerUrls());
                                 f.setType(fruit.getId() == null?0:1);
                                 f.setId(fruit.getId());
+                                for (int i = 0; i < mRadioGroup.getChildCount(); i++) {
+                                    RadioButton rd = (RadioButton) mRadioGroup.getChildAt(i);
+                                    if (rd.isChecked()) {
+                                        f.setType(i);
+                                        break;
+                                    }
+                                }
                                 return f;
                             }
                         })
