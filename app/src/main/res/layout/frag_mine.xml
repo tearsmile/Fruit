@@ -32,7 +32,7 @@
                     android:layout_height="96dp"
                     android:layout_marginLeft="20dp"
                     android:layout_centerVertical="true"
-                    android:src="@mipmap/logo"
+                    android:src="@mipmap/icon"
                     app:border_color="@android:color/white"
                     app:border_width="1dp"/>
                 <TextView
