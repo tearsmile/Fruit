@@ -39,7 +39,7 @@ public interface FruitApi {
 
     @FormUrlEncoded
     @POST("/fruit/list")
-    Observable<ResponseFruits> getFruitList(@Field("type") int type, @Field("page") int page);
+    Observable<ResponseFruits> getFruitList(@Field("category") int type, @Field("page") int page);
 
     @FormUrlEncoded
     @POST("/message/list")

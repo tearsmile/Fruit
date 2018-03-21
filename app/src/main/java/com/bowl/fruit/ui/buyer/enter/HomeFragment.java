@@ -55,32 +55,32 @@ public class HomeFragment extends BaseFragment {
 
             } else if (v.getId() == R.id.rl_hot){
                 cycleCondition = 1;
-                line_all.setVisibility(View.VISIBLE);
-                line_hot.setVisibility(View.GONE);
+                line_all.setVisibility(View.GONE);
+                line_hot.setVisibility(View.VISIBLE);
                 line_discount.setVisibility(View.GONE);
                 line_recommend.setVisibility(View.GONE);
                 line_platter.setVisibility(View.GONE);
             } else if (v.getId() == R.id.rl_discount){
                 cycleCondition = 2;
-                line_all.setVisibility(View.VISIBLE);
+                line_all.setVisibility(View.GONE);
                 line_hot.setVisibility(View.GONE);
-                line_discount.setVisibility(View.GONE);
+                line_discount.setVisibility(View.VISIBLE);
                 line_recommend.setVisibility(View.GONE);
                 line_platter.setVisibility(View.GONE);
             } else if (v.getId() == R.id.rl_recommend){
                 cycleCondition = 3;
-                line_all.setVisibility(View.VISIBLE);
+                line_all.setVisibility(View.GONE);
                 line_hot.setVisibility(View.GONE);
                 line_discount.setVisibility(View.GONE);
-                line_recommend.setVisibility(View.GONE);
+                line_recommend.setVisibility(View.VISIBLE);
                 line_platter.setVisibility(View.GONE);
             } else if (v.getId() == R.id.rl_platter){
                 cycleCondition = 4;
-                line_all.setVisibility(View.VISIBLE);
+                line_all.setVisibility(View.GONE);
                 line_hot.setVisibility(View.GONE);
                 line_discount.setVisibility(View.GONE);
                 line_recommend.setVisibility(View.GONE);
-                line_platter.setVisibility(View.GONE);
+                line_platter.setVisibility(View.VISIBLE);
             }
             if(cycleCondition == type){
                 return;

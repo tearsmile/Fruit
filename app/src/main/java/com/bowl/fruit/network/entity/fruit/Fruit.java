@@ -25,6 +25,7 @@ public class Fruit implements Serializable {
     private List<String> pic;
 
     private int type;
+    private int category;
 
     public Fruit(){
 
@@ -138,5 +139,13 @@ public class Fruit implements Serializable {
 
     public void setType(int type) {
         this.type = type;
+    }
+
+    public int getCategory() {
+        return category;
+    }
+
+    public void setCategory(int category) {
+        this.category = category;
     }
 }

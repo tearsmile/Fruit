@@ -119,6 +119,8 @@ public class GoodsEditActivity extends BaseActivity {
             mStore.setText(fruit.getStore());
             mDetail.setText(fruit.getDetailDesc());
             mPicUrls = fruit.getPic();
+            RadioButton rd = (RadioButton) mRadioGroup.getChildAt(fruit.getCategory());
+            rd.setChecked(true);
         }else {
             mPicUrls = new LinkedList<>();
         }
@@ -190,7 +192,11 @@ public class GoodsEditActivity extends BaseActivity {
                                 f.setDesc(mDesc.getText().toString());
                                 f.setStock(Integer.parseInt(mStock.getText().toString()));
                                 f.setPrice(Double.parseDouble(mPrice.getText().toString()));
-                                f.setDiscount(Double.parseDouble(mDiscount.getText().toString()));
+                                if(!mDiscount.getText().toString().equals("")) {
+                                    f.setDiscount(Double.parseDouble(mDiscount.getText().toString()));
+                                } else {
+                                    f.setDiscount(0);
+                                }
                                 f.setStandard(mStandard.getText().toString());
                                 f.setWeight(Integer.parseInt(mWeight.getText().toString()));
                                 f.setLife(mLife.getText().toString());
@@ -202,7 +208,7 @@ public class GoodsEditActivity extends BaseActivity {
                                 for (int i = 0; i < mRadioGroup.getChildCount(); i++) {
                                     RadioButton rd = (RadioButton) mRadioGroup.getChildAt(i);
                                     if (rd.isChecked()) {
-                                        f.setType(i);
+                                        f.setCategory(i);
                                         break;
                                     }
                                 }
