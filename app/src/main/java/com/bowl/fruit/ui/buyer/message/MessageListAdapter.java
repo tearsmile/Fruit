@@ -66,9 +66,16 @@ public class MessageListAdapter extends BaseAdapter {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        Message fruit = mData.get(i);
-        viewHolder.mTitle.setText(fruit.getTitle());
-        viewHolder.mDesc.setText(fruit.getDesc());
+        Message message = mData.get(i);
+        if(message.getType() == 0){
+            viewHolder.mPic.setImageResource(R.drawable.icon_order);
+        } else if (message.getType() == 1){
+            viewHolder.mPic.setImageResource(R.drawable.icon_tips);
+        } else if (message.getType() == 2){
+            viewHolder.mPic.setImageResource(R.drawable.icon_discount);
+        }
+        viewHolder.mTitle.setText(message.getTitle());
+        viewHolder.mDesc.setText(message.getDesc());
         return convertView;
     }
 

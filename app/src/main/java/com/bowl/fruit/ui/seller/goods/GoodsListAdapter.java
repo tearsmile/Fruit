@@ -43,6 +43,11 @@ public class GoodsListAdapter extends BaseAdapter {
         notifyDataSetChanged();
     }
 
+    public void remove(int position){
+        mData.remove(position);
+        notifyDataSetChanged();
+    }
+
     @Override
     public int getCount() {
         return mData.size();

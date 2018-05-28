@@ -176,4 +176,9 @@ public class MockFruitApi implements FruitApi {
     public Observable<BaseResponse> editFruit(Fruit fruit) {
         return delegate.returningResponse(new BaseResponse()).editFruit(fruit);
     }
+
+    @Override
+    public Observable<BaseResponse> deleteFruit(String id) {
+        return delegate.returningResponse(new BaseResponse()).deleteFruit(id);
+    }
 }

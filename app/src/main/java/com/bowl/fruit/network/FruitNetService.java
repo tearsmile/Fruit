@@ -14,7 +14,7 @@ import retrofit2.mock.NetworkBehavior;
 
 public class FruitNetService {
     private static final boolean MOCK_SERVICE = false;
-    public static final String BASE_URL = "http://192.168.31.205:3000";
+    public static final String BASE_URL = "http://192.168.31.206:3000";
 
     private FruitApi mApi;
 

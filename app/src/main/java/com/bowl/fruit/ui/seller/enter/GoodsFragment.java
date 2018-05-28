@@ -11,8 +11,11 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bowl.fruit.R;
+import com.bowl.fruit.network.FruitNetService;
+import com.bowl.fruit.network.entity.BaseResponse;
 import com.bowl.fruit.network.entity.fruit.Fruit;
 import com.bowl.fruit.repository.FruitRepository;
 import com.bowl.fruit.ui.seller.goods.GoodsEditActivity;
@@ -99,13 +102,36 @@ public class GoodsFragment extends Fragment{
                 mSelect.setVisibility(View.GONE);
             }
         });
-//        mDelete.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                mSelect.setVisibility(View.GONE);
-//                mAdapter.remove(mSelectPosition);
-//            }
-//        });
+        mDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mSelect.setVisibility(View.GONE);
+                FruitNetService.getInstance().getFruitApi()
+                        .deleteFruit(mAdapter.getItem(mSelectPosition-1).getId())
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new Subscriber<BaseResponse>(){
+
+                            @Override
+                            public void onCompleted() {
+
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+
+                            }
+
+                            @Override
+                            public void onNext(BaseResponse baseResponse) {
+                                if(baseResponse.getCode() == 0){
+                                    Toast.makeText(getActivity(),"删除成功",Toast.LENGTH_LONG).show();
+                                    mAdapter.remove(mSelectPosition-1);
+                                }
+                            }
+                        });
+            }
+        });
         mEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

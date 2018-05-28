@@ -90,4 +90,8 @@ public interface FruitApi {
     @POST("/fruit/edit")
     Observable<BaseResponse> editFruit(@Body Fruit fruit);
 
+    @FormUrlEncoded
+    @POST("/fruit/delete")
+    Observable<BaseResponse> deleteFruit(@Field("fruitId") String id);
+
 }
